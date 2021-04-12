@@ -123,23 +123,25 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
         "$patchsource/lqx-patches/0001-lqx-patches.patch"
         "$patchsource/wine-patches/0007-v5.11-winesync.patch"
-        "$patchsource/misc/vm.max_map_count.patch")
-md5sums=('d2985a3f16ef1ea3405c04c406e29dcc'
-         'f99b82d6f424d1a729a9b8c5a1be2b84'
-         '6042ba527a2379f858fbc099caa7dc70'
-         '379a49cafda4a5448b7a873722eb1a96'
-         '76d68d069b5947349933c6baba07cf2f'
-         '9370509e5f1ee530baf687450a57b4e7'
-         '0ab93e8e3437a5093520c10cca741531'
-         '7547ce8af415e4d587258fdf928a7eee'
-         '49b4c1a2098d0f0584eb8d0eda2a60c9'
-         '64e629e48f15cc0ebddfee366386f17a'
-         'f7e7e6cddb72ad8ae741849dddb6e6fa'
-         'e7ef63d6e6fb1ed9d8c2b4d3f65de86c'
-         '9c37d7643710ffa49552cc43b96980ed'
-         '4f5b46d26699b4f4e7d7bc153979d3e0'
-         'ab8f21e210aec26c7825033d57433e33'
-         '27e6001bacfcfca1c161bf6ef946a79b')
+        "$patchsource/misc/vm.max_map_count.patch"
+        "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
+md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
+         "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
+         "6042ba527a2379f858fbc099caa7dc70"  #0001-ZEN-Add-VHBA-driver.patch
+         "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
+         "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
+         "2d9f85cdf7d8c526b5eaa4341ac4058c"  #0001-btrfs-patches.patch
+         "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
+         "7547ce8af415e4d587258fdf928a7eee"  #0001-mm-patches.patch
+         "49b4c1a2098d0f0584eb8d0eda2a60c9"  #0001-spadfs-5.11-merge-v1.0.13.patch
+         "64e629e48f15cc0ebddfee366386f17a"  #0001-zswap-patches.patch
+         "f7e7e6cddb72ad8ae741849dddb6e6fa"  #0001-pf-patches.patch
+         "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
+         "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
+         "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
+         "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
+         "27e6001bacfcfca1c161bf6ef946a79b"  #vm.max_map_count.patch
+         "39d8fe1921a28bb6504f4eb23aa5d675") #0001-initramfs-patches.patch
 #zenify workarround
 if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
   source+=("$patchsource/misc/zenify.patch")
