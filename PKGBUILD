@@ -111,6 +111,7 @@ patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$maj
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
+        "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/aufs-patches/0001-aufs-20210308.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
@@ -127,7 +128,8 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
 md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
-         "6042ba527a2379f858fbc099caa7dc70"  #0001-ZEN-Add-VHBA-driver.patch
+         "a4d549a5463bbd988727f93ac08034d1"  #0001-ZEN-Add-VHBA-driver.patch
+         "c1fb8dc16fe1933184c57f43449223a7"  #0002-ZEN-intel-pstate-Implement-enable-parameter.patch
          "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
          "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
          "2d9f85cdf7d8c526b5eaa4341ac4058c"  #0001-btrfs-patches.patch
