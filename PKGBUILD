@@ -91,11 +91,11 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.11.13
-  versiontag=5.11.13-xanmod1-cacule
+  pkgver=5.11.14
+  versiontag=5.11.14-xanmod1-cacule
 else
-  pkgver=5.11.13
-  versiontag=5.11.13-xanmod1
+  pkgver=5.11.14
+  versiontag=5.11.14-xanmod1
 fi
 major=5.11
 pkgrel=1
@@ -138,7 +138,7 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "f7e7e6cddb72ad8ae741849dddb6e6fa"  #0001-pf-patches.patch
          "e7ef63d6e6fb1ed9d8c2b4d3f65de86c"  #0002-HID-quirks-Add-Apple-Magic-Trackpad-2-to-hid_have_sp.patch
          "9c37d7643710ffa49552cc43b96980ed"  #0001-ksm-patches.patch
-         "4f5b46d26699b4f4e7d7bc153979d3e0"  #0001-lqx-patches.patch
+         "95b7d848ff2dc7bf7779a6177420c02a"  #0001-lqx-patches.patch
          "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
          "27e6001bacfcfca1c161bf6ef946a79b"  #vm.max_map_count.patch
          "39d8fe1921a28bb6504f4eb23aa5d675") #0001-initramfs-patches.patch
@@ -149,10 +149,10 @@ if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
 fi
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("6d0847fbf4225008c854f074a0d57e2a")  #patch-5.11.13-xanmod1-cacule.xz
+  md5sums+=("31b95012047652074d76342301f7f168")  #patch-5.11.14-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("3c2e88d61fcab5ff2af4e736dfc930cd")  #patch-5.11.13-xanmod1.xz
+  md5sums+=("72f9026029b3e99f00b5f0ef233cf161")  #patch-5.11.14-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
