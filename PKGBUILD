@@ -91,11 +91,11 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.11.14
-  versiontag=5.11.14-xanmod1-cacule
+  pkgver=5.11.15
+  versiontag=5.11.15-xanmod1-cacule
 else
-  pkgver=5.11.14
-  versiontag=5.11.14-xanmod1
+  pkgver=5.11.15
+  versiontag=5.11.15-xanmod1
 fi
 major=5.11
 pkgrel=1
@@ -151,10 +151,10 @@ if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
 fi
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("31b95012047652074d76342301f7f168")  #patch-5.11.14-xanmod1-cacule.xz
+  md5sums+=("f48e0d9011c7afde12bcab90b053c347")  #patch-5.11.15-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("72f9026029b3e99f00b5f0ef233cf161")  #patch-5.11.14-xanmod1.xz
+  md5sums+=("5bc2cb32eba9ed471bda16e4cb444527")  #patch-5.11.15-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
