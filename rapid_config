@@ -250,9 +250,9 @@ scripts/config --module CONFIG_WINESYNC
 if [[ $_cpu_sched = "1" ]]; then
   msg2 "Enable CacULE CPU scheduler..."
   scripts/config --enable CONFIG_CACULE_SCHED
-  msg2 "Disable CFS"
-  scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-  scripts/config --disable CONFIG_CFS_BANDWIDTH
+  #msg2 "Disable CFS"
+  #scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+  #scripts/config --disable CONFIG_CFS_BANDWIDTH
 
   msg2 "Apply suggested config by Hamad Al Marri"
   msg2 "Security Cacule"
@@ -260,8 +260,8 @@ if [[ $_cpu_sched = "1" ]]; then
   scripts/config --disable CONFIG_HARDENED_USERCOPY
   msg2 "General Setup Cacule"
   scripts/config --disable CONFIG_EXPERT
-  scripts/config --disable CONFIG_SCHED_AUTOGROUP
-  scripts/config --disable CONFIG_CGROUP_SCHED
+  #scripts/config --disable CONFIG_SCHED_AUTOGROUP
+  #scripts/config --disable CONFIG_CGROUP_SCHED
   scripts/config --disable CONFIG_BSD_PROCESS_ACCT
   scripts/config --disable CONFIG_TASK_XACCT
   scripts/config --disable CONFIG_PSI
@@ -337,9 +337,9 @@ elif [[ $_cpu_sched = "2" ]]; then
   scripts/config --enable CONFIG_CACULE_SCHED
   msg2 "Enable CacULE-RDB CPU scheduler..."
   scripts/config --enable CONFIG_CACULE_RDB
-  msg2 "Disable CFS"
-  scripts/config --disable CONFIG_FAIR_GROUP_SCHED
-  scripts/config --disable CONFIG_CFS_BANDWIDTH
+  #msg2 "Disable CFS"
+  #scripts/config --disable CONFIG_FAIR_GROUP_SCHED
+  #scripts/config --disable CONFIG_CFS_BANDWIDTH
 
   msg2 "Apply suggested config by Hamad Al Marri"
   msg2 "Security Cacule"
@@ -347,8 +347,8 @@ elif [[ $_cpu_sched = "2" ]]; then
   scripts/config --disable CONFIG_HARDENED_USERCOPY
   msg2 "General Setup Cacule"
   scripts/config --disable CONFIG_EXPERT
-  scripts/config --disable CONFIG_SCHED_AUTOGROUP
-  scripts/config --disable CONFIG_CGROUP_SCHED
+  #scripts/config --disable CONFIG_SCHED_AUTOGROUP
+  #scripts/config --disable CONFIG_CGROUP_SCHED
   scripts/config --disable CONFIG_BSD_PROCESS_ACCT
   scripts/config --disable CONFIG_TASK_XACCT
   scripts/config --disable CONFIG_PSI
