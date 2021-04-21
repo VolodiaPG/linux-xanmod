@@ -91,11 +91,11 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.11.15
-  versiontag=5.11.15-xanmod1-cacule
+  pkgver=5.11.16
+  versiontag=5.11.16-xanmod1-cacule
 else
-  pkgver=5.11.15
-  versiontag=5.11.15-xanmod1
+  pkgver=5.11.16
+  versiontag=5.11.16-xanmod1
 fi
 major=5.11
 pkgrel=1
@@ -110,10 +110,12 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "$patchsource/misc/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
+        "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch"
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch"
+        "$patchsource/zen-patches/0003-ZEN-vhba-Update-to-20210418.patch"
         "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch"
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
-        "$patchsource/aufs-patches/0001-aufs-20210308.patch"
+        "$patchsource/aufs-patches/0001-aufs-20210412.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
         "$patchsource/loopback-patches/0001-v4l2loopback-5.11-merge-v0.12.5.patch"
         "$patchsource/mm-patches/0001-mm-patches.patch"
@@ -128,10 +130,12 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/initramfs-patches/0001-initramfs-patches.patch")
 md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "f99b82d6f424d1a729a9b8c5a1be2b84"  #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
-         "a4d549a5463bbd988727f93ac08034d1"  #0001-ZEN-Add-VHBA-driver.patch
-         "c1fb8dc16fe1933184c57f43449223a7"  #0002-ZEN-intel-pstate-Implement-enable-parameter.patch
-         "379a49cafda4a5448b7a873722eb1a96"  #0001-bfq-patches.patch
-         "76d68d069b5947349933c6baba07cf2f"  #0001-aufs-20210308.patch
+         "6dfd8a5a0bcf8fe205213e36d70770a6"  #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
+         "29aa42972ef0aaf3d879ba33a22a7d2e"  #0001-ZEN-Add-VHBA-driver.patch
+         "5618bf0ec5602a794e6a2b67f81b3ec8"  #0003-ZEN-vhba-Update-to-20210418.patch
+         "7fb92823fa7d9f7a79d650444561c18d"  #0002-ZEN-intel-pstate-Implement-enable-parameter.patch
+         "f506e2aad80616f7334fabcb1cbaed0d"  #0001-bfq-patches.patch
+         "5c8d12d4577e46ba118e4f18469c7f49"  #0001-aufs-20210412.patch
          "2d9f85cdf7d8c526b5eaa4341ac4058c"  #0001-btrfs-patches.patch
          "0ab93e8e3437a5093520c10cca741531"  #0001-v4l2loopback-5.11-merge-v0.12.5.patch
          "7547ce8af415e4d587258fdf928a7eee"  #0001-mm-patches.patch
@@ -143,7 +147,7 @@ md5sums=("d2985a3f16ef1ea3405c04c406e29dcc"  #linux-5.11.tar.xz
          "95b7d848ff2dc7bf7779a6177420c02a"  #0001-lqx-patches.patch
          "ab8f21e210aec26c7825033d57433e33"  #0007-v5.11-winesync.patch
          "27e6001bacfcfca1c161bf6ef946a79b"  #vm.max_map_count.patch
-         "39d8fe1921a28bb6504f4eb23aa5d675") #0001-initramfs-patches.patch
+         "39d8fe1921a28bb6504f4eb23aa5d675") #0001-initramfs-patches.patch)
 #zenify workarround
 if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
   source+=("$patchsource/misc/zenify.patch")
@@ -151,10 +155,10 @@ if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
 fi
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("f48e0d9011c7afde12bcab90b053c347")  #patch-5.11.15-xanmod1-cacule.xz
+  md5sums+=("e887b9b807569fc75a2f7ef94b9fb664")  #patch-5.11.16-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("5bc2cb32eba9ed471bda16e4cb444527")  #patch-5.11.15-xanmod1.xz
+  md5sums+=("f204210d5e89736d9913796ccae67223")  #patch-5.11.16-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
@@ -193,12 +197,12 @@ prepare(){
   configure
 
   cpu_arch
-  
+
   # Automation building with rapid_config
   # Uncomment rapid_config and comment out configure and cpu_arch
   # rapid_config is meant to work with build.sh for automation building
   #rapid_config
-  
+
   # strip_down script
   #strip_down
 
