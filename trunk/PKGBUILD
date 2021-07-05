@@ -99,13 +99,13 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.12.6
-  versiontag=5.12.6-xanmod1-cacule
+  pkgver=5.13_xanmod2
+  versiontag=5.13.0-xanmod2-cacule
 else
-  pkgver=5.12.6
-  versiontag=5.12.6-xanmod1
+  pkgver=5.13_xanmod2
+  versiontag=5.13.0-xanmod2
 fi
-major=5.12
+major=5.13
 pkgrel=1
 arch=(x86_64)
 url="https://xanmod.org/"
@@ -116,18 +116,13 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"   
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
+        "$patchsource/bcachefs-patches/0001-bcachefs-5.13-introduce-bcachefs-patchset.patch"   
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"  
-        "$patchsource/cpu-patches/0003-init-Kconfig-add-O1-flag.patch"    
-        "$patchsource/initramfs-patches/0001-initramfs-patches.patch" 
-        "$patchsource/ksm-patches/0001-ksm-patches.patch" 
-        "$patchsource/loopback-patches/0001-v4l2loopback-patches.patch" 
-        "$patchsource/lqx-patches/0001-Revert-net-tso-add-UDP-segmentation-support.patch" 
-        "$patchsource/lqx-patches/0002-zen-Allow-MSR-writes-by-default.patch" 
-        "$patchsource/lqx-patches/0002-Revert-bus-mhi-core-Process-execution-environment-ch.patch"   
-        "$patchsource/pf-patches/0001-genirq-i2c-Provide-and-use-generic_dispatch_irq.patch" 
-        "$patchsource/wine-patches/0007-v5.12-winesync.patch"  
+        "$patchsource/cpu-patches/0003-init-Kconfig-add-O1-flag.patch"
+        "$patchsource/loopback-patches/0001-v4l2loopback-patches.patch"     
+        "$patchsource/wine-patches/0007-v5.13-winesync.patch"  
         "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch" 
         "$patchsource/zen-patches/0003-ZEN-vhba-Update-to-20210418.patch" 
         "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch" 
@@ -139,27 +134,22 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/misc-patches/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch" 
         "$patchsource/misc-patches/vm.max_map_count.patch")
 md5sums=("SKIP" #linux-5.12.tar.xz 
-         "a3fafce386cf5b23918ee8206ad5ad75" #0001-bfq-patches.patch 
-         "02f81f4ca7a4964d48c698f6845c69c2" #0001-btrfs-patches.patch  
-         "3fea2a5acdbbeb415bd60769317fab0b" #0003-init-Kconfig-add-O1-flag.patch   
-         "f671bb073df5312915ca3672ea9ecbff" #0001-initramfs-patches.patch
-         "4a0118d6e5dfd3abbf35dd24229e8438" #0001-ksm-patches.patch 
-         "1536be060202287506c72d97b73baceb" #0001-v4l2loopback-patches.patch 
-         "fb58a797f4cf483c4a907bb9af453150" #0001-Revert-net-tso-add-UDP-segmentation-support.patch 
-         "76932b2bab1de71b01c58a79cf9c597a" #0002-zen-Allow-MSR-writes-by-default.patch 
-         "e7397ae0a6e4b1d8acfcfdd4dde5b8b7" #0002-Revert-bus-mhi-core-Process-execution-environment-ch.patch 
-         "2c048d095acfa50e6db0074088ef64c7" #0001-genirq-i2c-Provide-and-use-generic_dispatch_irq.patch 
-         "9573b92353399343db8a691c9b208300" #0007-v5.12-winesync.patch 
-         "2abbaa53bb0f5986d2a4acbec9d0cf61" #0001-ZEN-Add-VHBA-driver.patch 
-         "bc5130f3f385737bbdf7e7a0cd8d361d" #0003-ZEN-vhba-Update-to-20210418.patch
-         "8bd27bbf98714966f28c792be9b8590d" #0002-ZEN-intel-pstate-Implement-enable-parameter.patch 
-         "2d415de8d73d7acb43a2f7058a063ee3" #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch 
-         "d6b3bcd857e74530a9d0347c6dc05c13" #0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch 
-         "1e7a53eae980951494ee630853d39d98" #0002-mm-Support-soft-dirty-flag-read-with-reset.patch 
-         "22baa0b09b2604e1331f4d02e73bfd16" #0003-sched-core-nr_migrate-256-increases-number-of-tasks-.patch 
-         "01174db38e680ab4c3816555f27dee41" #0004-mm-set-8-megabytes-for-address_space-level-file-read.patch 
-         "388d99168ebf40c7b377715f07e41b25" #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch 
-         "27e6001bacfcfca1c161bf6ef946a79b") #vm.max_map_count.patch
+         "f9dd96a59d6a84e451736e697a897227"  #0001-bcachefs-5.13-introduce-bcachefs-patchset.patch
+         "SKIP" #0001-bfq-patches.patch 
+         "SKIP" #0001-btrfs-patches.patch  
+         "SKIP" #0003-init-Kconfig-add-O1-flag.patch
+         "ef7748efcae55f7db8961227cbae3677"  #0001-v4l2loopback-patches.patch         
+         "SKIP" #0007-v5.13-winesync.patch 
+         "SKIP" #0001-ZEN-Add-VHBA-driver.patch 
+         "SKIP" #0003-ZEN-vhba-Update-to-20210418.patch
+         "SKIP" #0002-ZEN-intel-pstate-Implement-enable-parameter.patch 
+         "SKIP" #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch 
+         "SKIP" #0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch 
+         "SKIP" #0002-mm-Support-soft-dirty-flag-read-with-reset.patch 
+         "SKIP" #0003-sched-core-nr_migrate-256-increases-number-of-tasks-.patch 
+         "SKIP" #0004-mm-set-8-megabytes-for-address_space-level-file-read.patch 
+         "SKIP" #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch 
+         "SKIP") #vm.max_map_count.patch
 #zenify workarround with CacULE
 if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
  source+=("$patchsource/misc-patches/zenify.patch")
@@ -201,6 +191,27 @@ prepare(){
     patch -Np1 < "../$src"
   done
 
+  # Copy the config file first
+  # Copy "${srcdir}"/config-$major to linux-${pkgver}/.config
+  #msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
+  if [[ "$_compiler" = "1" ]]; then
+    cp CONFIGS/xanmod/gcc/config .config
+  elif [[ "$_compiler" = "2" ]]; then
+    cp CONFIGS/xanmod/gcc/config .config
+
+    # Disable LTO
+    msg2 "Disable LTO"
+    
+    scripts/config --disable CONFIG_LTO
+    scripts/config --disable CONFIG_LTO_CLANG
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN
+    scripts/config --disable CONFIG_HAS_LTO_CLANG
+    scripts/config --disable CONFIG_LTO_NONE
+    scripts/config --disable CONFIG_LTO_CLANG_FULL
+    scripts/config --disable CONFIG_LTO_CLANG_THIN
+  fi
+
   # Customize the kernel
   source "${startdir}"/prepare
 
@@ -219,15 +230,15 @@ prepare(){
   # fix for GCC 12.0.0 (git version)
   # plugins don't work
   # disable plugins
-  if [[ "$GCC_VERSION" = "12.0.0" ]]; then
-    sleep 2s
-    plain ""
-    msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
-    scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
-    scripts/config --disable CONFIG_GCC_PLUGINS
-    plain ""
-    sleep 2s
-  fi
+  #if [[ "$GCC_VERSION" = "12.0.0" ]]; then
+  #sleep 2s
+  #plain ""
+  #msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
+  #scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
+  #scripts/config --disable CONFIG_GCC_PLUGINS
+  #plain ""
+  #sleep 2s
+  #fi
 
   # Setting localversion
   msg2 "Setting localversion..."
