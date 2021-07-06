@@ -106,7 +106,7 @@ else
   versiontag=5.13.0-xanmod2
 fi
 major=5.13
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url="https://xanmod.org/"
 license=(GPL-2.0)
@@ -116,45 +116,14 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "llvm-libs" "lib32-llvm-libs" "lld" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
-        "$patchsource/bcachefs-patches/0001-bcachefs-5.13-introduce-bcachefs-patchset.patch"   
-        "$patchsource/bfq-patches/0001-bfq-patches.patch"
-        "$patchsource/btrfs-patches/0001-btrfs-patches.patch"  
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz" 
         "$patchsource/cpu-patches/0003-init-Kconfig-add-O1-flag.patch"
-        "$patchsource/loopback-patches/0001-v4l2loopback-patches.patch"     
-        "$patchsource/wine-patches/0007-v5.13-winesync.patch"  
-        "$patchsource/zen-patches/0001-ZEN-Add-VHBA-driver.patch" 
-        "$patchsource/zen-patches/0003-ZEN-vhba-Update-to-20210418.patch" 
-        "$patchsource/zen-patches/0002-ZEN-intel-pstate-Implement-enable-parameter.patch" 
-        "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch"   
-        "$patchsource/misc-patches/0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch" 
-        "$patchsource/misc-patches/0002-mm-Support-soft-dirty-flag-read-with-reset.patch"  
-        "$patchsource/misc-patches/0003-sched-core-nr_migrate-256-increases-number-of-tasks-.patch" 
-        "$patchsource/misc-patches/0004-mm-set-8-megabytes-for-address_space-level-file-read.patch" 
-        "$patchsource/misc-patches/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch" 
-        "$patchsource/misc-patches/vm.max_map_count.patch")
-md5sums=("SKIP" #linux-5.12.tar.xz 
-         "f9dd96a59d6a84e451736e697a897227"  #0001-bcachefs-5.13-introduce-bcachefs-patchset.patch
-         "SKIP" #0001-bfq-patches.patch 
-         "SKIP" #0001-btrfs-patches.patch  
-         "SKIP" #0003-init-Kconfig-add-O1-flag.patch
-         "ef7748efcae55f7db8961227cbae3677"  #0001-v4l2loopback-patches.patch         
-         "SKIP" #0007-v5.13-winesync.patch 
-         "SKIP" #0001-ZEN-Add-VHBA-driver.patch 
-         "SKIP" #0003-ZEN-vhba-Update-to-20210418.patch
-         "SKIP" #0002-ZEN-intel-pstate-Implement-enable-parameter.patch 
-         "SKIP" #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch 
-         "SKIP" #0001-mm-Support-soft-dirty-flag-reset-for-VA-range.patch 
-         "SKIP" #0002-mm-Support-soft-dirty-flag-read-with-reset.patch 
-         "SKIP" #0003-sched-core-nr_migrate-256-increases-number-of-tasks-.patch 
-         "SKIP" #0004-mm-set-8-megabytes-for-address_space-level-file-read.patch 
-         "SKIP" #0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch 
-         "SKIP") #vm.max_map_count.patch
-#zenify workarround with CacULE
-if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
- source+=("$patchsource/misc-patches/zenify.patch")
- md5sums+=("8e71f0c43157654c4105224d89cc6709") #zenify.patch 
-fi
+        "$patchsource/wine-patches/0007-v5.13-winesync.patch"
+        "$patchsource/zen-patches/0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch")
+md5sums=("SKIP"  #linux-5.12.tar.xz
+         "SKIP"  #0003-init-Kconfig-add-O1-flag.patch
+         "SKIP"  #0007-v5.13-winesync.patch
+         "SKIP") #0001-ZEN-Add-sysctl-and-CONFIG-to-disallow-unprivileged-C.patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
   md5sums+=("SKIP")  #patch-5.12.6-xanmod1-cacule.xz
@@ -193,7 +162,7 @@ prepare(){
 
   # Copy the config file first
   # Copy "${srcdir}"/config-$major to linux-${pkgver}/.config
-  #msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
+  msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
   if [[ "$_compiler" = "1" ]]; then
     cp CONFIGS/xanmod/gcc/config .config
   elif [[ "$_compiler" = "2" ]]; then
@@ -216,16 +185,6 @@ prepare(){
   source "${startdir}"/prepare
 
   configure
-
-  cpu_arch
-
-  # Automation building with rapid_config
-  # Uncomment rapid_config and comment out configure and cpu_arch
-  # rapid_config is meant to work with build.sh for automation building
-  #rapid_config
-
-  # strip_down script
-  #strip_down
 
   # fix for GCC 12.0.0 (git version)
   # plugins don't work
@@ -284,7 +243,8 @@ _package(){
   msg2 "Installing boot image..."
   # systemd expects to find the kernel here to allow hibernation
   # https://github.com/systemd/systemd/commit/edda44605f06a41fb86b7ab8128dcf99161d2344
-  install -Dm644 arch/${ARCH}/boot/bzImage "$modulesdir/vmlinuz"
+  #install -Dm644 arch/${ARCH}/boot/bzImage "$modulesdir/vmlinuz"
+  install -Dm644 "$(make -s image_name)" "$modulesdir/vmlinuz"
 
   # Used by mkinitcpio to name the kernel
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
