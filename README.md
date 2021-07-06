@@ -1,5 +1,7 @@
 # XanMod
 
+![image](https://user-images.githubusercontent.com/68618182/124550988-82747000-ddff-11eb-9894-977d6826c21d.png)
+
 XanMod kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski and Hamad Al Marri.
 
 # Version
