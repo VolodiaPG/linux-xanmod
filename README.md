@@ -8,9 +8,9 @@ XanMod kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski a
 
 # Build
 
-    git clone https://github.com/kevall474/Linux.git
-    cd Linux
-    env _cpu_sched=(1,2,3 or 4) _compiler=(1 or 2) makepkg -s
+    git clone https://github.com/kevall474/XanMod.git
+    cd XanMod
+    env _cpu_sched=(1 or 2) _compiler=(1 or 2) makepkg -s
 
 # Build variables
 
