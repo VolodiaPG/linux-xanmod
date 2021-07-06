@@ -25,8 +25,6 @@ XanMod kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski a
 
         1 : CacULE by Hamad Al Marri
         2 : CacULE-RDB by Hamad Al Marri
-        3 : BMQ by Alfred Chen
-        4 : PDS by Alfred Chen
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
