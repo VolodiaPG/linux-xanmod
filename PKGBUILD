@@ -99,11 +99,11 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.13_xanmod2
-  versiontag=5.13.0-xanmod2-cacule
+  pkgver=5.13.1_xanmod1
+  versiontag=5.13.1-xanmod1-cacule
 else
-  pkgver=5.13_xanmod2
-  versiontag=5.13.0-xanmod2
+  pkgver=5.13.1_xanmod1
+  versiontag=5.13.1-xanmod1
 fi
 major=5.13
 pkgrel=1
@@ -138,7 +138,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/misc-patches/0004-mm-set-8-megabytes-for-address_space-level-file-read.patch"
         "$patchsource/misc-patches/0005-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch"
         "$patchsource/misc-patches/vm.max_map_count.patch")
-md5sums=("SKIP"  #linux-5.12.tar.xz
+md5sums=("76c60fb304510a7bbd9c838790bc5fe4"  #linux-5.13.tar.xz
          "f9dd96a59d6a84e451736e697a897227"  #0001-bcachefs-5.13-introduce-bcachefs-patchset.patch
          "e16eb528e701193bc8cb1facc6b27231"  #0001-bfq-patches.patch
          "63078800040b2a9a9f19c59c4ebf5b23"  #0001-btrfs-patches.patch
@@ -147,7 +147,7 @@ md5sums=("SKIP"  #linux-5.12.tar.xz
          "ce9beff503ee9e6ce6fd983c1bbbdd9e"  #0001-ksm-patches.patch
          "ef7748efcae55f7db8961227cbae3677"  #0001-v4l2loopback-patches.patch
          "09a9e83b7b828fae46fd1a4f4cc23c28"  #0001-zen-Allow-MSR-writes-by-default.patch
-         "ed551763bd8112d087bcd21782d68325"  #0001-pf-patches.patch
+         "ed46a39e062f07693f52981fbd7350b7"  #0001-pf-patches.patch
          "9573b92353399343db8a691c9b208300"  #0007-v5.13-winesync.patch
          "6130dd0033e44e9ee3cacbbfe578ff06"  #0001-ZEN-Add-VHBA-driver.patch
          "8a9f82e7cbac3eb60ff23ab7221625ad"  #0003-ZEN-vhba-Update-to-20210418.patch
@@ -167,10 +167,10 @@ if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
 fi
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.12.6-xanmod1-cacule.xz
+  md5sums+=("49af7b7197c5c80862357da3e492b054")  #patch-5.13.1-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.12.6-xanmod1.xz
+  md5sums+=("fcbee49f0a6e3b344eb34d0be16b7ea7")  #patch-5.13.1-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
@@ -310,6 +310,24 @@ _package(){
   # remove build and source links
   msg2 "Remove build dir and source dir..."
   rm -rf "$modulesdir"/{source,build}
+  
+  # workaround for missing header with winesync
+  #if [ -e "${srcdir}/linux-$pkgver/include/uapi/linux/winesync.h" ]; then
+  #  msg2 "Workaround missing winesync header"
+  #  install -Dm644 "${srcdir}/linux-$pkgver"/include/uapi/linux/winesync.h "${pkgdir}/usr/include/linux/winesync.h"
+  #fi
+  
+  # load winesync module at boot
+  #if [ -e "${srcdir}/winesync.conf" ]; then
+  #  msg2 "Set the winesync module to be loaded at boot through /etc/modules-load.d"
+  #  install -Dm644 "${srcdir}"/winesync.conf "${pkgdir}/etc/modules-load.d/winesync.conf"
+  #fi
+  
+  # install udev rule for winesync
+  #if [ -e "${srcdir}/winesync.rules" ]; then
+  #  msg2 "Installing udev rule for winesync"
+  #  install -Dm644 "${srcdir}"/winesync.rules "${pkgdir}/etc/udev/rules.d/winesync.rules"
+  #fi
 }
 
 _package-headers(){
@@ -340,13 +358,16 @@ _package-headers(){
   install -Dt "$builddir/drivers/md" -m644 drivers/md/*.h
   install -Dt "$builddir/net/mac80211" -m644 net/mac80211/*.h
 
-  # http://bugs.archlinux.org/task/13146
+  # https://bugs.archlinux.org/task/13146
   install -Dt "$builddir/drivers/media/i2c" -m644 drivers/media/i2c/msp3400-driver.h
 
-  # http://bugs.archlinux.org/task/20402
+  # https://bugs.archlinux.org/task/20402
   install -Dt "$builddir/drivers/media/usb/dvb-usb" -m644 drivers/media/usb/dvb-usb/*.h
   install -Dt "$builddir/drivers/media/dvb-frontends" -m644 drivers/media/dvb-frontends/*.h
   install -Dt "$builddir/drivers/media/tuners" -m644 drivers/media/tuners/*.h
+
+  # https://bugs.archlinux.org/task/71392
+  install -Dt "$builddir/drivers/iio/common/hid-sensors" -m644 drivers/iio/common/hid-sensors/*.h
 
   msg2 "Installing KConfig files..."
   find . -name 'Kconfig*' -exec install -Dm644 {} "$builddir/{}" \;
