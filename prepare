@@ -90,28 +90,34 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Set module compression"
-  read -rp "`echo $' > 1.GZIP\n > 2.XZ\n > 3.ZSTD\n > Default (ZSTD)\nchoice[1-3]: '`" _compression;
+  read -rp "`echo $' > 1.None\n > 2.GZIP\n > 3.XZ\n > 4.ZSTD\n > Default (ZSTD)\nchoice[1-4]: '`" _compression
   if [[ $_compression = "1" ]]; then
+    msg2 "Set module compression to NONE"
+    scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
+    scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
+    scripts/config --disable CONFIG_MODULE_COMPRESS_ZSTD
+    scripts/config --enable CONFIG_MODULE_COMPRESS_NONE
+  elif [[ $_compression = "2" ]]; then
     msg2 "Set module compression to GZIP"
-    scripts/config --enable CONFIG_MODULE_COMPRESS
+    scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
     scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
     scripts/config --disable CONFIG_MODULE_COMPRESS_ZSTD
     scripts/config --enable CONFIG_MODULE_COMPRESS_GZIP
-  elif [[ $_compression = "2" ]]; then
+  elif [[ $_compression = "3" ]]; then
     msg2 "Set module compression to XZ"
-    scripts/config --enable CONFIG_MODULE_COMPRESS
+    scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
     scripts/config --disable CONFIG_MODULE_COMPRESS_ZSTD
     scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
     scripts/config --enable CONFIG_MODULE_COMPRESS_XZ
-  elif [[ $_compression = "3" ]]; then
+  elif [[ $_compression = "4" ]]; then
     msg2 "Set module compression to ZSTD"
-    scripts/config --enable CONFIG_MODULE_COMPRESS
+    scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
     scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
     scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
     scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
   else
     msg2 "Set module compression to ZSTD"
-    scripts/config --enable CONFIG_MODULE_COMPRESS
+    scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
     scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
     scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
     scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
@@ -858,7 +864,7 @@ configure(){
   plain ""
   plain "#########################################"
   plain "Enable/disable Device Tree and Open Firmware support"
-  read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Disable)\nchoice[1-2]: '`" _of
+  read -rp "`echo $' > 1.Enable\n > 2.Disable\n > Default (Enable)\nchoice[1-2]: '`" _of
   if [[ "$_of" = "1" ]]; then
     msg2 "Enable Device Tree and Open Firmware support"
     scripts/config --enable CONFIG_OF
@@ -866,7 +872,7 @@ configure(){
     msg2 "Disable Device Tree and Open Firmware support"
     scripts/config --disable CONFIG_OF
   else
-    msg2 "Disable Device Tree and Open Firmware support"
+    msg2 "Enable Device Tree and Open Firmware support"
     scripts/config --disable CONFIG_OF
   fi
 
@@ -1960,6 +1966,7 @@ rapid_config(){
   sleep 2s
 
   msg2 "Set module compression to ZSTD"
+  scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
   scripts/config --enable CONFIG_MODULE_COMPRESS
   scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
   scripts/config --disable CONFIG_MODULE_COMPRESS_XZ

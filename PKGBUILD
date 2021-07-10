@@ -48,12 +48,14 @@ if [ -z ${_compiler+x} ]; then
 fi
 
 if [[ "$_compiler" = "1" ]]; then
+  _compiler=1
   CC=gcc
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
   buildwith="build with GCC"
 elif [[ "$_compiler" = "2" ]]; then
+  _compiler=2
   CC=clang
   CXX=clang++
   HOSTCC=clang
@@ -121,6 +123,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "$patchsource/bfq-patches/0001-bfq-patches.patch"
         "$patchsource/btrfs-patches/0001-btrfs-patches.patch"
         "$patchsource/cpu-patches/0003-init-Kconfig-add-O1-flag.patch"
+        "https://raw.githubusercontent.com/kevall474/kernel-patches/main/5.12/compaction-patches/0001-compaction-patches.patch"
         "$patchsource/futex-patches/0001-futex-resync-from-gitlab.collabora.com.patch"
         "$patchsource/ksm-patches/0001-ksm-patches.patch"
         "$patchsource/loopback-patches/0001-v4l2loopback-patches.patch"
@@ -143,6 +146,7 @@ md5sums=("76c60fb304510a7bbd9c838790bc5fe4"  #linux-5.13.tar.xz
          "e16eb528e701193bc8cb1facc6b27231"  #0001-bfq-patches.patch
          "63078800040b2a9a9f19c59c4ebf5b23"  #0001-btrfs-patches.patch
          "9ed92b6421a4829c3be67af8e4b65a04"  #0003-init-Kconfig-add-O1-flag.patch
+         "98564f54c3f9a6da56c6156d26b3ea39"  #0001-compaction-patches.patch
          "85f4be6562ee033b83814353a12b61bd"  #0001-futex-resync-from-gitlab.collabora.com.patch
          "ce9beff503ee9e6ce6fd983c1bbbdd9e"  #0001-ksm-patches.patch
          "ef7748efcae55f7db8961227cbae3677"  #0001-v4l2loopback-patches.patch
@@ -163,7 +167,7 @@ md5sums=("76c60fb304510a7bbd9c838790bc5fe4"  #linux-5.13.tar.xz
 #zenify workarround with CacULE
 if [[ $_cpu_sched != "1" ]] && [[ $_cpu_sched != "2" ]]; then
   source+=("$patchsource/misc-patches/zenify.patch")
-  md5sums+=("8e71f0c43157654c4105224d89cc6709")  #zenify.patch
+  md5sums+=("dbeccd72f6b3d8245a216b572780e170")  #zenify.patch
 fi
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
@@ -179,14 +183,14 @@ export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EP
 
 prepare(){
 
-  cd linux-$major
+  cd "${srcdir}"/linux-$major
 
   # hacky work around for xz not getting extracted
   # https://bbs.archlinux.org/viewtopic.php?id=265115
-  if [[ ! -f "$srcdir/patch-$versiontag" ]]; then
-    unlink "$srcdir/patch-$versiontag.xz"
-    xz -dc "$startdir/patch-$versiontag.xz" > "$srcdir/patch-$versiontag"
-  fi
+  #if [[ ! -f "$srcdir/patch-$versiontag" ]]; then
+  #  unlink "$srcdir/patch-$versiontag.xz"
+  #  xz -dc "$startdir/patch-$versiontag.xz" > "$srcdir/patch-$versiontag"
+  #fi
 
   # Apply Xanmod patch
   patch -Np1 -i ../patch-$versiontag
@@ -208,10 +212,12 @@ prepare(){
     cp CONFIGS/xanmod/gcc/config .config
   elif [[ "$_compiler" = "2" ]]; then
     cp CONFIGS/xanmod/gcc/config .config
-
-    # Disable LTO
+  fi
+  
+  # Disable LTO
+  if [[ "$_compiler" = "1" ]] || [[ "$_compiler" = "2" ]]; then
+    plain ""
     msg2 "Disable LTO"
-
     scripts/config --disable CONFIG_LTO
     scripts/config --disable CONFIG_LTO_CLANG
     scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
@@ -220,7 +226,20 @@ prepare(){
     scripts/config --disable CONFIG_LTO_NONE
     scripts/config --disable CONFIG_LTO_CLANG_FULL
     scripts/config --disable CONFIG_LTO_CLANG_THIN
+    sleep 2s
   fi
+  
+  # fix for GCC 12.0.0 (git version)
+  # plugins don't work
+  # disable plugins
+  #if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
+  #  plain ""
+  #  msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
+  #  scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
+  #  scripts/config --disable CONFIG_GCC_PLUGINS
+  #  plain ""
+  #  sleep 2s
+  #fi
 
   # Customize the kernel
   source "${startdir}"/prepare
@@ -233,22 +252,6 @@ prepare(){
   # Uncomment rapid_config and comment out configure and cpu_arch
   # rapid_config is meant to work with build.sh for automation building
   #rapid_config
-
-  # strip_down script
-  #strip_down
-
-  # fix for GCC 12.0.0 (git version)
-  # plugins don't work
-  # disable plugins
-  #if [[ "$GCC_VERSION" = "12.0.0" ]]; then
-  #sleep 2s
-  #plain ""
-  #msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
-  #scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
-  #scripts/config --disable CONFIG_GCC_PLUGINS
-  #plain ""
-  #sleep 2s
-  #fi
 
   # Setting localversion
   msg2 "Setting localversion..."
@@ -268,7 +271,7 @@ prepare(){
 
 build(){
 
-  cd linux-$major
+  cd "${srcdir}"/linux-$major
 
   # make -j$(nproc) all
   msg2 "make -j$(nproc) all..."
@@ -280,13 +283,13 @@ build(){
 }
 
 _package(){
-  pkgdesc="The Linux kernel and modules with Xanmod patches"
+  pkgdesc="XanMod kernel and modules with a set of patches by TK-Glitch and Piotr Górski"
   depends=("coreutils" "kmod" "initramfs" "mkinitcpio")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
   provides=("VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
 
-  cd linux-$major
+  cd "${srcdir}"/linux-$major
 
   local kernver="$(<version)"
   local modulesdir="${pkgdir}"/usr/lib/modules/${kernver}
@@ -310,31 +313,13 @@ _package(){
   # remove build and source links
   msg2 "Remove build dir and source dir..."
   rm -rf "$modulesdir"/{source,build}
-  
-  # workaround for missing header with winesync
-  #if [ -e "${srcdir}/linux-$pkgver/include/uapi/linux/winesync.h" ]; then
-  #  msg2 "Workaround missing winesync header"
-  #  install -Dm644 "${srcdir}/linux-$pkgver"/include/uapi/linux/winesync.h "${pkgdir}/usr/include/linux/winesync.h"
-  #fi
-  
-  # load winesync module at boot
-  #if [ -e "${srcdir}/winesync.conf" ]; then
-  #  msg2 "Set the winesync module to be loaded at boot through /etc/modules-load.d"
-  #  install -Dm644 "${srcdir}"/winesync.conf "${pkgdir}/etc/modules-load.d/winesync.conf"
-  #fi
-  
-  # install udev rule for winesync
-  #if [ -e "${srcdir}/winesync.rules" ]; then
-  #  msg2 "Installing udev rule for winesync"
-  #  install -Dm644 "${srcdir}"/winesync.rules "${pkgdir}/etc/udev/rules.d/winesync.rules"
-  #fi
 }
 
 _package-headers(){
   pkgdesc="Headers and scripts for building modules for the $pkgbase package"
   depends=("${pkgbase}" "pahole")
 
-  cd linux-$major
+  cd "${srcdir}"/linux-$major
 
   local builddir="$pkgdir"/usr/lib/modules/"$(<version)"/build
 
