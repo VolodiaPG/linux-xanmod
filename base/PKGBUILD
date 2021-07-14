@@ -176,6 +176,7 @@ prepare(){
   scripts/config --disable CONFIG_LTO_NONE
   scripts/config --disable CONFIG_LTO_CLANG_FULL
   scripts/config --disable CONFIG_LTO_CLANG_THIN
+  plain ""
   
   sleep 2s
 
