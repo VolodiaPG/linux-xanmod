@@ -179,6 +179,18 @@ prepare(){
   plain ""
   
   sleep 2s
+  
+  if [[ $_cpu_sched = "1" ]]; then
+    msg2 "Enable CacULE CPU scheduler"
+    scripts/config --enable CONFIG_CACULE_SCHED
+  elif [[ $_cpu_sched = "2" ]]; then
+    msg2 "Enable CacULE CPU scheduler"
+    scripts/config --enable CONFIG_CACULE_SCHED
+    msg2 "Enable CacULE-RDB CPU scheduler..."
+    scripts/config --enable CONFIG_CACULE_RDB
+  fi
+  
+  sleep 2s
 
   # fix for GCC 12.0.0 (git version)
   # plugins don't work
