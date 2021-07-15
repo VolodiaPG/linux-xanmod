@@ -205,7 +205,7 @@ prepare(){
   # Setting localversion
   msg2 "Setting localversion..."
   scripts/setlocalversion --save-scmversion
-  echo "-${pkgbase}" > localversion
+  echo "-${pkgbase}" > localversion-pkgbuild
 
   # Config
   if [[ "$_compiler" = "1" ]]; then
