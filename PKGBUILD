@@ -123,10 +123,10 @@ md5sums=("76c60fb304510a7bbd9c838790bc5fe4")  #linux-5.13.tar.xz
 
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("49af7b7197c5c80862357da3e492b054")  #patch-5.13.1-xanmod1-cacule.xz
+  md5sums+=("SKIP")  #patch-5.13.1-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("fcbee49f0a6e3b344eb34d0be16b7ea7")  #patch-5.13.1-xanmod1.xz
+  md5sums+=("SKIP")  #patch-5.13.1-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
