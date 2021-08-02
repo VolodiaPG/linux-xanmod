@@ -75,21 +75,21 @@ fi
 # This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
 if [[ $_cpu_sched = "1" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=xanmod-kernel-cacule-gcc-base
+    pkgbase=xanmod-kernel-cacule-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=xanmod-kernel-cacule-clang-base
+    pkgbase=xanmod-kernel-cacule-clang
   fi
 elif [[ $_cpu_sched = "2" ]]; then
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=xanmod-kernel-cacule-rdb-gcc-base
+    pkgbase=xanmod-kernel-cacule-rdb-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=xanmod-kernel-cacule-rdb-clang-base
+    pkgbase=xanmod-kernel-cacule-rdb-clang
   fi
 else
   if [[ "$_compiler" = "1" ]]; then
-    pkgbase=xanmod-kernel-gcc-base
+    pkgbase=xanmod-kernel-gcc
   elif [[ "$_compiler" = "2" ]]; then
-    pkgbase=xanmod-kernel-clang-base
+    pkgbase=xanmod-kernel-clang
   fi
 fi
 pkgname=("$pkgbase" "$pkgbase-headers")
