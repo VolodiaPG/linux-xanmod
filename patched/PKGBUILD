@@ -571,6 +571,8 @@ prepare(){
   if [[ $_cpu_sched = "1" ]]; then
     msg2 "Enable CacULE CPU scheduler"
     scripts/config --enable CONFIG_CACULE_SCHED
+    msg2 "Disable CacULE-RDB CPU scheduler"
+    scripts/config --disable CONFIG_CACULE_RDB
   elif [[ $_cpu_sched = "2" ]]; then
     msg2 "Enable CacULE CPU scheduler"
     scripts/config --enable CONFIG_CACULE_SCHED
