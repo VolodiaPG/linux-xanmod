@@ -156,6 +156,8 @@ prepare(){
     msg2 "Applying patch $src..."
     patch -Np1 < "../$src"
   done
+  
+  plain ""
 
   # Copy the config file first
   # Copy "${srcdir}"/config-$major to linux-${pkgver}/.config
@@ -165,8 +167,11 @@ prepare(){
   elif [[ "$_compiler" = "2" ]]; then
     cp CONFIGS/xanmod/clang/config .config
   fi
+  
+  sleep 2s
 
   plain ""
+  
   msg2 "Disable LTO"
   scripts/config --disable CONFIG_LTO
   scripts/config --disable CONFIG_LTO_CLANG
