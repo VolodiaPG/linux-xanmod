@@ -527,6 +527,8 @@ prepare(){
   scripts/config --enable CONFIG_GENERIC_CPU
 
   sleep 2s
+  
+  plain ""
 
   # Setting localversion
   msg2 "Setting localversion..."
