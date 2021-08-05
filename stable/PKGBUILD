@@ -401,6 +401,12 @@ prepare(){
   scripts/config --enable CONFIG_LRU_GEN_STATS
 
   sleep 2s
+  
+  msg2 "Enable FULLCONENAT target support"
+  scripts/config --enable CONFIG_NF_NAT
+  scripts/config --enable CONFIG_IP_NF_TARGET_FULLCONENAT
+  scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
+  
 
   if [[ $_cpu_sched = "1" ]]; then
     msg2 "Enable CacULE CPU scheduler"
