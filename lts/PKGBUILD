@@ -9,10 +9,7 @@
 #Credits: Andreas Radke <andyrtr@archlinux.org> ---> For the base PKGBUILD
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
-#Credits: Piotr Gorski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan/kernel-patches> ---> For the patches and the base pkgbuild
-#Credits: Tk-Glitch <https://github.com/Tk-Glitch> ---> For some patches. base PKGBUILD and prepare script
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
 
 ################# CPU Scheduler #################
 
@@ -84,8 +81,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.10.55_xanmod1
-versiontag=5.10.55-xanmod1
+pkgver=5.10.56_xanmod1
+versiontag=5.10.56-xanmod1
 major=5.10
 pkgrel=1
 arch=(x86_64)
