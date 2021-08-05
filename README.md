@@ -7,9 +7,9 @@ XanMod kernel build for Archlinux with a patch set by TK-Glitch, Piotr Górski a
 # Version
 
 
-- 5.13.7-xanmod1
+- 5.13.8-xanmod1
 
-- 5.13.7-xanmod1-cacule
+- 5.13.8-xanmod1-cacule
 
 # Build
 
