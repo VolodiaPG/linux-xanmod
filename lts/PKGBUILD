@@ -81,8 +81,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.10.56_xanmod1
-versiontag=5.10.56-xanmod1
+pkgver=5.10.57_xanmod1
+versiontag=5.10.57-xanmod1
 major=5.10
 pkgrel=1
 arch=(x86_64)
@@ -328,6 +328,13 @@ prepare(){
   scripts/config --enable CONFIG_LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION
   scripts/config --enable CONFIG_LRNG_COLLECTION_SIZE_1024
 
+  sleep 2s
+  
+  msg2 "Enable FULLCONENAT target support"
+  scripts/config --enable CONFIG_NF_NAT
+  scripts/config --enable CONFIG_IP_NF_TARGET_FULLCONENAT
+  scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
+  
   sleep 2s
 
   msg2 "Enable CFS"
