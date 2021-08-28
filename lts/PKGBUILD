@@ -395,8 +395,7 @@ _package(){
   pkgdesc="XanMod lts kernel and modules"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
-              "crda: to set the correct wireless channels of your country"
-              "winesync-headers: headers file for winesync module")
+              "crda: to set the correct wireless channels of your country")
   provides=("VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
 
   cd "${srcdir}"/linux-$major
