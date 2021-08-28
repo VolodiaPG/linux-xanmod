@@ -538,9 +538,6 @@ prepare(){
   scripts/config --enable CONFIG_GENERIC_CPU
 
   sleep 2s
-
-  scripts/config --disable CONFIG_FORTIFY_SOURCE
-  scripts/config --disable CONFIG_ARCH_HAS_FORTIFY_SOURCE
   
   plain ""
 
@@ -577,8 +574,7 @@ _package(){
   pkgdesc="XanMod stable kernel and modules"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
-              "crda: to set the correct wireless channels of your country"
-              "winesync-headers: headers file for winesync module")
+              "crda: to set the correct wireless channels of your country")
   provides=("VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
 
   cd "${srcdir}"/linux-$major
