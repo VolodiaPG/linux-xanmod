@@ -117,14 +117,14 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("76c60fb304510a7bbd9c838790bc5fe4")  #linux-5.13.tar.xz
+md5sums=("SKIP")  #linux-5.x.tar.xz
 
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.13.1-xanmod1-cacule.xz
+  md5sums+=("SKIP")  #patch-5.x.x-xanmod1-cacule.xz
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.13.1-xanmod1.xz
+  md5sums+=("SKIP")  #patch-5.x.x-xanmod1.xz
 fi
 
 export KBUILD_BUILD_HOST=archlinux
