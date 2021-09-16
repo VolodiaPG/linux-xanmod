@@ -7,9 +7,9 @@ XanMod kernel build for Archlinux.
 # Version
 
 
-- 5.13.8-xanmod1
+- 5.14.4-xanmod1
 
-- 5.13.8-xanmod1-cacule
+- 5.14.4-xanmod1-cacule
 
 # Build
 
