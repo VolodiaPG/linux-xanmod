@@ -29,7 +29,7 @@ ARCH=x86
 
 ################################# GCC ################################
 
-# Grap GCC version
+# Grab GCC version
 # Workarround with GCC 12.0.0. Pluggins don't work, so we have to grap GCC version
 # and disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS
 
@@ -420,23 +420,14 @@ prepare(){
     scripts/config --enable CONFIG_CACULE_SCHED
     msg2 "Disable CacULE-RDB CPU scheduler"
     scripts/config --disable CONFIG_CACULE_RDB
+    sleep 2s
   elif [[ $_cpu_sched = "2" ]]; then
     msg2 "Enable CacULE CPU scheduler"
     scripts/config --enable CONFIG_CACULE_SCHED
     msg2 "Enable CacULE-RDB CPU scheduler"
     scripts/config --enable CONFIG_CACULE_RDB
-  else
-    msg2 "Enable CFS"
-    scripts/config --enable SCHED_NORMAL
-    scripts/config --enable SCHED_BATCH
-    scripts/config --enable SCHED_IDLE
-    scripts/config --enable CONFIG_CGROUP_SCHED
-    scripts/config --enable CONFIG_FAIR_GROUP_SCHED
-    scripts/config --enable CONFIG_CFS_BANDWIDTH
-    scripts/config --enable CONFIG_SCHED_DEBUG
+    sleep 2s
   fi
-
-  sleep 2s
 
   if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
     msg2 "Apply suggested config by Hamad Al Marri for CacULE"

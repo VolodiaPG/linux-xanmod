@@ -11,24 +11,13 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 
-################# CPU Scheduler #################
-
-#Set CPU Scheduler
-#Set '1' for CacULE CPU Scheduler
-#Set '2' for CacULE-RDB CPU Scheduler
-#Leave empty for no CPU Scheduler
-#Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
-if [ -z ${_cpu_sched+x} ]; then
-  _cpu_sched=
-fi
-
 ################################# Arch ################################
 
 ARCH=x86
 
 ################################# GCC ################################
 
-# Grap GCC version
+# Grab GCC version
 # Workarround with GCC 12.0.0. Pluggins don't work, so we have to grap GCC version
 # and disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS
 
@@ -342,17 +331,6 @@ prepare(){
   scripts/config --enable CONFIG_IP_NF_TARGET_FULLCONENAT
   scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
   
-  sleep 2s
-
-  msg2 "Enable CFS"
-  scripts/config --enable SCHED_NORMAL
-  scripts/config --enable SCHED_BATCH
-  scripts/config --enable SCHED_IDLE
-  scripts/config --enable CONFIG_CGROUP_SCHED
-  scripts/config --enable CONFIG_FAIR_GROUP_SCHED
-  scripts/config --enable CONFIG_CFS_BANDWIDTH
-  scripts/config --enable CONFIG_SCHED_DEBUG
-
   sleep 2s
 
   msg2 "Set CONFIG_GENERIC_CPU"
