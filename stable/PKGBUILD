@@ -422,6 +422,11 @@ prepare(){
   scripts/config --enable CONFIG_LRNG_COLLECTION_SIZE_1024
 
   sleep 2s
+  
+  msg2 "Enable OpenRGB SMBus access"
+  scripts/config --module CONFIG_I2C_NCT677
+  
+  sleep 2s
 
   msg2 "Enable LRU"
   scripts/config --enable CONFIG_LRU_GEN
