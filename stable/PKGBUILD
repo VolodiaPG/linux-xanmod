@@ -99,11 +99,11 @@ for _p in "${pkgname[@]}"; do
 done
 # This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
 if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.14.10_xanmod1
-  versiontag=5.14.10-xanmod1-cacule
+  pkgver=5.14.11_xanmod1
+  versiontag=5.14.11-xanmod1-cacule
 else
-  pkgver=5.14.10_xanmod1
-  versiontag=5.14.10-xanmod1
+  pkgver=5.14.11_xanmod1
+  versiontag=5.14.11-xanmod1
 fi
 major=5.14
 pkgrel=1
