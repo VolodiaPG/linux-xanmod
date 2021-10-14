@@ -58,11 +58,7 @@ fi
 
 ###################################################################################
 
-if [[ "$_compiler" = "1" ]]; then
-  pkgbase=xanmod-lts-kernel-gcc
-elif [[ "$_compiler" = "2" ]]; then
-  pkgbase=xanmod-lts-kernel-clang
-fi
+pkgbase=xanmod-lts-kernel
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
