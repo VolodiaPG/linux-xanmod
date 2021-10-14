@@ -8,6 +8,6 @@ rm -rf pkg src
 
 # clang
 
-env _compiler=2 makepkg -s
+#env _compiler=2 makepkg -s
 
-rm -rf pkg src
+#rm -rf pkg src
