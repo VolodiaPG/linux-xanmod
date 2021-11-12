@@ -10,7 +10,7 @@
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For CacULE CPU Scheduler patch
+#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For TT CPU Scheduler patch
 
 ################# CPU Scheduler #################
 
@@ -83,11 +83,11 @@ for _p in "${pkgname[@]}"; do
   }"
 done
 if [[ $_cpu_sched = "1" ]]; then
-  pkgver=5.15.1_xanmod1
-  versiontag=5.15.1-xanmod1-tt
+  pkgver=5.15.2_xanmod1
+  versiontag=5.15.2-xanmod1-tt
 else
-  pkgver=5.15.1_xanmod1
-  versiontag=5.15.1-xanmod1
+  pkgver=5.15.2_xanmod1
+  versiontag=5.15.2-xanmod1
 fi
 major=5.15
 pkgrel=1
