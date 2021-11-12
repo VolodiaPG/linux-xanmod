@@ -15,8 +15,7 @@
 ################# CPU Scheduler #################
 
 #Set CPU Scheduler
-#Set '1' for CacULE CPU Scheduler
-#Set '2' for CacULE-RDB CPU Scheduler
+#Set '1' for TT CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -72,9 +71,7 @@ fi
 
 # This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
 if [[ $_cpu_sched = "1" ]]; then
-  pkgbase=xanmod-kernel-cacule
-elif [[ $_cpu_sched = "2" ]]; then
-  pkgbase=xanmod-kernel-cacule-rdb
+  pkgbase=xanmod-kernel-tt
 else
   pkgbase=xanmod-kernel
 fi
@@ -85,15 +82,14 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-# This section set the version for xanmod version. Sometimes xanmod-cacule is behind the main xanmod patch
-if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.14.14_xanmod1
-  versiontag=5.14.14-xanmod1-cacule
+if [[ $_cpu_sched = "1" ]]; then
+  pkgver=5.15.1_xanmod1
+  versiontag=5.15.1-xanmod1-tt
 else
-  pkgver=5.14.14_xanmod1
-  versiontag=5.14.14-xanmod1
+  pkgver=5.15.1_xanmod1
+  versiontag=5.15.1-xanmod1
 fi
-major=5.14
+major=5.15
 pkgrel=1
 arch=(x86_64)
 url="https://xanmod.org/"
@@ -158,7 +154,7 @@ prepare(){
 
   plain ""
   
-  msg2 "Disable LTO"
+  msg2 "Disable CLANG LTO"
   scripts/config --disable CONFIG_LTO
   scripts/config --disable CONFIG_LTO_CLANG
   scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
@@ -316,10 +312,10 @@ prepare(){
 
   sleep 2s
 
-  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-    msg2 "Set timer frequency to 2000HZ"
-    scripts/config --enable CONFIG_HZ_2000
-    scripts/config --set-val CONFIG_HZ 2000
+  if [[ $_cpu_sched = "1" ]]; then
+    msg2 "Set timer frequency to 1666HZ"
+    scripts/config --enable CONFIG_HZ_1666
+    scripts/config --set-val CONFIG_HZ 1666
   else
     msg2 "Set timer frequency to 1000HZ"
     scripts/config --enable CONFIG_HZ_1000
@@ -434,116 +430,9 @@ prepare(){
   scripts/config --enable CONFIG_X86_AMD_PSTATE
   
   sleep 2s
-
-  if [[ $_cpu_sched = "1" ]]; then
-    msg2 "Enable CacULE CPU scheduler"
-    scripts/config --enable CONFIG_CACULE_SCHED
-    msg2 "Disable CacULE-RDB CPU scheduler"
-    scripts/config --disable CONFIG_CACULE_RDB
-    sleep 2s
-  elif [[ $_cpu_sched = "2" ]]; then
-    msg2 "Enable CacULE CPU scheduler"
-    scripts/config --enable CONFIG_CACULE_SCHED
-    msg2 "Enable CacULE-RDB CPU scheduler"
-    scripts/config --enable CONFIG_CACULE_RDB
-    sleep 2s
-  fi
-
-  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-    msg2 "Apply suggested config by Hamad Al Marri for CacULE"
-    # General Setup
-    echo "General Setup"
-    sleep 1s
-    scripts/config --disable CONFIG_EXPERT
-    # Note:
-    # CONFIG_NO_HZ_FULL requires you to add
-    # the boot parameter "nohz_full=" in your
-    # grup. For example, in case your machine
-    # has 8 CPUS, "nohz_full=1-7" makes
-    # all CPUs (except CPU0) adaptive ticks.
-    # Without "nohz_full=1-7", no benfit of
-    # selecting CONFIG_NO_HZ_FULL
-    #
-    # Please see the discussion here:
-    # https://github.com/hamadmarri/cacule-cpu-scheduler/discussions/23#discussioncomment-711456
-    #scripts/config --enable CONFIG_NO_HZ_FULL
-
-    scripts/config --enable CONFIG_PREEMPT
-    scripts/config --enable CONFIG_SCHED_AUTOGROUP
-    scripts/config --disable CONFIG_BSD_PROCESS_ACCT
-    scripts/config --disable CONFIG_TASK_XACCT
-    scripts/config --disable CONFIG_PSI
-    scripts/config --disable CONFIG_MEMCG
-    scripts/config --disable CONFIG_CGROUP_CPUACCT
-    scripts/config --disable CONFIG_CGROUP_DEBUG
-    scripts/config --disable CONFIG_CHECKPOINT_RESTORE
-    scripts/config --disable CONFIG_SLAB_MERGE_DEFAULT
-    scripts/config --disable CONFIG_SLAB_FREELIST_HARDENED
-    scripts/config --disable CONFIG_SLUB_CPU_PARTIAL
-    scripts/config --disable CONFIG_PROFILING
-    # Processor type and features
-    echo "Processor type and features"
-    sleep 1s
-    scripts/config --disable CONFIG_RETPOLINE
-    scripts/config --disable CONFIG_X86_5LEVEL
-    scripts/config --disable CONFIG_KEXEC
-    scripts/config --disable CONFIG_KEXEC_FILE
-    scripts/config --disable CONFIG_CRASH_DUMP
-    #scripts/config --set-val CONFIG_NR_CPUS $(nproc)
-    # if you are not using this kernel as guest in a virtual machine,
-    # then disable CONFIG_HYPERVISOR_GUEST
-    #./scripts/config --disable CONFIG_HYPERVISOR_GUEST
-    # General architecture-dependent options
-    echo "General architecture-dependent options"
-    sleep 1s
-    scripts/config --disable CONFIG_KPROBES
-    # Kernel hacking
-    echo "Kernel hacking"
-    sleep 1s
-    scripts/config --disable CONFIG_FTRACE
-    scripts/config --disable CONFIG_DEBUG_KERNEL
-    scripts/config --disable CONFIG_PAGE_EXTENSION
-    scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
-    scripts/config --disable CONFIG_PRINTK_TIME
-    scripts/config --disable CONFIG_DEBUG_INFO
-    scripts/config --disable CONFIG_ENABLE_MUST_CHECK
-    scripts/config --disable CONFIG_STRIP_ASM_SYMS
-    scripts/config --disable CONFIG_UNUSED_SYMBOLS
-    scripts/config --disable CONFIG_DEBUG_FS
-    scripts/config --disable CONFIG_OPTIMIZE_INLINING
-    scripts/config --disable CONFIG_DEBUG_SECTION_MISMATCH
-    scripts/config --disable CONFIG_SECTION_MISMATCH_WARN_ONLY
-    scripts/config --disable CONFIG_STACK_VALIDATION
-    scripts/config --disable CONFIG_DEBUG_FORCE_WEAK_PER_CPU
-    scripts/config --disable CONFIG_MAGIC_SYSRQ
-    scripts/config --disable CONFIG_MAGIC_SYSRQ_SERIAL
-    scripts/config --disable CONFIG_PAGE_EXTENSION
-    scripts/config --disable CONFIG_DEBUG_PAGEALLOC
-    scripts/config --disable CONFIG_PAGE_OWNER
-    scripts/config --disable CONFIG_DEBUG_MEMORY_INIT
-    scripts/config --disable CONFIG_HARDLOCKUP_DETECTOR
-    scripts/config --disable CONFIG_SOFTLOCKUP_DETECTOR
-    scripts/config --disable CONFIG_DETECT_HUNG_TASK
-    scripts/config --disable CONFIG_WQ_WATCHDOG
-    scripts/config --set-val CONFIG_PANIC_TIMEOUT 10
-    scripts/config --disable CONFIG_SCHED_DEBUG
-    scripts/config --disable CONFIG_SCHEDSTATS
-    scripts/config --disable CONFIG_SCHED_STACK_END_CHECK
-    scripts/config --disable CONFIG_STACKTRACE
-    scripts/config --disable CONFIG_DEBUG_BUGVERBOSE
-    scripts/config --set-val CONFIG_RCU_CPU_STALL_TIMEOUT 4
-    scripts/config --disable CONFIG_RCU_TRACE
-    scripts/config --disable CONFIG_FAULT_INJECTION
-    scripts/config --disable CONFIG_LATENCYTOP
-    scripts/config --disable CONFIG_PROVIDE_OHCI1394_DMA_INIT
-    scripts/config --disable RUNTIME_TESTING_MENU
-    scripts/config --disable CONFIG_MEMTEST
-    scripts/config --disable CONFIG_KGDB
-    scripts/config --disable CONFIG_EARLY_PRINTK
-    scripts/config --disable CONFIG_DOUBLEFAULT
-
-    sleep 2s
-  fi
+  
+  msg2 "Enable winesync"
+  scripts/config --enable CONFIG_WINESYNC
 
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
