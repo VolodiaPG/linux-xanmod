@@ -7,11 +7,11 @@ XanMod kernel build for Archlinux.
 # Version
 
 
-- 5.15.3-xanmod1
+- 5.15.7-xanmod1
 
-- 5.15.3-xanmod1-tt
+- 5.15.7-xanmod1-tt
 
-- 5.10.80-xanmod1
+- 5.10.84-xanmod1
 
 # Build
 
@@ -27,8 +27,7 @@ XanMod kernel build for Archlinux.
 
 - Will add a CPU Scheduler :
 
-        1 : CacULE by Hamad Al Marri
-        2 : CacULE-RDB by Hamad Al Marri
+        1 : TT CPU Scheduler by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
@@ -42,6 +41,8 @@ Leave this variable empty if you don't want to add a CPU Scheduler.
 If not set it will build with GCC by default.
 
 # CPU Scheduler
+
+To come ...
 
 # Update GRUB
 
