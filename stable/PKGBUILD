@@ -103,9 +103,13 @@ patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$maj
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
 md5sums=("SKIP")  #linux-5.x.tar.xz
 
-if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
-  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.x.x-xanmod1-cacule.xz
+if [[ $_cpu_sched = "1" ]]; then
+  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+           "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
+           "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
+  md5sums+=("SKIP"   #patch-5.x.x-xanmod1-tt.xz
+            "SKIP"   #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
+            "SKIP")  #https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
   md5sums+=("SKIP")  #patch-5.x.x-xanmod1.xz
