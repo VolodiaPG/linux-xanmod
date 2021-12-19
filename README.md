@@ -13,6 +13,8 @@ XanMod kernel build for Archlinux.
 
 - 5.10.87-xanmod1
 
+- 5.15.10-xanmod1-bore ( unofficial package created by me :P )
+
 # Build
 
     git clone https://github.com/kevall474/XanMod.git
@@ -28,7 +30,7 @@ XanMod kernel build for Archlinux.
 - Will add a CPU Scheduler :
 
         1 : TT CPU Scheduler by Hamad Al Marri
-        2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by 
+        2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
