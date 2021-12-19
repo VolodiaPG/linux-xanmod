@@ -11,7 +11,7 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler patch
-#Credits: Masahito Suzuki <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
+#Credits: Masahito Suzuki <firelzrd@gmail.com> <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
 
 ################# CPU Scheduler #################
 
