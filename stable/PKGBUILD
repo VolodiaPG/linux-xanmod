@@ -10,12 +10,14 @@
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Hamad Al Marri <https://github.com/hamadmarri/cachy-sched> ---> For TT CPU Scheduler patch
+#Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler patch
+#Credits: Masahito Suzuki <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
 
 ################# CPU Scheduler #################
 
 #Set CPU Scheduler
 #Set '1' for TT CPU Scheduler
+#Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -72,6 +74,8 @@ fi
 # This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
 if [[ $_cpu_sched = "1" ]]; then
   pkgbase=xanmod-kernel-tt
+elif [[ $_cpu_sched = "2" ]]; then
+  pkgbase=xanmod-kernel-bore
 else
   pkgbase=xanmod-kernel
 fi
@@ -85,6 +89,9 @@ done
 if [[ $_cpu_sched = "1" ]]; then
   pkgver=5.15.10_xanmod1
   versiontag=5.15.10-xanmod1-tt
+elif [[ $_cpu_sched = "2" ]]; then
+  pkgver=5.15.10_xanmod1
+  versiontag=5.15.10-xanmod1
 else
   pkgver=5.15.10_xanmod1
   versiontag=5.15.10-xanmod1
@@ -94,9 +101,9 @@ pkgrel=1
 arch=(x86_64)
 url="https://xanmod.org/"
 license=(GPL-2.0)
-makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules" "libelf" "elfutils" 
+makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules" "libelf" "elfutils"
              "python" "python-appdirs" "python-mako" "python-evdev" "python-sphinx_rtd_theme" "python-graphviz" "python-sphinx"
-             "clang" "lib32-clang" "llvm" "lib32-llvm" "llvm-libs" "lib32-llvm-libs" "lld" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc" 
+             "clang" "lib32-clang" "llvm" "lib32-llvm" "llvm-libs" "lib32-llvm-libs" "lld" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc"
              "pahole" "patch" "bc" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 patchsource=https://raw.githubusercontent.com/kevall474/kernel-patches/main/$major
@@ -113,6 +120,11 @@ if [[ $_cpu_sched = "1" ]]; then
 else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
   md5sums+=("SKIP")  #patch-5.x.x-xanmod1.xz
+fi
+
+if [[ $_cpu_sched = "2" ]]; then
+  source+=("linux-5.15.y-bore-beta-13.patch")
+  md5sums+=("SKIP")
 fi
 
 export KBUILD_BUILD_HOST=archlinux
@@ -142,7 +154,7 @@ prepare(){
     msg2 "Applying patch $src..."
     patch -Np1 < "../$src"
   done
-  
+
   plain ""
 
   # Copy the config file first
@@ -153,11 +165,11 @@ prepare(){
   elif [[ "$_compiler" = "2" ]]; then
     cp CONFIGS/xanmod/clang/config .config
   fi
-  
+
   sleep 2s
 
   plain ""
-  
+
   msg2 "Disable CLANG LTO"
   scripts/config --disable CONFIG_LTO
   scripts/config --disable CONFIG_LTO_CLANG
@@ -179,11 +191,11 @@ prepare(){
     #scripts/config --disable CONFIG_GCC_PLUGINS
 
     #sleep 2s
-    
+
     msg2 "Disable Fortify"
     scripts/config --disable CONFIG_FORTIFY_SOURCE
     scripts/config --disable CONFIG_ARCH_HAS_FORTIFY_SOURCE
-    
+
     plain ""
   fi
 
@@ -410,10 +422,10 @@ prepare(){
   scripts/config --enable CONFIG_LRNG_COLLECTION_SIZE_1024
 
   sleep 2s
-  
+
   msg2 "Enable OpenRGB SMBus access"
   scripts/config --module CONFIG_I2C_NCT677
-  
+
   sleep 2s
 
   msg2 "Enable LRU"
@@ -422,27 +434,38 @@ prepare(){
   scripts/config --enable CONFIG_LRU_GEN_STATS
 
   sleep 2s
-  
+
   msg2 "Enable FULLCONENAT target support"
   scripts/config --enable CONFIG_NF_NAT
   scripts/config --enable CONFIG_IP_NF_TARGET_FULLCONENAT
   scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
-  
+
   sleep 2s
-  
+
   msg2 "Enable AMD Processor P-State driver"
   scripts/config --enable CONFIG_X86_AMD_PSTATE
-  
+
   sleep 2s
-  
+
   msg2 "Enable winesync"
   scripts/config --enable CONFIG_WINESYNC
+
+  sleep 2s
 
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
 
+  if [[ $_cpu_sched = "2" ]]; then
+
+    sleep 2s
+
+    msg2 "Enable BORE (Burst-Oriented Response Enhancer) CPU Scheduler"
+    scripts/config --enable BS_SCHED
+
+  fi
+
   sleep 2s
-  
+
   plain ""
 
   # Setting localversion
