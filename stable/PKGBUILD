@@ -467,6 +467,16 @@ prepare(){
   sleep 2s
 
   plain ""
+  
+  if [[ $_cpu_sched = "2" ]]; then
+    
+    rm -rf localversion-bore
+      
+    touch localversion-bore
+    
+    echo "-bore" > localversion-bore
+    
+  fi
 
   # Setting localversion
   msg2 "Setting localversion..."
