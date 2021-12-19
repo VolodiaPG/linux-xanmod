@@ -17,7 +17,7 @@ XanMod kernel build for Archlinux.
 
     git clone https://github.com/kevall474/XanMod.git
     cd XanMod 
-    cd stable && env _cpu_sched=(1) _compiler=(1 or 2) makepkg -s
+    cd stable && env _cpu_sched=(1 or 2) _compiler=(1 or 2) makepkg -s
     or
     cd lts && env _compiler=(1 or 2) makepkg -s
 
@@ -28,6 +28,7 @@ XanMod kernel build for Archlinux.
 - Will add a CPU Scheduler :
 
         1 : TT CPU Scheduler by Hamad Al Marri
+        2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by 
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
