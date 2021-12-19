@@ -460,7 +460,7 @@ prepare(){
     sleep 2s
 
     msg2 "Enable BORE (Burst-Oriented Response Enhancer) CPU Scheduler"
-    scripts/config --enable BS_SCHED
+    scripts/config --enable CONFIG_BS_SCHED
 
   fi
 
