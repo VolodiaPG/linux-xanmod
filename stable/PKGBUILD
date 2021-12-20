@@ -99,9 +99,6 @@ done
 if [[ $_cpu_sched = "1" ]]; then
   pkgver=5.15.10_xanmod1
   versiontag=5.15.10-xanmod1-tt
-elif [[ $_cpu_sched = "2" ]]; then
-  pkgver=5.15.10_xanmod1
-  versiontag=5.15.10-xanmod1
 else
   pkgver=5.15.10_xanmod1
   versiontag=5.15.10-xanmod1
