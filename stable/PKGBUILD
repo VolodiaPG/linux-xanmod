@@ -136,7 +136,7 @@ elif [[ $_cpu_sched = "3" ]]; then
   md5sums+=("SKIP")
 elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
   source+=("prjc_v5.15-r1-rebase-to-work-with-hrtimer.patch"
-           "0001-sysctl-fix-for-prjc-patch-with-xanmod.patch")
+           "0001-sysctl-fix-for-prjc-patch.patch")
   md5sums+=("SKIP"
             "SKIP")
 fi
