@@ -497,7 +497,6 @@ prepare(){
     scripts/config --enable CONFIG_SCHED_BMQ
     scripts/config --disable CONFIG_SCHED_PDS
 
-
   fi
 
   sleep 2s
@@ -526,7 +525,7 @@ prepare(){
 
     touch localversion-bmq
 
-    echo "-pds" > localversion-bmq
+    echo "-bmq" > localversion-bmq
 
   fi
 
