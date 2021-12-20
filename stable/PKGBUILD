@@ -100,7 +100,7 @@ else
   versiontag=5.15.10-xanmod1
 fi
 major=5.15
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url="https://xanmod.org/"
 license=(GPL-2.0)
