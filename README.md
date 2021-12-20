@@ -17,12 +17,6 @@ XanMod kernel build for Archlinux.
 
 - 5.15.10-xanmod1-bore-cacule ( unofficial package created by me :P )
 
-- 5.15.10-xanmod1-pds ( unofficial package created by me :P )
-
-- 5.15.10-xanmod1-bmq ( unofficial package created by me :P )
-
-
-
 # Build
 
     git clone https://github.com/kevall474/XanMod.git
