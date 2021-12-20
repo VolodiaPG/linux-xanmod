@@ -83,9 +83,9 @@ elif [[ $_cpu_sched = "2" ]]; then
 elif [[ $_cpu_sched = "3" ]]; then
   pkgbase=linux-xanmod-bore-cacule
 elif [[ $_cpu_sched = "4" ]]; then
-  pkgbase=linux-xanmod-bore-pds
+  pkgbase=linux-xanmod-pds
 elif [[ $_cpu_sched = "5" ]]; then
-  pkgbase=linux-xanmod-bore-bmq
+  pkgbase=linux-xanmod-bmq
 else
   pkgbase=linux-xanmod
 fi
