@@ -34,8 +34,6 @@ XanMod kernel build for Archlinux.
         1 : TT CPU Scheduler by Hamad Al Marri
         2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki based on Baby CPU Scheduler by Hamad Al Marri
         3 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki based on CacULE and Baby CPU Scheduler by Hamad Al Marri
-        4 : PDS by Alfred Chen
-        5 : BMQ by Alfred Chen
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
