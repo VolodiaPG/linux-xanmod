@@ -474,7 +474,7 @@ prepare(){
 
   plain ""
   
-  if [[ $_cpu_sched = "2" ]]; then
+  if [[ $_cpu_sched = "2" ]] || [[ $_cpu_sched = "3" ]]; then
     
     rm -rf localversion-bore
       
