@@ -14,7 +14,6 @@ XanMod kernel build for Archlinux.
 - 5.10.87-xanmod1
 
 - 5.15.10-xanmod1-bore-baby ( unofficial package created by me :P )
-- 
 - 5.15.10-xanmod1-bore-cacule ( unofficial package created by me :P )
 
 # Build
