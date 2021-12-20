@@ -17,7 +17,8 @@
 
 #Set CPU Scheduler
 #Set '1' for TT CPU Scheduler
-#Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler
+#Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on Baby CPU Scheduler by Hamad Al Marri
+#Set '3' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on CacULE and Baby CPU Scheduler by Hamad Al Marri
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -75,7 +76,9 @@ fi
 if [[ $_cpu_sched = "1" ]]; then
   pkgbase=linux-xanmod-tt
 elif [[ $_cpu_sched = "2" ]]; then
-  pkgbase=linux-xanmod-bore
+  pkgbase=linux-xanmod-bore-baby
+elif [[ $_cpu_sched = "3" ]]; then
+  pkgbase=linux-xanmod-bore-cacule
 else
   pkgbase=linux-xanmod
 fi
@@ -124,6 +127,9 @@ fi
 
 if [[ $_cpu_sched = "2" ]]; then
   source+=("linux-5.15.10_bore16-baby.patch")
+  md5sums+=("SKIP")
+elif [[ $_cpu_sched = "3" ]]; then
+  source+=("linux-5.15.10_bore16-cacule.patch")
   md5sums+=("SKIP")
 fi
 
