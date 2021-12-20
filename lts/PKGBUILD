@@ -58,7 +58,7 @@ fi
 
 ###################################################################################
 
-pkgbase=xanmod-lts-kernel
+pkgbase=linux-xanmod-lts
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
