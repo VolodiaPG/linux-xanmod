@@ -73,11 +73,11 @@ fi
 
 # This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
 if [[ $_cpu_sched = "1" ]]; then
-  pkgbase=xanmod-kernel-tt
+  pkgbase=linux-xanmod-tt
 elif [[ $_cpu_sched = "2" ]]; then
-  pkgbase=xanmod-kernel-bore
+  pkgbase=linux-xanmod-bore
 else
-  pkgbase=xanmod-kernel
+  pkgbase=linux-xanmod
 fi
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
