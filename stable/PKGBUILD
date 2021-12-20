@@ -123,7 +123,7 @@ else
 fi
 
 if [[ $_cpu_sched = "2" ]]; then
-  source+=("linux-5.15.y-bore-beta-13.patch")
+  source+=("linux-5.15.10_bore16-baby.patch")
   md5sums+=("SKIP")
 fi
 
