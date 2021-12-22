@@ -20,8 +20,6 @@
 #Set '1' for TT CPU Scheduler
 #Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on Baby CPU Scheduler by Hamad Al Marri
 #Set '3' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on CacULE and Baby CPU Scheduler by Hamad Al Marri
-#Set '4' for PDS CPU Scheduler
-#Set '5' for BMQ CPU Scheduler
 #Leave empty for no CPU Scheduler
 #Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
 if [ -z ${_cpu_sched+x} ]; then
@@ -82,10 +80,6 @@ elif [[ $_cpu_sched = "2" ]]; then
   pkgbase=linux-xanmod-bore-baby
 elif [[ $_cpu_sched = "3" ]]; then
   pkgbase=linux-xanmod-bore-cacule
-elif [[ $_cpu_sched = "4" ]]; then
-  pkgbase=linux-xanmod-pds
-elif [[ $_cpu_sched = "5" ]]; then
-  pkgbase=linux-xanmod-bmq
 else
   pkgbase=linux-xanmod
 fi
@@ -134,11 +128,6 @@ if [[ $_cpu_sched = "2" ]]; then
 elif [[ $_cpu_sched = "3" ]]; then
   source+=("linux-5.15.10_bore16-cacule.patch")
   md5sums+=("SKIP")
-elif [[ $_cpu_sched = "4" ]] || [[ $_cpu_sched = "5" ]]; then
-  source+=("prjc_v5.15-r1-rebase-to-work-with-hrtimer.patch"
-           "0001-sysctl-fix-for-prjc-patch.patch")
-  md5sums+=("SKIP"
-            "SKIP")
 fi
 
 export KBUILD_BUILD_HOST=archlinux
@@ -476,26 +465,6 @@ prepare(){
     msg2 "Enable BORE (Burst-Oriented Response Enhancer) CPU Scheduler"
     scripts/config --enable CONFIG_BS_SCHED
 
-  elif [[ $_cpu_sched = "4" ]]; then
-
-    sleep 2s
-
-    msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler"
-    scripts/config --enable CONFIG_SCHED_ALT
-    msg2 "Enable PDS CPU scheduler"
-    scripts/config --enable CONFIG_SCHED_PDS
-    scripts/config --disable CONFIG_SCHED_BMQ
-
-  elif [[ $_cpu_sched = "5" ]]; then
-
-    sleep 2s
-
-    msg2 "Enable CONFIG_SCHED_ALT, this feature enable alternative CPU scheduler"
-    scripts/config --enable CONFIG_SCHED_ALT
-    msg2 "Enable BMQ CPU scheduler"
-    scripts/config --enable CONFIG_SCHED_BMQ
-    scripts/config --disable CONFIG_SCHED_PDS
-
   fi
 
   sleep 2s
@@ -509,22 +478,6 @@ prepare(){
     touch localversion-bore
 
     echo "-bore" > localversion-bore
-
-  elif [[ $_cpu_sched = "4" ]]; then
-
-    rm -rf localversion-pds
-
-    touch localversion-pds
-
-    echo "-pds" > localversion-pds
-
-  elif [[ $_cpu_sched = "5" ]]; then
-
-    rm -rf localversion-bmq
-
-    touch localversion-bmq
-
-    echo "-bmq" > localversion-bmq
 
   fi
 
