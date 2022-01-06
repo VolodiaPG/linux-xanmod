@@ -7,21 +7,19 @@ XanMod kernel build for Archlinux.
 # Version
 
 
-- 5.15.10-xanmod1
+- 5.15.13-xanmod1
 
-- 5.15.10-xanmod1-tt
+- 5.15.13-xanmod1-tt
 
-- 5.10.87-xanmod1
+- 5.10.90-xanmod1
 
-- 5.15.10-xanmod1-bore-baby ( unofficial package created by me :P )
-
-- 5.15.10-xanmod1-bore-cacule ( unofficial package created by me :P )
+- 5.15.13-xanmod1-bore ( unofficial package created by me :P )
 
 # Build
 
     git clone https://github.com/kevall474/XanMod.git
-    cd XanMod 
-    cd stable && env _cpu_sched=(1,2 or 3) _compiler=(1 or 2) makepkg -s
+    cd XanMod
+    cd stable && env _cpu_sched=(1 or 2) _compiler=(1 or 2) makepkg -s
     or
     cd lts && env _compiler=(1 or 2) makepkg -s
 
@@ -32,8 +30,7 @@ XanMod kernel build for Archlinux.
 - Will add a CPU Scheduler :
 
         1 : TT CPU Scheduler by Hamad Al Marri
-        2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki based on Baby CPU Scheduler by Hamad Al Marri
-        3 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki based on CacULE and Baby CPU Scheduler by Hamad Al Marri
+        2 : BORE (Burst-Oriented Response Enhancer) CPU Scheduler by Masahito Suzuki based on CacULE and Baby CPU Scheduler by Hamad Al Marri
 
 Leave this variable empty if you don't want to add a CPU Scheduler.
 
