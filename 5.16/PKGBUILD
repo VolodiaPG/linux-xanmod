@@ -387,11 +387,6 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Disable Deadline I/O scheduler"
-  scripts/config --disable CONFIG_MQ_IOSCHED_DEADLINE
-
-  sleep 2s
-
   msg2 "Enable Intel Processor P-State driver"
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
