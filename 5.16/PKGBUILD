@@ -330,7 +330,7 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Set to full tickless"
+  msg2 "Set to full tickless (by TK-Glitch)"
 
   #periodic ticks
   #scripts/config --disable CONFIG_NO_HZ_FULL_NODEF
