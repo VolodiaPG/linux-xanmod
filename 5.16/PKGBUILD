@@ -372,17 +372,6 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Enable ntfs"
-  scripts/config --module CONFIG_NTFS_FS
-  scripts/config --enable CONFIG_NTFS_RW
-  msg2 "Enable ntfs3"
-  scripts/config --module CONFIG_NTFS3_FS
-  scripts/config --enable CONFIG_NTFS3_64BIT_CLUSTER
-  scripts/config --enable CONFIG_NTFS3_LZX_XPRESS
-  scripts/config --enable CONFIG_NTFS3_FS_POSIX_ACL
-
-  sleep 2s
-
   msg2 "Disabling Kyber I/O scheduler"
   scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
 
