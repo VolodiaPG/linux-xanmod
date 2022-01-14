@@ -95,7 +95,7 @@ pkgver=5.16.0_xanmod1
 versiontag=5.16.0-xanmod1
 #fi
 major=5.16
-pkgrel=1
+pkgrel=3
 arch=(x86_64)
 url="https://xanmod.org/"
 license=(GPL-2.0)
@@ -130,8 +130,8 @@ source+=("${lucjanpath}/block-ll-patches-sep/0001-block-Kconfig.iosched-set-defa
          "${lucjanpath}/block-ll-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
          "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
          "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
-md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-          "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+md5sums+=("72ac4302e0432e0df51fc168d09a257a"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+          "628a38b970c6368500d607657be1dcb1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
 # BFQ patches
