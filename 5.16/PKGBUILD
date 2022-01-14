@@ -104,7 +104,7 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "pahole" "patch" "bc" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("SKIP")  #linux-5.x.tar.xz
+md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93") #linux-5.16.tar.xz
 
 #if [[ $_cpu_sched = "1" ]]; then
 #  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$_versiontag.xz"
@@ -132,6 +132,10 @@ md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-de
           "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+
+# BFQ patches
+source+=("5.16-bfq-lucjan-r2K220114v2.patch")
+md5sums+=("398e0aa9f701b627add58e8e05102050") #5.16-bfq-lucjan-r2K220114v2.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
