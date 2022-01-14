@@ -123,6 +123,14 @@ md5sums=("SKIP")  #linux-5.x.tar.xz
 #  md5sums+=("SKIP")   #5.15.12-xanmod1-bore21-cacule.patch
 #fi
 
+# Block patches. Set BFQ as default
+source+=("0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
+         "0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
+         "0004-block-Add-CONFIG-to-rename-the-mq-deadline-scheduler.patch")
+md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+          "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+          "a279791c4e2ba80a504b192e15e39c39") #0004-block-Add-CONFIG-to-rename-the-mq-deadline-scheduler.patch
+
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
@@ -377,8 +385,18 @@ prepare(){
 
   sleep 2s
 
+  msg2 "Enable Deadline I/O scheduler (We will enable MQ-Deadline-Nodefault I/O scheduler later) MQ-Deadline-Nodefault I/O scheduler depend on Deadline I/O scheduler"
+  scripts/config --module CONFIG_MQ_IOSCHED_DEADLINE
+
+  sleep 2s
+
   msg2 "Enable Intel Processor P-State driver"
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
+
+  msg2 "Enable MQ-Deadline-Nodefault I/O scheduler"
+  scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE_NODEFAULT
+
+  sleep 2s
 
   sleep 2s
 
