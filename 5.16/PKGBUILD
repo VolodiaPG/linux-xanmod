@@ -95,7 +95,7 @@ pkgver=5.16.0_xanmod1
 versiontag=5.16.0-xanmod1
 #fi
 major=5.16
-pkgrel=3
+pkgrel=1
 arch=(x86_64)
 url="https://xanmod.org/"
 license=(GPL-2.0)
