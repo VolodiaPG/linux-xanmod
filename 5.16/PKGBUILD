@@ -110,17 +110,17 @@ md5sums=("SKIP")  #linux-5.x.tar.xz
 #  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$_versiontag.xz"
 #           "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
 #           "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
-#  md5sums+=("SKIP"   #patch-5.x.x-xanmod1-tt.xz
+#  md5sums+=("SKIP"   #patch-5.x.x-xanmodx-tt.xz
 #            "SKIP"   #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
 #            "SKIP")  #https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch
 #else
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-  md5sums+=("SKIP")  #patch-5.x.x-xanmod1.xz
+  md5sums+=("SKIP")  #patch-5.x.x-xanmodx.xz
 #fi
 #
 #if [[ $_cpu_sched = "2" ]]; then
 #  source+=("5.15.12-xanmod1-bore21-cacule.patch")
-#  md5sums+=("SKIP")
+#  md5sums+=("SKIP")   #5.15.12-xanmod1-bore21-cacule.patch
 #fi
 
 export KBUILD_BUILD_HOST=archlinux
