@@ -134,9 +134,6 @@ md5sums+=("72ac4302e0432e0df51fc168d09a257a"  #0001-block-Kconfig.iosched-set-de
           "628a38b970c6368500d607657be1dcb1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
-# BFQ patches
-source+=("${lucjanpath}/bfq-lucjan-ll/5.16-bfq-lucjan-r2K220114v2.patch")
-md5sums+=("398e0aa9f701b627add58e8e05102050") #5.16-bfq-lucjan-r2K220114v2.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
