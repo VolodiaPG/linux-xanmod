@@ -16,16 +16,16 @@
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################## CPU Scheduler #################
-#
-##Set CPU Scheduler
-##Set '1' for TT CPU Scheduler
-##Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on CacULE and Baby CPU Scheduler by Hamad Al Marri
-##Leave empty for no CPU Scheduler
-##Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
-#if [ -z ${_cpu_sched+x} ]; then
-#  _cpu_sched=
-#fi
-#
+
+#Set CPU Scheduler
+#Set '1' for TT CPU Scheduler
+#Set '2' for BORE (Burst-Oriented Response Enhancer) CPU Scheduler based on CacULE and Baby CPU Scheduler by Hamad Al Marri
+#Leave empty for no CPU Scheduler
+#Default is empty. It will build with no cpu scheduler. To build with cpu shceduler just use : env _cpu_sched=(1 or 2) makepkg -s
+if [ -z ${_cpu_sched+x} ]; then
+  _cpu_sched=
+fi
+
 ################################# Arch ################################
 
 ARCH=x86
@@ -74,13 +74,13 @@ fi
 ###################################################################################
 
 # This section set the pkgbase based on the cpu scheduler, so user can build different package based on the cpu scheduler.
-#if [[ $_cpu_sched = "1" ]]; then
-#  pkgbase=linux-xanmod-tt
-#elif [[ $_cpu_sched = "2" ]]; then
-#  pkgbase=linux-xanmod-bore
-#else
+if [[ $_cpu_sched = "1" ]]; then
+  pkgbase=linux-xanmod-tt
+elif [[ $_cpu_sched = "2" ]]; then
+  pkgbase=linux-xanmod-bore
+else
 pkgbase=linux-xanmod
-#fi
+fi
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
@@ -88,13 +88,16 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-#if [[ $_cpu_sched = "1" ]]; then
-#  pkgver=5.15.14_xanmod1
-#  _versiontag=5.15.14-xanmod1-tt
-#else
-pkgver=5.16.1_xanmod1
-versiontag=5.16.1-xanmod1
-#fi
+if [[ $_cpu_sched = "1" ]]; then
+  pkgver=5.15.15_xanmod1
+  versiontag=5.15.15-xanmod1-tt
+elif [[ $_cpu_sched = "2" ]]; then
+  pkgver=5.15.15_xanmod1
+  versiontag=5.15.15-xanmod1
+else
+  pkgver=5.16.1_xanmod1
+  versiontag=5.16.1-xanmod1
+fi
 major=5.16
 pkgrel=1
 arch=(x86_64)
@@ -105,44 +108,78 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "clang" "lib32-clang" "llvm" "lib32-llvm" "llvm-libs" "lib32-llvm-libs" "lld" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc"
              "pahole" "patch" "bc" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93") #linux-5.16.tar.xz
+#source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
+#md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93") #linux-5.16.tar.xz
 
-#if [[ $_cpu_sched = "1" ]]; then
-#  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$_versiontag.xz"
-#           "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
-#           "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
-#  md5sums+=("SKIP"   #patch-5.x.x-xanmodx-tt.xz
-#            "SKIP"   #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
-#            "SKIP")  #https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch
-#else
+if [[ $_cpu_sched = "1" ]]; then
+  source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz")
+  md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
+
+  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+           "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
+           "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
+  md5sums+=("SKIP"   #patch-5.x.x-xanmodx-tt.xz
+            "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
+            "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
+  lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/5.15
+  # Block patches. Set BFQ as default
+  source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
+           "${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
+           "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
+           "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
+  md5sums+=("c6f1a2a0de02804965715d07887e3ad7"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+            "cd518daa8735836820a9e9570aa423d1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+            "32ff153fc70d6a82a2d704b9b8420fce"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+            "f704a6013048226432498d86956edbe0") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+elif [[ $_cpu_sched = "2" ]]; then
+  source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz")
+  md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
+
+  source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+           "5.15.12-xanmod1-bore21-cacule.patch")
+  md5sums+=("SKIP"
+            "a6c60474df6d50d7352210659b51b8cd") #5.15.12-xanmod1-bore21-cacule.patch
+  lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/5.15
+  # Block patches. Set BFQ as default
+  source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
+           "${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
+           "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
+           "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
+  md5sums+=("c6f1a2a0de02804965715d07887e3ad7"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+            "cd518daa8735836820a9e9570aa423d1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+            "32ff153fc70d6a82a2d704b9b8420fce"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+            "f704a6013048226432498d86956edbe0") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+else
+  source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-5.16.tar.xz")
+  md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93") #linux-5.16.tar.xz
+
   source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
   md5sums+=("SKIP")  #patch-5.x.x-xanmodx.xz
-#fi
-#
-#if [[ $_cpu_sched = "2" ]]; then
-#  source+=("5.15.12-xanmod1-bore21-cacule.patch")
-#  md5sums+=("SKIP")   #5.15.12-xanmod1-bore21-cacule.patch
-#fi
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/${major}
-# Block patches. Set BFQ as default
-source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
-         "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
-         "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
-         "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
-md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-          "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-          "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-          "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+  lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/5.16
+  # Block patches. Set BFQ as default
+  source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
+           "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
+           "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
+           "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
+  md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+            "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+            "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+            "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+fi
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare(){
+  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
+    cd "${srcdir}"/linux-5.15
+  else
+    cd "${srcdir}"/linux-5.16
+  fi
 
-  cd "${srcdir}"/linux-$major
+  #cd "${srcdir}"/linux-$major
 
   # hacky work around for xz not getting extracted
   # https://bbs.archlinux.org/viewtopic.php?id=265115
@@ -195,11 +232,11 @@ prepare(){
   if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
     plain ""
 
-    #msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
-    #scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
-    #scripts/config --disable CONFIG_GCC_PLUGINS
+    msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
+    scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
+    scripts/config --disable CONFIG_GCC_PLUGINS
 
-    #sleep 2s
+    sleep 2s
 
     msg2 "Disable Fortify"
     scripts/config --disable CONFIG_FORTIFY_SOURCE
@@ -567,15 +604,15 @@ prepare(){
 
   plain ""
 
-  #if [[ $_cpu_sched = "2" ]]; then
-  #
-  #  rm -rf localversion-bore
-  #
-  #  touch localversion-bore
-  #
-  #  echo "-bore" > localversion-bore
-  #
-  #fi
+  if [[ $_cpu_sched = "2" ]]; then
+
+    rm -rf localversion-bore
+
+    touch localversion-bore
+
+    echo "-bore" > localversion-bore
+
+  fi
 
   # Setting localversion
   msg2 "Setting localversion..."
@@ -600,8 +637,13 @@ prepare(){
 }
 
 build(){
+  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
+    cd "${srcdir}"/linux-5.15
+  else
+    cd "${srcdir}"/linux-5.16
+  fi
 
-  cd "${srcdir}"/linux-$major
+  #cd "${srcdir}"/linux-$major
 
   # make -j$(nproc) all
   msg2 "make -j$(nproc) all..."
@@ -619,7 +661,13 @@ _package(){
               "crda: to set the correct wireless channels of your country")
   provides=("VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
 
-  cd "${srcdir}"/linux-$major
+  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
+    cd "${srcdir}"/linux-5.15
+  else
+    cd "${srcdir}"/linux-5.16
+  fi
+
+  #cd "${srcdir}"/linux-$major
 
   local kernver="$(<version)"
   local modulesdir="${pkgdir}"/usr/lib/modules/${kernver}
@@ -649,7 +697,13 @@ _package-headers(){
   pkgdesc="Headers and scripts for building modules for the $pkgbase package"
   depends=("${pkgbase}" "pahole")
 
-  cd "${srcdir}"/linux-$major
+  if [[ $_cpu_sched = "1" ]] || [[ $_cpu_sched = "2" ]]; then
+    cd "${srcdir}"/linux-5.15
+  else
+    cd "${srcdir}"/linux-5.16
+  fi
+
+  #cd "${srcdir}"/linux-$major
 
   local builddir="$pkgdir"/usr/lib/modules/"$(<version)"/build
 
