@@ -24,4 +24,4 @@ cd bore && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 #cd lts && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd edge && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
+#cd bore && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
