@@ -81,6 +81,8 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "clang" "lib32-clang" "llvm" "lib32-llvm" "llvm-libs" "lib32-llvm-libs" "lld" "gcc" "gcc-libs" "lib32-gcc-libs" "glibc" "lib32-glibc"
              "pahole" "patch" "bc" "kmod" "libmikmod" "lib32-libmikmod" "xmlto" "xmltoman" "graphviz" "imagemagick" "imagemagick-doc"
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
+options=('!strip')
+
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
 md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
 
