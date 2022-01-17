@@ -84,11 +84,11 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93" #linux-5.16.tar.xz
-         "SKIP")  #patch-5.x.x-xanmodx.xz
+md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
+         "SKIP") #patch-5.x.x-xanmodx.xz
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
+lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
          "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
