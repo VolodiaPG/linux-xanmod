@@ -83,13 +83,12 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 options=('!strip')
 
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
-
-source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-         "5.15.12-xanmod1-bore21-cacule.patch")
-md5sums+=("SKIP"  #patch-5.x.x-xanmodx.xz
-          "a6c60474df6d50d7352210659b51b8cd") #5.15.12-xanmod1-bore21-cacule.patch
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
+        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+        "5.15.12-xanmod1-bore21-cacule.patch")
+md5sums=("071d49ff4e020d58c04f9f3f76d3b594" #linux-5.15.tar.xz
+         "SKIP" #patch-5.x.x-xanmodx.xz
+         "a6c60474df6d50d7352210659b51b8cd") #5.15.12-xanmod1-bore21-cacule.patch
           
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
