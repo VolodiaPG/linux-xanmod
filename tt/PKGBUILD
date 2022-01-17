@@ -92,8 +92,8 @@ md5sums=("071d49ff4e020d58c04f9f3f76d3b594"  #linux-5.15.tar.xz
          "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
          "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
+lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
          "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
