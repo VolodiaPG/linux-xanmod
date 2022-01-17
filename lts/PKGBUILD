@@ -442,6 +442,11 @@ prepare(){
   scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
   
   sleep 2s
+  
+  msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
+  scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
+
+  sleep 2s
 
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
