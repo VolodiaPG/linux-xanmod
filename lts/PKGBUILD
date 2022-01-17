@@ -127,11 +127,11 @@ prepare(){
   if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
     plain ""
 
-    #msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
-    #scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
-    #scripts/config --disable CONFIG_GCC_PLUGINS
+    msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
+    scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
+    scripts/config --disable CONFIG_GCC_PLUGINS
 
-    #sleep 2s
+    sleep 2s
     
     msg2 "Disable Fortify"
     scripts/config --disable CONFIG_FORTIFY_SOURCE
@@ -180,11 +180,11 @@ prepare(){
   sleep 2s
 
   msg2 "Set module compression to ZSTD"
-  scripts/config --enable CONFIG_MODULE_COMPRESS
+  scripts/config --disable CONFIG_MODULE_COMPRESS_NONE
   scripts/config --disable CONFIG_MODULE_COMPRESS_GZIP
   scripts/config --disable CONFIG_MODULE_COMPRESS_XZ
   scripts/config --enable CONFIG_MODULE_COMPRESS_ZSTD
-  
+
   sleep 2s
 
   msg2 "Enable CONFIG_STACK_VALIDATION"
@@ -220,7 +220,15 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Set CPU Frequency scaling CONFIG_CPU_FREQ_DEFAULT_GOV/CONFIG_CPU_FREQ_GOV for performance"
+  msg2 "Setting performance governor"
+  scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
+  scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
+  scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
+  scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
+
+  sleep 2s
+
+  msg2 "Disabling uneeded governors"
   scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE
   scripts/config --disable CONFIG_CPU_FREQ_GOV_POWERSAVE
   scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_USERSPACE
@@ -231,8 +239,6 @@ prepare(){
   scripts/config --disable CONFIG_CPU_FREQ_GOV_CONSERVATIVE
   scripts/config --disable CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL
   scripts/config --disable CONFIG_CPU_FREQ_GOV_SCHEDUTIL
-  scripts/config --enable CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
-  scripts/config --enable CONFIG_CPU_FREQ_GOV_PERFORMANCE
 
   sleep 2s
 
@@ -256,37 +262,62 @@ prepare(){
   scripts/config --enable CONFIG_PCIE_BUS_PERFORMANCE
 
   sleep 2s
-
-  msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
-  scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
-  scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
-  scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
-
-  sleep 2s
-
+  
   msg2 "Set timer frequency to 1000HZ"
   scripts/config --enable CONFIG_HZ_1000
   scripts/config --set-val CONFIG_HZ 1000
 
   sleep 2s
 
-  msg2 "Enable PREEMPT"
-  scripts/config --disable CONFIG_PREEMPT_NONE
-  scripts/config --disable CONFIG_PREEMPT_VOLUNTARY
-  scripts/config --enable CONFIG_PREEMPT
-  scripts/config --enable CONFIG_PREEMPT_COUNT
-  scripts/config --enable CONFIG_PREEMPTION
+  msg2 "Set to full tickless (by TK-Glitch)"
 
-  sleep 2s
+  #periodic ticks
+  #scripts/config --disable CONFIG_NO_HZ_FULL_NODEF
+  #scripts/config --disable CONFIG_NO_HZ_IDLE
+  #scripts/config --disable CONFIG_NO_HZ_FULL
+  #scripts/config --disable CONFIG_NO_HZ
+  #scripts/config --disable CONFIG_NO_HZ_COMMON
+  #scripts/config --enable CONFIG_HZ_PERIODIC
 
-  msg2 "Set to full tickless"
+  #full tickless
   scripts/config --disable CONFIG_HZ_PERIODIC
   scripts/config --disable CONFIG_NO_HZ_IDLE
+  scripts/config --disable CONFIG_CONTEXT_TRACKING_FORCE
+  scripts/config --enable CONFIG_NO_HZ_FULL_NODEF
   scripts/config --enable CONFIG_NO_HZ_FULL
   scripts/config --enable CONFIG_NO_HZ
   scripts/config --enable CONFIG_NO_HZ_COMMON
-  #scripts/config --enable CONFIG_CONTEXT_TRACKING
-  #scripts/config --disable CONFIG_CONTEXT_TRACKING_FORCE
+  scripts/config --enable CONFIG_CONTEXT_TRACKING
+
+  #tickless idle
+  #scripts/config --disable CONFIG_NO_HZ_FULL_NODEF
+  #scripts/config --disable CONFIG_HZ_PERIODIC
+  #scripts/config --disable CONFIG_NO_HZ_FULL
+  #scripts/config --enable CONFIG_NO_HZ_IDLE
+  #scripts/config --enable CONFIG_NO_HZ
+  #scripts/config --enable CONFIG_NO_HZ_COMMON
+
+  sleep 2s
+
+  msg2 "Disable some debugging (by TK-Glitch)"
+  scripts/config --disable CONFIG_SLUB_DEBUG
+  scripts/config --disable CONFIG_PM_DEBUG
+  scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
+  scripts/config --disable CONFIG_PM_SLEEP_DEBUG
+  scripts/config --disable CONFIG_ACPI_DEBUG
+  scripts/config --disable CONFIG_SCHED_DEBUG
+  scripts/config --disable CONFIG_LATENCYTOP
+  scripts/config --disable CONFIG_DEBUG_PREEMPT
+
+  sleep 2s
+
+  msg2 "Disabling Kyber I/O scheduler"
+  scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
+
+  sleep 2s
+
+  msg2 "Enable Intel Processor P-State driver"
+  scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
 
@@ -301,24 +332,13 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Enable BBR/BBR2 TCP"
-  scripts/config --module CONFIG_TCP_CONG_BBR
-  scripts/config --module CONFIG_TCP_CONG_BBR2
-
-  sleep 2s
-
-  msg2 "Disabling Kyber I/O scheduler"
-  scripts/config --disable CONFIG_MQ_IOSCHED_KYBER
-
-  sleep 2s
-
-  msg2 "Enable Deadline I/O scheduler"
-  scripts/config --enable CONFIG_MQ_IOSCHED_DEADLINE
-
-  sleep 2s
-
-  msg2 "Enable CONFIG_BFQ_CGROUP_DEBUG"
-  scripts/config --enable CONFIG_BFQ_CGROUP_DEBUG
+  msg2 "Disable TCP_CONG_CUBIC"
+  scripts/config --module CONFIG_TCP_CONG_CUBIC
+  scripts/config --disable CONFIG_DEFAULT_CUBIC
+  msg2 "Enable TCP_CONG_BBR2"
+  scripts/config --enable CONFIG_TCP_CONG_BBR2
+  scripts/config --enable CONFIG_DEFAULT_BBR2
+  scripts/config --set-str CONFIG_DEFAULT_TCP_CONG bbr2
 
   sleep 2s
 
@@ -332,14 +352,87 @@ prepare(){
   scripts/config --enable CONFIG_FUTEX_PI
 
   sleep 2s
+  
+  msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
+  scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
+  scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
+  scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
+  
+  sleep 2s
 
-  msg2 "Enable LRNG"
+  #msg2 "Enable Linux Random Number Generator with pfkernel config"
+  #scripts/config --enable CONFIG_LRNG
+  #scripts/config --enable CONFIG_LRNG_OVERSAMPLE_ENTROPY_SOURCES
+  #scripts/config --set-val CONFIG_CONFIG_LRNG_OVERSAMPLE_ES_BITS 64
+  #scripts/config --set-val CONFIG_LRNG_SEED_BUFFER_INIT_ADD_BITS 128
+  #scripts/config --enable CONFIG_LRNG_IRQ
+  #scripts/config --enable CONFIG_LRNG_CONTINUOUS_COMPRESSION_ENABLED
+  #scripts/config --disable CONFIG_LRNG_CONTINUOUS_COMPRESSION_DISABLED
+  #scripts/config --enable CONFIG_LRNG_ENABLE_CONTINUOUS_COMPRESSION
+  #scripts/config --enable CONFIG_LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION
+  #scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_512
+  #scripts/config --enable CONFIG_LRNG_COLLECTION_SIZE_1024
+  #scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_2048
+  #scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_4096
+  #scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_8192
+  #scripts/config --set-val CONFIG_LRNG_COLLECTION_SIZE 1024
+  #scripts/config --enable CONFIG_LRNG_HEALTH_TESTS
+  #scripts/config --set-val CONFIG_LRNG_RCT_CUTOFF 31
+  #scripts/config --set-val CONFIG_LRNG_APT_CUTOFF 325
+  #scripts/config --set-val CONFIG_LRNG_IRQ_ENTROPY_RATE 256
+  #scripts/config --enable CONFIG_LRNG_JENT
+  #scripts/config --set-val CONFIG_LRNG_JENT_ENTROPY_RATE 16
+  #scripts/config --enable CONFIG_LRNG_CPU
+  #scripts/config --set-val CONFIG_LRNG_CPU_ENTROPY_RATE 8
+  #scripts/config --enable CONFIG_LRNG_DRNG_SWITCH
+  #scripts/config --enable CONFIG_LRNG_KCAPI_HASH
+  #scripts/config --module CONFIG_LRNG_DRBG
+  #scripts/config --module CONFIG_LRNG_KCAPI
+  #scripts/config --enable CONFIG_LRNG_TESTING_MENU
+  #scripts/config --disable CONFIG_LRNG_RAW_HIRES_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_JIFFIES_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_IRQ_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_IRQFLAGS_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_RETIP_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_REGS_ENTROPY
+  #scripts/config --disable CONFIG_LRNG_RAW_ARRAY
+  #scripts/config --disable CONFIG_LRNG_IRQ_PERF
+  #scripts/config --disable CONFIG_LRNG_ACVT_HASH
+  #scripts/config --enable CONFIG_LRNG_RUNTIME_ES_CONFIG
+  #scripts/config --disable CONFIG_LRNG_RUNTIME_MAX_WO_RESEED_CONFIG
+  #scripts/config --disable CONFIG_LRNG_TEST_CPU_ES_COMPRESSION
+  #scripts/config --enable CONFIG_LRNG_SELFTEST
+  #scripts/config --disable CONFIG_LRNG_SELFTEST_PANIC
+  msg2 "Enable Linux Random Number Generator with xanmod config"
   scripts/config --enable CONFIG_LRNG
-  scripts/config --enable CONFIG_LRNG_OVERSAMPLE_ENTROPY_SOURCES
+  scripts/config --disable CONFIG_LRNG_OVERSAMPLE_ENTROPY_SOURCES
+  scripts/config --set-val CONFIG_CONFIG_LRNG_OVERSAMPLE_ES_BITS 0
+  scripts/config --set-val CONFIG_LRNG_SEED_BUFFER_INIT_ADD_BITS 0
+  scripts/config --enable CONFIG_LRNG_IRQ
   scripts/config --enable CONFIG_LRNG_CONTINUOUS_COMPRESSION_ENABLED
+  scripts/config --disable CONFIG_LRNG_CONTINUOUS_COMPRESSION_DISABLED
   scripts/config --enable CONFIG_LRNG_ENABLE_CONTINUOUS_COMPRESSION
-  scripts/config --enable CONFIG_LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION
+  scripts/config --disable CONFIG_LRNG_SWITCHABLE_CONTINUOUS_COMPRESSION
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_32
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_256
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_512
   scripts/config --enable CONFIG_LRNG_COLLECTION_SIZE_1024
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_2048
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_4096
+  scripts/config --disable CONFIG_LRNG_COLLECTION_SIZE_8192
+  scripts/config --set-val CONFIG_LRNG_COLLECTION_SIZE 1024
+  scripts/config --disable CONFIG_LRNG_HEALTH_TESTS
+  scripts/config --set-val CONFIG_LRNG_RCT_CUTOFF 31
+  scripts/config --set-val CONFIG_LRNG_APT_CUTOFF 325
+  scripts/config --set-val CONFIG_LRNG_IRQ_ENTROPY_RATE 256
+  scripts/config --enable CONFIG_LRNG_JENT
+  scripts/config --set-val CONFIG_LRNG_JENT_ENTROPY_RATE 16
+  scripts/config --enable CONFIG_LRNG_CPU
+  scripts/config --set-val CONFIG_LRNG_CPU_ENTROPY_RATE 8
+  scripts/config --disable CONFIG_LRNG_DRNG_SWITCH
+  scripts/config --disable CONFIG_LRNG_DRBG
+  scripts/config --disable CONFIG_LRNG_TESTING_MENU
+  scripts/config --disable CONFIG_LRNG_SELFTEST
 
   sleep 2s
   
@@ -361,6 +454,8 @@ prepare(){
   msg2 "Setting localversion..."
   scripts/setlocalversion --save-scmversion
   echo "-${pkgbase}" > localversion-pkgbuild
+  
+  plain ""
 
   # Config
   if [[ "$_compiler" = "1" ]]; then
@@ -368,9 +463,13 @@ prepare(){
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   fi
+  
+  plain ""
 
   make -s kernelrelease > version
   msg2 "Prepared $pkgbase version $(<version)"
+  
+  plain ""
 }
 
 build(){
