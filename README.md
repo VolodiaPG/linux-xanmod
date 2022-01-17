@@ -13,14 +13,14 @@ XanMod kernel build for Archlinux.
 
 - LTS : 5.10.92-xanmod1
 
-- BORE : 5.15.15-xanmod1-bore ( unofficial package created by me :P )
+- BORE : 5.15.15-xanmod1-bore ( unofficial package created by me )
 
 - Edge : 5.16.1-xanmod1
 
 # Build
 
     git clone https://github.com/kevall474/XanMod.git
-    cd XanMod/{stable,bore,tt,edge.lts}
+    cd XanMod/{stable,tt,lts,edge.bore}
     env_compiler=(1 or 2) makepkg -s
 
 # Build variables
