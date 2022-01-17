@@ -87,11 +87,11 @@ for _p in "${pkgname[@]}"; do
   }"
 done
 if [[ $_cpu_sched = "1" ]]; then
-  pkgver=5.15.14_xanmod1
-  versiontag=5.15.14-xanmod1-tt
+  pkgver=5.15.15_xanmod1
+  versiontag=5.15.15-xanmod1-tt
 else
-  pkgver=5.15.14_xanmod1
-  versiontag=5.15.14-xanmod1
+  pkgver=5.15.15_xanmod1
+  versiontag=5.15.15-xanmod1
 fi
 major=5.15
 pkgrel=1
