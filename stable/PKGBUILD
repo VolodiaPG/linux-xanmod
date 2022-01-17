@@ -84,7 +84,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
 md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
 
 source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-md5sums+=("SKIP")  #patch-5.x.x-xanmod1.xz
+md5sums+=("SKIP")  #patch-5.x.x-xanmodx.xz
 
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
