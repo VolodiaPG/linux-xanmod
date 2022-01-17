@@ -21,7 +21,7 @@ XanMod kernel build for Archlinux.
 
     git clone https://github.com/kevall474/XanMod.git
     cd XanMod/{stable,bore,tt,edge.lts}
-    en_compiler=(1 or 2) makepkg -s
+    env_compiler=(1 or 2) makepkg -s
 
 # Build variables
 
