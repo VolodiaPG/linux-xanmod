@@ -82,11 +82,10 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 options=('!strip')
 
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93") #linux-5.16.tar.xz
-
-source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-md5sums+=("SKIP")  #patch-5.x.x-xanmodx.xz
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
+        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
+md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93" #linux-5.16.tar.xz
+         "SKIP")  #patch-5.x.x-xanmodx.xz
 
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
