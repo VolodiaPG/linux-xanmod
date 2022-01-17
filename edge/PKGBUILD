@@ -290,16 +290,10 @@ prepare(){
   scripts/config --enable CONFIG_PCIE_BUS_PERFORMANCE
 
   sleep 2s
-
-  #if [[ $_cpu_sched = "1" ]]; then
-  #  msg2 "Set timer frequency to 10000HZ"
-  #  scripts/config --enable CONFIG_HZ_10000
-  #  scripts/config --set-val CONFIG_HZ 10000
-  #else
-    msg2 "Set timer frequency to 1000HZ"
-    scripts/config --enable CONFIG_HZ_1000
-    scripts/config --set-val CONFIG_HZ 1000
-  #fi
+  
+  msg2 "Set timer frequency to 1000HZ"
+  scripts/config --enable CONFIG_HZ_1000
+  scripts/config --set-val CONFIG_HZ 1000
 
   sleep 2s
 
