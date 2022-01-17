@@ -521,6 +521,13 @@ prepare(){
 
   plain ""
 
+  msg2 "Set -edge localversion"
+  rm -rf localversion-edge
+  touch localversion-edge
+  echo "-bore" > localversion-edge
+
+  plain ""
+
   # Setting localversion
   msg2 "Setting localversion..."
   scripts/setlocalversion --save-scmversion
