@@ -83,15 +83,14 @@ makedepends=("bison" "flex" "valgrind" "git" "cmake" "make" "extra-cmake-modules
              "rsync" "cpio" "inetutils" "gzip" "zstd" "xz" "tar" "perl")
 options=('!strip')
 
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz")
-md5sums=("071d49ff4e020d58c04f9f3f76d3b594") #linux-5.15.tar.xz
-
-source+=("https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-         "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
-         "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
-md5sums+=("SKIP"  #patch-5.x.x-xanmodx-tt.xz
-          "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
-          "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
+source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
+        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
+        "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
+        "https://raw.githubusercontent.com/hamadmarri/TT-CPU-Scheduler/master/patches/5.15/high-hz.patch")
+md5sums=("071d49ff4e020d58c04f9f3f76d3b594"  #linux-5.15.tar.xz
+         "SKIP"  #patch-5.x.x-xanmodx-tt.xz
+         "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
+         "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
 
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 # Block patches. Set BFQ as default
