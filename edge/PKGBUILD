@@ -10,7 +10,7 @@
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block, BLK and BTRFS patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For a set of patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -87,8 +87,15 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP") #patch-5.x.x-xanmodx.xz
 
-# Block patches. Set BFQ as default
+# Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+# Arch patches
+source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch")
+md5sums+=("a946c6ae7715812df1b8cf1b615a9eed") #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+# Amd64 patches
+source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
+md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
+# Block patches. Set BFQ as default
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
          "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
@@ -103,6 +110,40 @@ md5sums+=("194c8e20ad30973c32159cb23f3be4c9") #0001-blk-patches.patch
 # BTRFS patches
 source+=("${lucjanpath}/btrfs-patches-v2/0001-btrfs-patches.patch")
 md5sums+=("075dae41d483da988a376a765fe80828") #0001-btrfs-patches.patch
+# f2fs patches
+source+=("${lucjanpath}/f2fs-patches/0001-f2fs-patches.patch")
+md5sums+=("55bb44747ae64b05640e6452113877c2") #0001-f2fs-patches.patch
+# fixes-miscellaneous
+source+=("${lucjanpath}/fixes-miscellaneous-v2-sep/0001-net-sched-allow-configuring-cake-qdisc-as-default.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0002-infiniband-Fix-__read_overflow2-error-with-O3-inlini.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0004-scsi-sd-Optimal-I-O-size-should-be-a-multiple-of-rep.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0005-iomap-avoid-deadlock-if-memory-reclaim-is-triggered-.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0006-tty-Allow-setting-the-number-of-available-virtual-TT.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0008-fm-5.16-port-mm-kswapd-patches.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0009-Disable-stack-conservation-for-GCC.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0012-x86-csum-Fix-initial-seed-for-odd-buffers.patch"
+         "${lucjanpath}/fixes-miscellaneous-v2-sep/0013-xfs-check-sb_meta_uuid-for-dabuf-buffer-recovery.patch")
+md5sums+=("4d7eb36a307bf8b5cdc88af404420d41"  #0001-net-sched-allow-configuring-cake-qdisc-as-default.patch
+          "56e74a2de391982d335eb208b250f4ea"  #0002-infiniband-Fix-__read_overflow2-error-with-O3-inlini.patch
+          "c766451a2c5add26e4f4526adb8a794a"  #0004-scsi-sd-Optimal-I-O-size-should-be-a-multiple-of-rep.patch
+          "3d1b8692d7373f97befceacb3015b49f"  #0005-iomap-avoid-deadlock-if-memory-reclaim-is-triggered-.patch
+          "533e64f9a4f816fec08276052221d5a2"  #0006-tty-Allow-setting-the-number-of-available-virtual-TT.patch
+          "ba90b7ad227fbab42dae26dceab2281e"  #0008-fm-5.16-port-mm-kswapd-patches.patch
+          "b131df5d598847086e8272e53d5c2165"  #0009-Disable-stack-conservation-for-GCC.patch
+          "38383a14f28ff5f0d2edcaa483302646"  #0012-x86-csum-Fix-initial-seed-for-odd-buffers.patch
+          "fc31659cee31da8b5b9438c9df5583de") #0013-xfs-check-sb_meta_uuid-for-dabuf-buffer-recovery.patch
+#hwmon patches
+source+=("${lucjanpath}/hwmon-patches-v5/0001-hwmon-patches.patch")
+md5sums+=("8fa4524671e6901bbdb47aaf8ecc0de8") #0001-hwmon-patches.patch
+# pf patches
+source+=("${lucjanpath}/pf-patches/0001-pf-patches.patch")
+md5sums+=("be1e00d93e9c2ba91ee6017b82e64194") #0001-pf-patches.patch
+# smbus patches
+source+=("${lucjanpath}/smbus-patches/0001-smbus-patches.patch")
+md5sums+=("302cb7608dea307580db5843a1a615a2") #0001-smbus-patches.patch
+# v4l2loopback patch
+source+=("${lucjanpath}/v4l2loopback-patches/0001-v4l2loopback-5.16-merge-v0.12.5.patch")
+md5sums+=("ad86e3a753fa20c61508766fe9741319") #0001-v4l2loopback-5.16-merge-v0.12.5.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -526,6 +567,20 @@ prepare(){
 
   sleep 2s
 
+  msg2 "Enable V4L2_LOOPBACK"
+  scripts/config --module CONFIG_V4L2_LOOPBACK
+
+  sleep 2s
+
+  msg2 "Enable SENSORS_ASUS_WMI_EC (support for the ACPI embedded controller hardware monitoring interface found in B550/X570 ASUS motherboards)"
+  scripts/config --module CONFIG_SENSORS_ASUS_WMI_EC
+  sleep 2s
+
+  msg2 "Enable SENSORS_ASUS_EC (support for the ACPI embedded controller hardware monitoring interface found in ASUS motherboards. The driver currently supports B550/X570 boards)"
+  scripts/config --module CONFIG_SENSORS_ASUS_EC
+
+  sleep 2s
+
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
 
@@ -568,7 +623,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod kernel and modules witch Piotr Górski Block, BLK and BTRFS patch set - edge"
+  pkgdesc="XanMod kernel and modules witch Piotr Górski set of patches - edge"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")

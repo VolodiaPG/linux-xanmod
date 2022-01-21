@@ -11,7 +11,7 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler patch
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block, BLK and BTRFS patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block, BLK, BTRFS and Amd64 patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -106,6 +106,10 @@ md5sums+=("194c8e20ad30973c32159cb23f3be4c9") #0001-blk-patches.patch
 # BTRFS patches
 source+=("${lucjanpath}/btrfs-patches-v2/0001-btrfs-patches.patch")
 md5sums+=("075dae41d483da988a376a765fe80828") #0001-btrfs-patches.patch
+# Amd64 patches
+source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
+md5sums+=("SKIP")
+md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -584,7 +588,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski Block, BLK and BTRFS patch set"
+  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski Block, BLK, BTRFS and Amd64 patch set"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
