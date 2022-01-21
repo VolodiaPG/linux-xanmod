@@ -61,6 +61,10 @@ The benefit of task types is to allow the scheduler to have more control and cho
 
 TT gives RT tasks a -20 prio in vruntime calculations. This boosts RT tasks over other tasks. The preemption rules are purely HRRN where RT tasks have a priority since their vruntimes are relatively less than other types. The reason of using HRRN instead of hard level picking is to smooth out the preemtions and to prevent any chance of starvation.
 
+## BORE (Burst-Oriented Response Enhancer) CPU Scheduler
+
+To come ...
+
 # Update GRUB
 
     sudo grub-mkconfig -o /boot/grub/grub.cfg
