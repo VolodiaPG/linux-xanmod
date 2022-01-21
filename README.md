@@ -6,15 +6,19 @@ XanMod kernel build for Archlinux.
 
 # Version
 
+## Official package
+
 - Edge : 5.16.2-xanmod1
 
 - Stable : 5.15.16-xanmod1
 
 - TT : 5.15.16-xanmod1-tt
 
-- TT-Edge : 5.16.2-xanmod1-tt
-
 - LTS : 5.10.93-xanmod1
+
+## Non-official package
+
+- TT-Edge : 5.16.2-xanmod1-tt
 
 - BORE : 5.16.2-xanmod1-bore ( unofficial package created by me )
 
