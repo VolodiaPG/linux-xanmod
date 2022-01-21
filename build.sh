@@ -14,9 +14,9 @@ cd lts && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 cd tt-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
 
-cd bore && makepkg -s && rm -rf pkg/ src/ && cd ..
-
 cd bore-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
+
+cd bore && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 # clang
 
@@ -30,6 +30,6 @@ cd bore-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 #cd tt-edge && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd bore && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
-
 #cd bore-edge && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
+
+#cd bore && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
