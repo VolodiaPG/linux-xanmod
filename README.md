@@ -43,7 +43,23 @@ If not set it will build with GCC by default.
 
 # CPU Scheduler
 
-To come ...
+## TT CPU Scheduler
+
+Task Type (TT) is an alternative CPU Scheduler for linux.
+
+The goal of the Task Type (TT) scheduler is to detect tasks types based on their behaviours and control the schedulling based on their types. There are 5 types:
+
+1. REALTIME
+2. INTERACTIVE
+3. NO_TYPE
+4. CPU_BOUND
+5. BATCH
+
+Find the descriptions and the detection rules in tasks.ods
+
+The benefit of task types is to allow the scheduler to have more control and choose the best task to run next in the CPU.
+
+TT gives RT tasks a -20 prio in vruntime calculations. This boosts RT tasks over other tasks. The preemption rules are purely HRRN where RT tasks have a priority since their vruntimes are relatively less than other types. The reason of using HRRN instead of hard level picking is to smooth out the preemtions and to prevent any chance of starvation.
 
 # Update GRUB
 
