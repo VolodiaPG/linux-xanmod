@@ -11,7 +11,7 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 #Credits: Masahito Suzuki <firelzrd@gmail.com> <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block and BTRFS patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -100,6 +100,8 @@ md5sums+=("c6f1a2a0de02804965715d07887e3ad7"  #0001-block-Kconfig.iosched-set-de
           "cd518daa8735836820a9e9570aa423d1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "32ff153fc70d6a82a2d704b9b8420fce"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "f704a6013048226432498d86956edbe0") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+source+=("${lucjanpath}/btrfs-patches-v11/0001-btrfs-patches.patch")
+md5sums+=("05308acbf7baf527692474cdef1dca82") #0001-btrfs-patches.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -569,7 +571,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler patch and Piotr Górski block patch set"
+  pkgdesc="XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler patch and Piotr Górski Block and BTRFS patch set"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
