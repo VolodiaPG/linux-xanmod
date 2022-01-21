@@ -11,7 +11,7 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 #Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler patch
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block and BLK patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -100,6 +100,9 @@ md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-de
           "0ca0ee369847388683473c6e9eafa11f"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "84587403cabe9e19bb4363a3ee4f35b8"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "bd5dbcdc69e376db7c62c30b29b6cf66") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+# BLK patches
+source+=("${lucjanpath}/blk-patches/0001-blk-patches.patch")
+md5sums+=("194c8e20ad30973c32159cb23f3be4c9") #0001-blk-patches.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -523,6 +526,11 @@ prepare(){
 
   sleep 2s
 
+  msg2 "Enable BLK_CGROUP_IOSTAT (IO statistics monitor per cgroup)"
+  scripts/config --module CONFIG_BLK_CGROUP_IOSTAT
+
+  sleep 2s
+
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
 
@@ -573,7 +581,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski block patch set"
+  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski block and blk patch set"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
