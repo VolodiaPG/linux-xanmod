@@ -103,7 +103,7 @@ md5sums+=("9805b3e1b13332e75f140faf5629eb17"  #0002-PCI-Add-more-NVIDIA-controll
 # Amd64 patches
 source+=("${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch")
 md5sums+=("f8ed6fdfd78828d3e6296242ce5c24f4") #0001-amd64-patches.patch
-# Block patches. Set BFQ as default
+# Block patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
