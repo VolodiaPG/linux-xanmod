@@ -254,6 +254,8 @@ prepare(){
   sleep 2s
 
   plain ""
+  
+  msg "Base config"
 
   msg2 "Set kernel compression mode to ZSTD"
   scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
