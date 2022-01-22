@@ -95,7 +95,7 @@ md5sums+=("a946c6ae7715812df1b8cf1b615a9eed") #0002-Bluetooth-btintel-Fix-bdaddr
 # Amd64 patches
 source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
 md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
-# Block patches. Set BFQ as default
+# Block patches
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
          "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
