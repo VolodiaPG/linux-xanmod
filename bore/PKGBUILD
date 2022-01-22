@@ -11,7 +11,7 @@
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
 #Credits: Masahito Suzuki <firelzrd@gmail.com> <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block and BTRFS patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For a set of patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -90,6 +90,21 @@ md5sums=("071d49ff4e020d58c04f9f3f76d3b594"  #linux-5.15.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
          "a6c60474df6d50d7352210659b51b8cd") #5.15.12-xanmod1-bore21-cacule.patch
 
+# Piotr Górski patches
+lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+source+=("${lucjanpath}/arch-patches-v11-sep/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch"
+         "${lucjanpath}/arch-patches-v11-sep/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch"
+         "${lucjanpath}/arch-patches-v11-sep/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch"
+         "${lucjanpath}/arch-patches-v11-sep/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
+         "${lucjanpath}/arch-patches-v11-sep/0006-lg-laptop-Recognize-more-models.patch")
+md5sums+=("9805b3e1b13332e75f140faf5629eb17"  #0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
+          "3222e70326e87aaf8b6a27b8ef04edf6"  #0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
+          "dd24aa1b25241d841de72ac50f6c6188"  #0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
+          "8e515134ed7faabcc9b11454efe1e355"  #0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+          "75224cb432bbafe08c1ec6f499336650") #0006-lg-laptop-Recognize-more-models.patch
+# Amd64 patches
+source+=("${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch")
+md5sums+=("f8ed6fdfd78828d3e6296242ce5c24f4") #0001-amd64-patches.patch
 # Block patches. Set BFQ as default
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
@@ -100,8 +115,68 @@ md5sums+=("c6f1a2a0de02804965715d07887e3ad7"  #0001-block-Kconfig.iosched-set-de
           "cd518daa8735836820a9e9570aa423d1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
           "32ff153fc70d6a82a2d704b9b8420fce"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
           "f704a6013048226432498d86956edbe0") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+# BTRFS patches
 source+=("${lucjanpath}/btrfs-patches-v11/0001-btrfs-patches.patch")
 md5sums+=("05308acbf7baf527692474cdef1dca82") #0001-btrfs-patches.patch
+# Damon patches
+source+=("${lucjanpath}/damon-patches-v10/0001-damon-patches.patch")
+md5sums+=("1c281b264c9dcf66bb7f186a3c8576f3") #0001-damon-patches.patch
+# fixes-miscellaneous
+source+=("${lucjanpath}/fixes-miscellaneous-v9-sep/0001-net-sched-allow-configuring-cake-qdisc-as-default.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0002-infiniband-Fix-__read_overflow2-error-with-O3-inlini.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0004-scsi-sd-Optimal-I-O-size-should-be-a-multiple-of-rep.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0005-iomap-avoid-deadlock-if-memory-reclaim-is-triggered-.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0006-tty-Allow-setting-the-number-of-available-virtual-TT.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0008-nvme-don-t-memset-the-normal-read-write-command.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0010-mm-Fully-disable-watermark-boosting-when-it-isn-t-us.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0012-mm-Disable-watermark-boosting-by-default.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0013-Disable-stack-conservation-for-GCC.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0014-vfs-keep-inodes-with-page-cache-off-the-inode-shrink.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0017-x86-csum-Fix-initial-seed-for-odd-buffers.patch"
+         "${lucjanpath}/fixes-miscellaneous-v9-sep/0018-xfs-check-sb_meta_uuid-for-dabuf-buffer-recovery.patch")
+md5sums+=("f57fe4ccfeaa05d9445d6f621cf60a73"  #0001-net-sched-allow-configuring-cake-qdisc-as-default.patch
+          "c6ff0c5cee8c8539734e9b9c5f483309"  #0002-infiniband-Fix-__read_overflow2-error-with-O3-inlini.patch
+          "2967bd05b91c1b59563b9db306800371"  #0004-scsi-sd-Optimal-I-O-size-should-be-a-multiple-of-rep.patch
+          "99c9e4e24c6c9e46bc0d78bc56be2172"  #0005-iomap-avoid-deadlock-if-memory-reclaim-is-triggered-.patch
+          "dfef7a9981c8c19b0cd4a55c19af0040"  #0006-tty-Allow-setting-the-number-of-available-virtual-TT.patch
+          "f54df883b4b681bd6ff81d747e8c638b"  #0008-nvme-don-t-memset-the-normal-read-write-command.patch
+          "92c5b4a84f068f053bcf5953d282e0a0"  #0010-mm-Fully-disable-watermark-boosting-when-it-isn-t-us.patch
+          "954b28b15a00e5da444992070786e806"  #0012-mm-Disable-watermark-boosting-by-default.patch
+          "929bfa221de5ac4baad8394405c6fcc9"  #0013-Disable-stack-conservation-for-GCC.patch
+          "fe944a931004ddbeb7a5d503a0027def"  #0014-vfs-keep-inodes-with-page-cache-off-the-inode-shrink.patch
+          "66e3961779dcf82a6fdf069c58edb205"  #0017-x86-csum-Fix-initial-seed-for-odd-buffers.patch
+          "32690b3853e10ee972d8709b9a7fe154") #0018-xfs-check-sb_meta_uuid-for-dabuf-buffer-recovery.patch
+# intel patches
+source+=("${lucjanpath}/intel-patches/0001-intel-patches.patch")
+md5sums+=("b04c8a3f01b3dfba1410e2c26ec7d975") #0001-intel-patches.patch
+# ll patches
+source+=("${lucjanpath}/ll-patches/0004-sched-core-nr_migrate-256-increases-number-of-tasks-.patch"
+         "${lucjanpath}/ll-patches/0005-mm-set-8-megabytes-for-address_space-level-file-read.patch"
+         "${lucjanpath}/ll-patches/0006-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch")
+md5sums+=("501f35c1c6b321672bbda4659f527a24"  #0004-sched-core-nr_migrate-256-increases-number-of-tasks-.patch
+          "e56383da4486cb277698fd21710a9837"  #0005-mm-set-8-megabytes-for-address_space-level-file-read.patch
+          "7da2792a4b7c66c089f02cadd39cde4b") #0006-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
+# lqx patches
+source+=("${lucjanpath}/lqx-patches-v5/0001-lqx-patches.patch")
+md5sums+=("2130bb325438a2fc880593c5e345521f") #0001-lqx-patches.patch
+# NTFS3 patches
+source+=("${lucjanpath}/ntfs3-patches-v2/0001-ntfs3-patches.patch")
+md5sums+=("8cf507777e20cd4d75a0627eef10c10d") #0001-ntfs3-patches.patch
+# pf patches
+source+=("${lucjanpath}/pf-patches-v4/0001-pf-patches.patch")
+md5sums+=("08c84362cb916b30d9c77e35b1b3bc54") #0001-pf-patches.patch
+# sbitmap patches
+source+=("${lucjanpath}/sbitmap-patches-v3/0001-sbitmap-patches.patch")
+md5sums+=("SKIP")
+# speculative patches
+source+=("${lucjanpath}/speculative-lru-patches-v2/0001-speculative-patches.patch")
+md5sums+=("603d90a795c8d4e4e56374fdff54f10b") #0001-speculative-patches.patch
+# v4l2loopback patch
+source+=("${lucjanpath}/v4l2loopback-patches-v2/0001-v4l2loopback-patches.patch")
+md5sums+=("d9a892f66631615a72bdc93ee7397afa") #0001-v4l2loopback-patches.patch
+# zen patches
+source+=("${lucjanpath}/zen-patches/0001-zen-patches.patch")
+md5sums+=("de6db1147385c058b2e94df3c1739fdf") #0001-zen-patches.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -520,6 +595,41 @@ prepare(){
   scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
 
   sleep 2s
+  
+  msg2 "Enable V4L2_LOOPBACK"
+  scripts/config --module CONFIG_V4L2_LOOPBACK
+
+  sleep 2s
+
+  msg2 "Enable SENSORS_ASUS_WMI_EC (support for the ACPI embedded controller hardware monitoring interface found in B550/X570 ASUS motherboards)"
+  scripts/config --module CONFIG_SENSORS_ASUS_WMI_EC
+  sleep 2s
+
+  msg2 "Enable SENSORS_ASUS_EC (support for the ACPI embedded controller hardware monitoring interface found in ASUS motherboards. The driver currently supports B550/X570 boards)"
+  scripts/config --module CONFIG_SENSORS_ASUS_EC
+
+  sleep 2s
+
+  msg2 "Enable DAMON (Data access monitoring primitives for the physical address space)"
+  scripts/config --enable CONFIG_DAMON
+
+  sleep 2s
+
+  msg2 "Enable DAMON_RECLAIM (DAMON-based reclamation subsystem)"
+  scripts/config --enable CONFIG_DAMON_RECLAIM
+
+  sleep 2s
+
+  msg2 "Enable ARCH_SUPPORTS_SPECULATIVE_PAGE_FAULT (Try to handle user space page faults without holding the mmap lock)"
+  scripts/config --enable CONFIG_ARCH_SUPPORTS_SPECULATIVE_PAGE_FAULT
+  scripts/config --enable CONFIG_SPECULATIVE_PAGE_FAULT_STATS
+
+  sleep 2s
+
+  msg2 "Enable VHBA (Virtual (SCSI) Host Bus Adapter)"
+  scripts/config --module CONFIG_VHBA
+
+  sleep 2s
 
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
@@ -571,7 +681,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler patch and Piotr Górski Block and BTRFS patch set"
+  pkgdesc="XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler patch and Piotr Górski set of patches"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
