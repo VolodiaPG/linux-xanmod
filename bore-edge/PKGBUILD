@@ -140,6 +140,16 @@ md5sums+=("4d7eb36a307bf8b5cdc88af404420d41"  #0001-net-sched-allow-configuring-
 #hwmon patches
 source+=("${lucjanpath}/hwmon-patches-v5/0001-hwmon-patches.patch")
 md5sums+=("8fa4524671e6901bbdb47aaf8ecc0de8") #0001-hwmon-patches.patch
+# ll patches
+source+=("${lucjanpath}/ll-patches/0004-sched-core-nr_migrate-256-increases-number-of-tasks-.patch"
+         "${lucjanpath}/ll-patches/0005-mm-set-8-megabytes-for-address_space-level-file-read.patch"
+         "${lucjanpath}/ll-patches/0006-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch")
+md5sums+=("077f4f10faf99d15d4c41e13f26b62a9"  #0004-sched-core-nr_migrate-256-increases-number-of-tasks-.patch
+          "d93cd05b9c28d31598e93e1c3299efe5"  #0005-mm-set-8-megabytes-for-address_space-level-file-read.patch
+          "5616730bdd211cc42fd9e8ab2abadb49") #0006-Disable-CPU_FREQ_GOV_SCHEDUTIL.patch
+# lqx patches
+source+=("${lucjanpath}/lqx-patches/0001-lqx-patches.patch")
+md5sums+=("231fa80a33e7a926ba832d3bd66d2ce6") #0001-lqx-patches.patch
 # pf patches
 source+=("${lucjanpath}/pf-patches/0001-pf-patches.patch")
 md5sums+=("be1e00d93e9c2ba91ee6017b82e64194") #0001-pf-patches.patch
@@ -149,6 +159,9 @@ md5sums+=("302cb7608dea307580db5843a1a615a2") #0001-smbus-patches.patch
 # v4l2loopback patch
 source+=("${lucjanpath}/v4l2loopback-patches/0001-v4l2loopback-5.16-merge-v0.12.5.patch")
 md5sums+=("ad86e3a753fa20c61508766fe9741319") #0001-v4l2loopback-5.16-merge-v0.12.5.patch
+# zen patches
+source+=("${lucjanpath}/zen-patches/0001-zen-patches.patch")
+md5sums+=("f337ffd4d464975421ae980863adf84c") #0001-zen-patches.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -584,6 +597,11 @@ prepare(){
 
   msg2 "Enable SENSORS_ASUS_EC (support for the ACPI embedded controller hardware monitoring interface found in ASUS motherboards. The driver currently supports B550/X570 boards)"
   scripts/config --module CONFIG_SENSORS_ASUS_EC
+
+  sleep 2s
+  
+  msg2 "Enable VHBA (Virtual (SCSI) Host Bus Adapter)"
+  scripts/config --module CONFIG_VHBA
 
   sleep 2s
 
