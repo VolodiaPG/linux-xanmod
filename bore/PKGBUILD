@@ -434,6 +434,8 @@ prepare(){
 
   sleep 2s
 
+  msg "Patch addition config"
+
   msg2 "Disable TCP_CONG_CUBIC"
   scripts/config --module CONFIG_TCP_CONG_CUBIC
   scripts/config --disable CONFIG_DEFAULT_CUBIC
