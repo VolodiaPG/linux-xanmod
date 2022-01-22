@@ -223,6 +223,8 @@ prepare(){
   sleep 2s
 
   plain ""
+  
+  msg "Base config"
 
   msg2 "Disable CLANG LTO"
   scripts/config --disable CONFIG_LTO
