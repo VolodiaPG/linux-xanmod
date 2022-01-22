@@ -145,6 +145,8 @@ prepare(){
 
   plain ""
   
+  msg "Base config"
+  
   msg2 "Set kernel compression mode to ZSTD"
   scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
   scripts/config --enable CONFIG_HAVE_KERNEL_BZIP2
@@ -321,6 +323,8 @@ prepare(){
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
+  
+  msg "Patch addition config"
 
   msg2 "Enable ntfs"
   scripts/config --module CONFIG_NTFS_FS
