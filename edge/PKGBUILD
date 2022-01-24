@@ -10,7 +10,7 @@
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Arch. AMD64, Block and BLK patches
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For AMD64, Arch. Block and BLK patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
 ################################# Arch ################################
@@ -89,12 +89,12 @@ md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
-# Arch patches
-source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch")
-md5sums+=("a946c6ae7715812df1b8cf1b615a9eed") #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
 # Amd64 patches
 source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
 md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
+# Arch patches
+source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch")
+md5sums+=("a946c6ae7715812df1b8cf1b615a9eed") #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
 # Block patches. Set BFQ as default
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
@@ -382,7 +382,9 @@ prepare(){
   scripts/config --enable CONFIG_FUTEX
   scripts/config --enable CONFIG_FUTEX_PI
 
-  sleep 2s
+  sleep 2s# Amd64 patches
+source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
+md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
 
   msg2 "Enable SECURITY_FORK_BRUT"
   scripts/config --enable CONFIG_SECURITY_FORK_BRUT
@@ -575,7 +577,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod kernel and modules witch Piotr Górski Arch, AMD64, Block and BLK - edge"
+  pkgdesc="XanMod kernel and modules witch Piotr Górski AMD64, Arch, Block and BLK - edge"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
