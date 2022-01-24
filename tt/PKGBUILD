@@ -11,7 +11,7 @@
 #Credits: Linus Torvalds ---> For the linux kernel
 #Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
 #Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler patch
+#Credits: Hamad Al Marri <https://github.com/hamadmarri/TT-CPU-Scheduler> ---> For TT CPU Scheduler and high-hz patches
 #Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For AMD64, Arch and Block patches
 #Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
 
@@ -589,7 +589,7 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski AMD64, Arch and Block patches"
+  pkgdesc="XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler and high-hz patches and Piotr Górski AMD64, Arch and Block patches"
   depends=("coreutils" "kmod" "initramfs")
   optdepends=("linux-firmware: firmware images needed for some devices"
               "crda: to set the correct wireless channels of your country")
