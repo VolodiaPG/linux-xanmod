@@ -383,9 +383,7 @@ prepare(){
   scripts/config --enable CONFIG_FUTEX
   scripts/config --enable CONFIG_FUTEX_PI
 
-  sleep 2s# Amd64 patches
-source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
-md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
+  sleep 2s
 
   msg2 "Enable SECURITY_FORK_BRUT"
   scripts/config --enable CONFIG_SECURITY_FORK_BRUT
