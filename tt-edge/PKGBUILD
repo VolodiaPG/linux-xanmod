@@ -86,10 +86,14 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "tt-5.16.patch")
+        "tt-5.16.patch"
+        "Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch"
+        "high-hz.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "855970078999580f28fa32f547d89d7f") #tt-5.16.patch
+         "855970078999580f28fa32f547d89d7f"  #tt-5.16.patch
+         "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
+         "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
@@ -309,13 +313,13 @@ prepare(){
 
   sleep 2s
 
-  #msg2 "Set timer frequency to 10000HZ"
-  #scripts/config --enable CONFIG_HZ_10000
-  #scripts/config --set-val CONFIG_HZ 10000
+  msg2 "Set timer frequency to 10000HZ"
+  scripts/config --enable CONFIG_HZ_10000
+  scripts/config --set-val CONFIG_HZ 10000
 
-  msg2 "Set timer frequency to 1000HZ"
-  scripts/config --enable CONFIG_HZ_1000
-  scripts/config --set-val CONFIG_HZ 1000
+  #msg2 "Set timer frequency to 1000HZ"
+  #scripts/config --enable CONFIG_HZ_1000
+  #scripts/config --set-val CONFIG_HZ 1000
 
   sleep 2s
 
