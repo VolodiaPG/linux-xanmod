@@ -91,7 +91,7 @@ source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.
         "high-hz.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "855970078999580f28fa32f547d89d7f"  #tt-5.16.patch
+         "353a5c698a571b461cbc21a73a6e3d4b"  #tt-5.16.patch
          "361d1621d4707edd1a768120462d649d"  #Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
          "b95df035406c2ae340ea5756ccf7f786") #high-hz.patch
 
