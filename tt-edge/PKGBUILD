@@ -370,6 +370,12 @@ prepare(){
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
+  
+  msg2 "Enable Fsync support"
+  scripts/config --enable CONFIG_FUTEX
+  scripts/config --enable CONFIG_FUTEX_PI
+
+  sleep 2s
 
   msg "Patch addition config"
 
@@ -385,12 +391,6 @@ prepare(){
 
   msg2 "Enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED"
   scripts/config --enable CONFIG_SCHED_AUTOGROUP_DEFAULT_ENABLED
-
-  sleep 2s
-
-  msg2 "Enable Fsync support"
-  scripts/config --enable CONFIG_FUTEX
-  scripts/config --enable CONFIG_FUTEX_PI
 
   sleep 2s
 
