@@ -163,8 +163,6 @@ prepare(){
 
   plain ""
 
-  msg "Base config"
-
   msg2 "Disable CLANG LTO"
   scripts/config --disable CONFIG_LTO
   scripts/config --disable CONFIG_LTO_CLANG
@@ -197,6 +195,8 @@ prepare(){
   sleep 2s
 
   plain ""
+
+  msg "Base config"
 
   msg2 "Set kernel compression mode to ZSTD"
   scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
@@ -550,13 +550,6 @@ prepare(){
   scripts/config --enable CONFIG_GENERIC_CPU
 
   sleep 2s
-
-  plain ""
-
-  msg2 "Set -tt localversion"
-  rm -rf localversion-tt
-  touch localversion-tt
-  echo "-tt" > localversion-tt
 
   plain ""
 
