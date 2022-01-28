@@ -150,20 +150,6 @@ prepare(){
 
   sleep 2s
 
-  plain ""
-
-  msg2 "Disable CLANG LTO"
-  scripts/config --disable CONFIG_LTO
-  scripts/config --disable CONFIG_LTO_CLANG
-  scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
-  scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN
-  scripts/config --disable CONFIG_HAS_LTO_CLANG
-  scripts/config --disable CONFIG_LTO_NONE
-  scripts/config --disable CONFIG_LTO_CLANG_FULL
-  scripts/config --disable CONFIG_LTO_CLANG_THIN
-
-  sleep 2s
-
   # fix for GCC 12.0.0 (git version)
   if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
     plain ""
