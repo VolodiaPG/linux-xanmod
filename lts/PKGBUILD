@@ -67,8 +67,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.10.93_xanmod1
-versiontag=5.10.93-xanmod1
+pkgver=5.10.94_xanmod2
+versiontag=5.10.94-xanmod2
 major=5.10
 pkgrel=1
 arch=(x86_64)
@@ -124,7 +124,7 @@ prepare(){
   sleep 2s
 
   plain ""
-  
+
   # fix for GCC 12.0.0 (git version)
   if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
     plain ""
@@ -134,20 +134,20 @@ prepare(){
     scripts/config --disable CONFIG_GCC_PLUGINS
 
     sleep 2s
-    
+
     msg2 "Disable Fortify"
     scripts/config --disable CONFIG_FORTIFY_SOURCE
     scripts/config --disable CONFIG_ARCH_HAS_FORTIFY_SOURCE
-    
+
     plain ""
   fi
 
   sleep 2s
 
   plain ""
-  
+
   msg "Base config"
-  
+
   msg2 "Set kernel compression mode to ZSTD"
   scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
   scripts/config --enable CONFIG_HAVE_KERNEL_BZIP2
@@ -266,7 +266,7 @@ prepare(){
   scripts/config --enable CONFIG_PCIE_BUS_PERFORMANCE
 
   sleep 2s
-  
+
   msg2 "Set timer frequency to 1000HZ"
   scripts/config --enable CONFIG_HZ_1000
   scripts/config --set-val CONFIG_HZ 1000
@@ -324,7 +324,7 @@ prepare(){
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
-  
+
   msg "Patch addition config"
 
   msg2 "Enable ntfs"
@@ -358,12 +358,12 @@ prepare(){
   scripts/config --enable CONFIG_FUTEX_PI
 
   sleep 2s
-  
+
   msg2 "Enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3"
   scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE
   scripts/config --disable CONFIG_CC_OPTIMIZE_FOR_SIZE
   scripts/config --enable CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3
-  
+
   sleep 2s
 
   #msg2 "Enable Linux Random Number Generator with pfkernel config"
@@ -441,14 +441,14 @@ prepare(){
   scripts/config --disable CONFIG_LRNG_SELFTEST
 
   sleep 2s
-  
+
   msg2 "Enable FULLCONENAT target support"
   scripts/config --enable CONFIG_NF_NAT
   scripts/config --enable CONFIG_IP_NF_TARGET_FULLCONENAT
   scripts/config --module CONFIG_NETFILTER_XT_TARGET_FULLCONENAT
-  
+
   sleep 2s
-  
+
   msg2 "Add anbox support"
   scripts/config --enable CONFIG_ASHMEM
   # CONFIG_ION is not set
@@ -459,7 +459,7 @@ prepare(){
   # CONFIG_ANDROID_BINDER_IPC_SELFTEST is not set
 
   sleep 2s
-  
+
   msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
   scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
 
@@ -476,7 +476,7 @@ prepare(){
   msg2 "Setting localversion..."
   scripts/setlocalversion --save-scmversion
   echo "-${pkgbase}" > localversion-pkgbuild
-  
+
   plain ""
 
   # Config
@@ -485,12 +485,12 @@ prepare(){
   elif [[ "$_compiler" = "2" ]]; then
     make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} olddefconfig
   fi
-  
+
   plain ""
 
   make -s kernelrelease > version
   msg2 "Prepared $pkgbase version $(<version)"
-  
+
   plain ""
 }
 
