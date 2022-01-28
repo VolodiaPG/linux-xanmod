@@ -70,8 +70,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.16_xanmod1
-versiontag=5.15.16-xanmod1-tt
+pkgver=5.15.17_xanmod2
+versiontag=5.15.17-xanmod2-tt
 major=5.15
 pkgrel=1
 arch=(x86_64)
