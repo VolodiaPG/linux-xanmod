@@ -70,8 +70,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.16.2_xanmod1
-versiontag=5.16.2-xanmod1
+pkgver=5.16.3_xanmod1
+versiontag=5.16.3-xanmod1
 major=5.16
 pkgrel=1
 arch=(x86_64)
@@ -86,12 +86,10 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch"
-        "0001-bore21-cacule.patch")
+        "5.16.2-xanmod1-bore21.2-cacule.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "dd1c9bf408caac9ed05f76f1c44b99c1"  #Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
-         "282a2b9a89d59fdcedef6b56defea390") #0001-bore21-cacule.patch
+         "8fad3587f445da62597cfc08acf1cbe8") #5.16.2-xanmod1-bore21.2-cacule.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
@@ -99,8 +97,10 @@ lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$ma
 source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
 md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
 # Arch patches
-source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch")
-md5sums+=("a946c6ae7715812df1b8cf1b615a9eed") #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
+         "${lucjanpath}/arch-patches-v2-sep/0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch")
+md5sums+=("a946c6ae7715812df1b8cf1b615a9eed"  #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+          "2cd6a62a3ee0435522dc59af8a76719b") #0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
 # Block patches
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
