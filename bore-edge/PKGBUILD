@@ -85,10 +85,10 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "5.16.2-xanmod1-bore21.2-cacule.patch")
+        "5.16.2-xanmod1-bore22-cacule.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "8fad3587f445da62597cfc08acf1cbe8") #5.16.2-xanmod1-bore21.2-cacule.patch
+         "d13fb275bdcab30fffa0e8387790f159") #5.16.2-xanmod1-bore22-cacule.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
