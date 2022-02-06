@@ -70,8 +70,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.16.5_xanmod1
-versiontag=5.16.5-xanmod1
+pkgver=5.16.7_xanmod1
+versiontag=5.16.7-xanmod1
 major=5.16
 pkgrel=1
 arch=(x86_64)
@@ -85,10 +85,10 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "5.16.2-xanmod1-bore22-cacule.patch")
+        "5.16.3-xanmod1-bore23-cacule.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "d13fb275bdcab30fffa0e8387790f159") #5.16.2-xanmod1-bore22-cacule.patch
+         "de33db37f7a384b6fcba49b8e9c2e4a0") #5.16.3-xanmod1-bore23-cacule.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
