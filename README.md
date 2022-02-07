@@ -75,7 +75,7 @@ You can refer to this Archlinux page that have lots of useful information to bui
 
 # Contact info
 
-kevall474@tuta.io if you have any problems or bugs report.
+blacksky3@tuta.io if you have any problems or bugs report.
 
 # Donation
 
