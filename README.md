@@ -71,7 +71,7 @@ To come ...
 
 # Info
 
-
+You can refer to this Archlinux page that have lots of useful information to build the kernel and debugging if you have some issues https://wiki.archlinux.org/index.php/Kernel/Traditional_compilation
 
 # Contact info
 
@@ -86,7 +86,3 @@ ETH : 0xF8cBcA16f4eeDfF4a07D173B7fF53906a87b0476
 DAI : 0xF8cBcA16f4eeDfF4a07D173B7fF53906a87b0476
 
 LINK : 0xF8cBcA16f4eeDfF4a07D173B7fF53906a87b0476
-
-# Info
-
-You can refer to this Archlinux page that have lots of useful information to build the kernel and debugging if you have some issues https://wiki.archlinux.org/index.php/Kernel/Traditional_compilation
