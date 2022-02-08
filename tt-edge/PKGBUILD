@@ -117,6 +117,10 @@ md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-de
 source+=("${lucjanpath}/blk-patches/0001-blk-patches.patch")
 md5sums+=("194c8e20ad30973c32159cb23f3be4c9") #0001-blk-patches.patch
 
+# Hot fix. Arch patch in zen kernel but not been merged in stable linux package
+source+=("0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch")
+md5sums+=("22c5861df83adef6b122d6015479c964") #0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
+
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
