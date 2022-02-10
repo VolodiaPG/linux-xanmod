@@ -70,8 +70,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.16.7_xanmod1
-versiontag=5.16.7-xanmod1
+pkgver=5.16.8_xanmod1
+versiontag=5.16.8-xanmod1
 major=5.16
 pkgrel=1
 arch=(x86_64)
@@ -98,9 +98,10 @@ md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
 # Arch patches
 source+=("${lucjanpath}/arch-patches-v3-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
          "${lucjanpath}/arch-patches-v3-sep/0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch"
-         "${lucjanpath}/arch-patches-v3-sep/0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch"
-md5sums+=("a946c6ae7715812df1b8cf1b615a9eed"  #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
-          "2cd6a62a3ee0435522dc59af8a76719b") #0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
+         "${lucjanpath}/arch-patches-v3-sep/0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch")
+md5sums+=("1288ff4738515ad1bd8a038dce7e7a08"  #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+          "ab0f05b0227218e0e70b641b480bd7b4"  #0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
+          "d5d53686a867f8c3c1311c7cc0aea8ea") #0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
 # Block patches
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
@@ -113,10 +114,6 @@ md5sums+=("7536731ddb9db4d2683234d70edf5434"  #0001-block-Kconfig.iosched-set-de
 # BLK patches
 source+=("${lucjanpath}/blk-patches/0001-blk-patches.patch")
 md5sums+=("194c8e20ad30973c32159cb23f3be4c9") #0001-blk-patches.patch
-
-# Hot fix. Arch patch in zen kernel but not been merged in stable linux package
-source+=("0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch")
-md5sums+=("22c5861df83adef6b122d6015479c964") #0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -158,7 +155,7 @@ prepare(){
   fi
 
   sleep 2s
-  
+
   plain ""
 
   msg2 "Disable LTO"
