@@ -96,8 +96,9 @@ lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$ma
 source+=("${lucjanpath}/amd64-patches/0001-amd64-patches.patch")
 md5sums+=("dbdb6754a1f5b3ccf26321843a070406") #0001-amd64-patches.patch
 # Arch patches
-source+=("${lucjanpath}/arch-patches-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
-         "${lucjanpath}/arch-patches-v2-sep/0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch")
+source+=("${lucjanpath}/arch-patches-v3-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
+         "${lucjanpath}/arch-patches-v3-sep/0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch"
+         "${lucjanpath}/arch-patches-v3-sep/0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch"
 md5sums+=("a946c6ae7715812df1b8cf1b615a9eed"  #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
           "2cd6a62a3ee0435522dc59af8a76719b") #0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
 # Block patches
