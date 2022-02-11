@@ -105,7 +105,7 @@ source+=("${lucjanpath}/arch-patches-v3-sep/0002-Bluetooth-btintel-Fix-bdaddress
          "${lucjanpath}/arch-patches-v3-sep/0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch")
 md5sums+=("1288ff4738515ad1bd8a038dce7e7a08"  #0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
           "ab0f05b0227218e0e70b641b480bd7b4"  #0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
-          "22c5861df83adef6b122d6015479c964") #0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
+          "d5d53686a867f8c3c1311c7cc0aea8ea") #0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
 # Block patches
 source+=("${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
          "${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
