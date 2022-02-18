@@ -85,10 +85,10 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "5.15.16-xanmod1-bore23-cacule.patch")
+        "5.15.y-bore25-cfs.patch")
 md5sums=("071d49ff4e020d58c04f9f3f76d3b594"  #linux-5.15.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "27ff44b9b122698b6a2a7599045a6308") #5.15.16-xanmod1-bore23-cacule.patch
+         "4b3b3cd3b2b960f678b275d1c3c6a6d3") #5.15.y-bore25-cfs.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
@@ -536,6 +536,11 @@ prepare(){
 
   msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
   scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
+
+  sleep 2s
+
+  msg2 "Enable BORE CPU Scheduler"
+  scripts/config --enable CONFIG_SCHED_BORE
 
   sleep 2s
 

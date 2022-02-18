@@ -85,10 +85,10 @@ options=('!strip')
 
 source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
         "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz"
-        "5.16.3-xanmod1-bore23-cacule.patch")
+        "5.16.y-bore1.1.26.0.patch")
 md5sums=("e6680ce7c989a3efe58b51e3f3f0bf93"  #linux-5.16.tar.xz
          "SKIP"  #patch-5.x.x-xanmodx.xz
-         "de33db37f7a384b6fcba49b8e9c2e4a0") #5.16.3-xanmod1-bore23-cacule.patch
+         "707084b6acd933c42f10e156deb1489c") #5.16.y-bore1.1.26.0.patch
 
 # Piotr Górski patches
 lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
@@ -540,6 +540,11 @@ prepare(){
   msg2 "Enable BLK_CGROUP_IOSTAT (IO statistics monitor per cgroup)"
   scripts/config --module CONFIG_BLK_CGROUP_IOSTAT
 
+  sleep 2s
+  
+  msg2 "Enable BORE CPU Scheduler"
+  scripts/config --enable CONFIG_SCHED_BORE
+  
   sleep 2s
 
   msg2 "Set CONFIG_GENERIC_CPU"
