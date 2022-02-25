@@ -19,14 +19,6 @@
 
 ARCH=x86
 
-################################# GCC ################################
-
-# Grab GCC version
-# Workarround with GCC 12.0.0. Pluggins don't work, so we have to grap GCC version
-# and disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS
-
-GCC_VERSION=$(gcc -dumpversion)
-
 ################################# CC/CXX/HOSTCC/HOSTCXX ################################
 
 #Set compiler to build the kernel
@@ -70,8 +62,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.24_xanmod1
-versiontag=5.15.24-xanmod1
+pkgver=5.15.25_xanmod1
+versiontag=5.15.25-xanmod1
 major=5.15
 pkgrel=1
 arch=(x86_64)
@@ -157,43 +149,25 @@ prepare(){
   fi
 
   sleep 2s
-  
-  plain ""
-
-  msg2 "Disable LTO"
-  scripts/config --disable CONFIG_LTO
-  scripts/config --disable CONFIG_LTO_CLANG
-  scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
-  scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN
-  scripts/config --disable CONFIG_HAS_LTO_CLANG
-  scripts/config --disable CONFIG_LTO_NONE
-  scripts/config --disable CONFIG_LTO_CLANG_FULL
-  scripts/config --disable CONFIG_LTO_CLANG_THIN
-
-  sleep 2s
-
-  # fix for GCC 12.0.0 (git version)
-  if [[ "$GCC_VERSION" = "12.0.0" ]] && [[ "$_compiler" = "1" ]]; then
-    plain ""
-
-    msg2 "Disable CONFIG_HAVE_GCC_PLUGINS/CONFIG_GCC_PLUGINS (Quick fix for gcc 12.0.0 git version)"
-    scripts/config --disable CONFIG_HAVE_GCC_PLUGINS
-    scripts/config --disable CONFIG_GCC_PLUGINS
-
-    sleep 2s
-
-    msg2 "Disable Fortify"
-    scripts/config --disable CONFIG_FORTIFY_SOURCE
-    scripts/config --disable CONFIG_ARCH_HAS_FORTIFY_SOURCE
-
-    plain ""
-  fi
-
-  sleep 2s
 
   plain ""
 
   msg "Base config"
+
+  # Disable LTO with clang
+  if [[ "$_compiler" = "2" ]]; then
+    msg2 "Disable LTO"
+    scripts/config --disable CONFIG_LTO
+    scripts/config --disable CONFIG_LTO_CLANG
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG
+    scripts/config --disable CONFIG_ARCH_SUPPORTS_LTO_CLANG_THIN
+    scripts/config --disable CONFIG_HAS_LTO_CLANG
+    scripts/config --disable CONFIG_LTO_NONE
+    scripts/config --disable CONFIG_LTO_CLANG_FULL
+    scripts/config --disable CONFIG_LTO_CLANG_THIN
+
+    sleep 2s
+  fi
 
   msg2 "Set kernel compression mode to ZSTD"
   scripts/config --enable CONFIG_HAVE_KERNEL_GZIP
