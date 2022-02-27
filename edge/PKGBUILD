@@ -34,21 +34,18 @@ if [[ "$_compiler" = "1" ]]; then
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 elif [[ "$_compiler" = "2" ]]; then
   _compiler=2
   CC=clang
   CXX=clang++
   HOSTCC=clang
   HOSTCXX=clang++
-  buildwith="build with CLANG/LLVM"
 else
   _compiler=1
   CC=gcc
   CXX=g++
   HOSTCC=gcc
   HOSTCXX=g++
-  buildwith="build with GCC"
 fi
 
 ###################################################################################
