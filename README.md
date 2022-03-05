@@ -20,9 +20,9 @@ XanMod kernel build for Archlinux.
 
 - TT-Edge : 5.16.11-xanmod1-tt
 
-- BORE-Edge : 5.16.11-xanmod1-bore
+- BORE-Edge : 5.16.12-xanmod1-bore
 
-- BORE : 5.15.25-xanmod1-bore
+- BORE : 5.15.26-xanmod1-bore
 
 # Build
 
