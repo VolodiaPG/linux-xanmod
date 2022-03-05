@@ -10,7 +10,7 @@ XanMod kernel build for Archlinux.
 
 - Edge : 5.16.12-xanmod1
 
-- Stable : 5.15.25-xanmod1
+- Stable : 5.15.26-xanmod1
 
 - TT : 5.15.25-xanmod1-tt
 

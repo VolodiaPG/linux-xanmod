@@ -58,50 +58,37 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.25_xanmod1
-versiontag=5.15.25-xanmod1
+pkgver=5.15.26_xanmod1
+versiontag=5.15.26-xanmod1
 major=5.15
 pkgrel=1
 arch=(x86_64)
-url="https://xanmod.org/"
+url='https://xanmod.org/'
 license=(GPL-2.0)
-makedepends=('bc' 'kmod' 'libelf' 'pahole' 'cpio' 'perl' 'tar' 'xz' 'zstd' 'xmlto' 'git' 'gcc' 'gcc-libs' 'glibc' 'binutils' 'make' 'patch')
+makedepends=(bc kmod libelf pahole cpio perl tar xz zstd xmlto git gcc gcc-libs glibc binutils make patch)
 if [[ "$_compiler" = "2" ]]; then
-  makedepends+=('clang' 'llvm' 'llvm-libs' 'lld')
+  makedepends+=(clang llvm llvm-libs lld)
 fi
-options=('!strip')
+options=(!strip)
 
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
-        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-md5sums=("071d49ff4e020d58c04f9f3f76d3b594"  #linux-5.15.tar.xz
-         "SKIP") #patch-5.x.x-xanmodx.xz
+lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
 
-# Piotr Górski patches
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
-# Amd64 patches
-source+=("${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch")
-md5sums+=("f8ed6fdfd78828d3e6296242ce5c24f4") #0001-amd64-patches.patch
-# Arch patches
-source+=("${lucjanpath}/arch-patches-v11-sep/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch"
-         "${lucjanpath}/arch-patches-v11-sep/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch"
-         "${lucjanpath}/arch-patches-v11-sep/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch"
-         "${lucjanpath}/arch-patches-v11-sep/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch"
-         "${lucjanpath}/arch-patches-v11-sep/0006-lg-laptop-Recognize-more-models.patch")
-md5sums+=("9805b3e1b13332e75f140faf5629eb17"  #0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
-          "3222e70326e87aaf8b6a27b8ef04edf6"  #0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
-          "dd24aa1b25241d841de72ac50f6c6188"  #0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
-          "8e515134ed7faabcc9b11454efe1e355"  #0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
-          "75224cb432bbafe08c1ec6f499336650") #0006-lg-laptop-Recognize-more-models.patch
-# Block patches
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
-source+=("${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch"
-         "${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch"
-         "${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch"
-         "${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch")
-md5sums+=("c6f1a2a0de02804965715d07887e3ad7"  #0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-          "cd518daa8735836820a9e9570aa423d1"  #0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-          "32ff153fc70d6a82a2d704b9b8420fce"  #0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-          "f704a6013048226432498d86956edbe0") #0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
+source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
+        https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
+        # Piotr Górski patches
+        # Amd64 patches
+        ${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch
+        # Arch patches
+        ${lucjanpath}/arch-patches-v11-sep/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
+        ${lucjanpath}/arch-patches-v11-sep/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
+        ${lucjanpath}/arch-patches-v11-sep/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
+        ${lucjanpath}/arch-patches-v11-sep/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+        ${lucjanpath}/arch-patches-v11-sep/0006-lg-laptop-Recognize-more-models.patch
+        # Block patches
+        ${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -548,11 +535,11 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod kernel and modules witch Piotr Górski AMD64, Arch and Block patches - stable"
-  depends=("coreutils" "kmod" "initramfs")
-  optdepends=("linux-firmware: firmware images needed for some devices"
-              "crda: to set the correct wireless channels of your country")
-  provides=("KSMBD-MODULE" "NTFS3-MODULE" "VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
+  pkgdesc='XanMod kernel and modules witch Piotr Górski AMD64, Arch and Block patches - stable'
+  depends=(coreutils kmod initramfs)
+  optdepends=('linux-firmware: firmware images needed for some devices'
+              'crda: to set the correct wireless channels of your country')
+  provides=(KSMBD-MODULE NTFS3-MODULE VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
   cd "${srcdir}"/linux-$major
 
@@ -581,8 +568,8 @@ _package(){
 }
 
 _package-headers(){
-  pkgdesc="Headers and scripts for building modules for the $pkgbase package"
-  depends=("${pkgbase}" "pahole")
+  pkgdesc='Headers and scripts for building modules for the $pkgbase package'
+  depends=("${pkgbase}" pahole)
 
   cd "${srcdir}"/linux-$major
 
@@ -661,3 +648,16 @@ _package-headers(){
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
 }
+
+sha256sums=(57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8
+            f3c7686adc4b16f595e4572c5ed2bad1e15d521f300ecb31a491d5d3d406a70e
+            3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928
+            499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730
+            4faf7bf503ea135440e0525db66c29ed86cb8cc7fe7025a5a4eb1f4b92c156a7
+            84d0e89f695185baff51d4280fa5115611b6d41c33060d40f8228643cca80be4
+            2679386a9a834cbbbcc57925b21e824a52e4d695a471720f0c5e28d41238cdef
+            f32a33450ca308525bcc475e48ef30a860bffbda71762632337eb534a2fbc282
+            b3434b546e4bd6b62c64685da1a7ecfaf6d3b6172b3ab0c217c6a998a68b2368
+            b75c8a1721dda647496da98eea65c94f796667f8dee2f75a08e12dbbb2bed09a
+            3f37ca67531f98821c7c463e1938b778d5df640f29a2c8002ad5482277736069
+            a6a5d7d24966db0e0bfaa41821d48952e2242439a6a6688e3931464d0335d122)
