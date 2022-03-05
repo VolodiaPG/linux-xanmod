@@ -56,23 +56,21 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.10.102_xanmod1
-versiontag=5.10.102-xanmod1
+pkgver=5.10.103_xanmod1
+versiontag=5.10.103-xanmod1
 major=5.10
 pkgrel=1
 arch=(x86_64)
-url="https://xanmod.org/"
+url='https://xanmod.org/'
 license=(GPL-2.0)
-makedepends=('bc' 'kmod' 'libelf' 'pahole' 'cpio' 'perl' 'tar' 'xz' 'zstd' 'xmlto' 'git' 'gcc' 'gcc-libs' 'glibc' 'binutils' 'make' 'patch')
+makedepends=(bc kmod libelf pahole cpio perl tar xz zstd xmlto git gcc gcc-libs glibc binutils make patch)
 if [[ "$_compiler" = "2" ]]; then
-  makedepends+=('clang' 'llvm' 'llvm-libs' 'lld')
+  makedepends+=(clang llvm llvm-libs lld)
 fi
-options=('!strip')
+options=(!strip)
 
-source=("https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz"
-        "https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz")
-md5sums=("SKIP"
-         "SKIP")
+source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
+        https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -490,11 +488,11 @@ build(){
 }
 
 _package(){
-  pkgdesc="XanMod lts kernel and modules"
-  depends=("coreutils" "kmod" "initramfs")
-  optdepends=("linux-firmware: firmware images needed for some devices"
-              "crda: to set the correct wireless channels of your country")
-  provides=("KSMBD-MODULE" "NTFS3-MODULE" "VIRTUALBOX-GUEST-MODULES" "WIREGUARD-MODULE")
+  pkgdesc='XanMod lts kernel and modules'
+  depends=(coreutils kmod initramfs)
+  optdepends=('linux-firmware: firmware images needed for some devices'
+              'crda: to set the correct wireless channels of your country')
+  provides=(KSMBD-MODULE NTFS3-MODULE VIRTUALBOX-GUEST-MODULES WIREGUARD-MODULE)
 
   cd "${srcdir}"/linux-$major
 
@@ -523,8 +521,8 @@ _package(){
 }
 
 _package-headers(){
-  pkgdesc="Headers and scripts for building modules for the $pkgbase package"
-  depends=("${pkgbase}" "pahole")
+  pkgdesc='Headers and scripts for building modules for the $pkgbase package'
+  depends=("${pkgbase}" pahole)
 
   cd "${srcdir}"/linux-$major
 
@@ -603,3 +601,6 @@ _package-headers(){
   mkdir -p "$pkgdir/usr/src"
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
 }
+
+sha256sums=(dcdf99e43e98330d925016985bfbc7b83c66d367b714b2de0cbbfcbf83d8ca43
+            b6fa53fd9b28f4514799717539f8c5dd66f7a1d2d1daa9dd1bb17dd7430385ca)
