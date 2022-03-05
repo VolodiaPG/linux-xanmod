@@ -12,13 +12,13 @@ XanMod kernel build for Archlinux.
 
 - Stable : 5.15.26-xanmod1
 
-- TT : 5.15.25-xanmod1-tt
+- TT : 5.15.26-xanmod1-tt
 
 - LTS : 5.10.103-xanmod1
 
 ## Non-official package
 
-- TT-Edge : 5.16.11-xanmod1-tt
+- TT-Edge : 5.16.12-xanmod1-tt
 
 - BORE-Edge : 5.16.12-xanmod1-bore
 
@@ -43,7 +43,7 @@ If not set it will build with GCC by default.
 
 # Prebuild package
 
-Prebuild package are available at https://repo.archlinuxrepo.dev/x86_64/kernel
+Prebuild package are available at https://www.blacksky3.com/x86_64/kernel
 
 You can add this repo to your pacman.conf
 
