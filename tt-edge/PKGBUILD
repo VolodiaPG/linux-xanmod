@@ -59,8 +59,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.16.12_xanmod1
-versiontag=5.16.12-xanmod1
+pkgver=5.16.13_xanmod1
+versiontag=5.16.13-xanmod1
 major=5.16
 pkgrel=1
 arch=(x86_64)
@@ -674,7 +674,7 @@ _package-headers(){
 }
 
 sha256sums=(027d7e8988bb69ac12ee92406c3be1fe13f990b1ca2249e226225cd1573308bb
-            d6d162990832239a4ed28452e761a9c8e1c79b422551ecada1dc311b8d9c89fa
+            1370f2ac6dcd3836c3aa65f5f3b3f7cb43afd642d74325ddb7b6607903ced843
             0fab128cab25c49d28b664de9df3782001818da8073fa9f369bc1d56da536635
             ef5d1a3f5944015794777a36ec3f2fdf44e0d4555db34139270e84f298545fdf
             783fb4cc126be92877cc81dda44beb2f904c31e54c4eee5f013c3d26cba2117a
