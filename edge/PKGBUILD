@@ -533,7 +533,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules witch Piotr Górski Block and BLK - edge'
+  pkgdesc='XanMod kernel and modules witch Piotr Górski Block and BLK patches - edge'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
