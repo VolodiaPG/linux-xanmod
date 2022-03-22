@@ -59,8 +59,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.29_xanmod1
-versiontag=5.15.27-xanmod1
+pkgver=5.15.30_xanmod1
+versiontag=5.15.30-xanmod1
 major=5.15
 pkgrel=1
 arch=(x86_64)
@@ -584,7 +584,7 @@ _package(){
 }
 
 _package-headers(){
-  pkgdesc='Headers and scripts for building modules for the $pkgbase package'
+  pkgdesc="Headers and scripts for building modules for the $pkgbase package"
   depends=("${pkgbase}" pahole)
 
   cd "${srcdir}"/linux-$major
@@ -666,7 +666,7 @@ _package-headers(){
 }
 
 sha256sums=(57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8
-            644a4bb488144845ec344dd854e3faa6977b03da0c6b528de5d33c54c3642681
+            58771b3611e8241a894564cdd200fb02424118cbf24dec5b65cc2278347e9fee
             48fedf231e1b458b95badc0bf0ea994a0478e8abb5267a44f7683e7ccb866b43
             3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928
             499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730
