@@ -6,13 +6,9 @@
 #                                  |___/
 
 #Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
-#Credits: Jan Alexander Steffens (heftig) <heftig@archlinux.org> ---> For the base PKGBUILD
-#Credits: Andreas Radke <andyrtr@archlinux.org> ---> For the base PKGBUILD
-#Credits: Linus Torvalds ---> For the linux kernel
-#Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
-#Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block and BLK patches
-#Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
+#Credits: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+#Credits: Andreas Radke <andyrtr@archlinux.org>
+#Credits: Joan Figueras <ffigue at gmail dot com>
 
 ################################# Arch ################################
 
@@ -80,9 +76,7 @@ source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.x
         ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
         ${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
         ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
-        # BLK patches
-        ${lucjanpath}/blk-patches/0001-blk-patches.patch)
+        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
@@ -318,7 +312,7 @@ prepare(){
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
-  
+
   msg2 "Enable AMD Processor P-State driver"
   scripts/config --enable CONFIG_X86_AMD_PSTATE
 
@@ -486,11 +480,6 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Enable BLK_CGROUP_IOSTAT (IO statistics monitor per cgroup)"
-  scripts/config --module CONFIG_BLK_CGROUP_IOSTAT
-
-  sleep 2s
-
   msg2 "Set CONFIG_GENERIC_CPU"
   scripts/config --enable CONFIG_GENERIC_CPU
 
@@ -533,7 +522,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules witch Piotr Górski Block and BLK patches - edge'
+  pkgdesc='XanMod kernel and modules witch Piotr Górski Block patches - EDGE'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
@@ -652,5 +641,4 @@ sha256sums=(555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1
             4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257
             a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e
             6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870
-            b5ff6f189a83472b737965e0412ca401af4bc539b308e0d9bfa403294e6795e0
-            790f7db055ea5c5bde76c01e590087fab1666cb09f363d4ae92e6c0da3528c30)
+            b5ff6f189a83472b737965e0412ca401af4bc539b308e0d9bfa403294e6795e0)
