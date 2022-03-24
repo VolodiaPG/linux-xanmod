@@ -6,14 +6,15 @@
 #                                  |___/
 
 #Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
-#Credits: Jan Alexander Steffens (heftig) <heftig@archlinux.org> ---> For the base PKGBUILD
-#Credits: Andreas Radke <andyrtr@archlinux.org> ---> For the base PKGBUILD
-#Credits: Linus Torvalds ---> For the linux kernel
-#Credits: Joan Figueras <ffigue at gmail dot com> ---> For the base PKFBUILD
-#Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/> ---> For the XanMod patched kernel
-#Credits: Masahito Suzuki <firelzrd@gmail.com> <https://github.com/firelzrd/bore-scheduler> ---> For BORE (Burst-Oriented Response Enhancer) CPU Scheduler patch
-#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan> ---> For Block and BLK patches
-#Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch> ---> For config setings
+#Credits: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+#Credits: Andreas Radke <andyrtr@archlinux.org>
+#Credits: Linus Torvalds
+#Credits: Joan Figueras <ffigue at gmail dot com>
+#Credits: Linus Torvalds
+#Credits: Alexandre Frade <kernel@xanmod.org> <https://github.com/xanmod> <https://xanmod.org/>
+#Credits: Masahito Suzuki <firelzrd@gmail.com> <https://github.com/firelzrd/bore-scheduler>er)
+#Credits: Piotr Górski <lucjan.lucjanov@gmail.com> <https://github.com/sirlucjan>
+#Credits: Etienne Juvigny (Tk-Glitch) <tkg@froggi.es> <https://github.com/Tk-Glitch>
 
 ################################# Arch ################################
 
