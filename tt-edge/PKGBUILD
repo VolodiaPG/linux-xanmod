@@ -54,9 +54,9 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.16.16_xanmod1
-versiontag=5.16.16-xanmod1
-major=5.16
+pkgver=5.17.0_xanmod1
+versiontag=5.17.0-xanmod1
+major=5.17
 pkgrel=1
 arch=(x86_64)
 url='https://xanmod.org/'
@@ -71,24 +71,16 @@ lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$ma
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        tt-5.16.patch
+        0001-tt.patch
         Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
         high-hz.patch
         # Piotr Górski patches
-        # AMD64 patches
-        ${lucjanpath}/amd64-patches/0001-amd64-patches.patch
-        # Arch patches
-        ${lucjanpath}/arch-patches-v5-sep/0002-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
-        ${lucjanpath}/arch-patches-v5-sep/0003-Bluetooth-Read-codec-capabilities-only-if-supported.patch
-        ${lucjanpath}/arch-patches-v5-sep/0004-Bluetooth-fix-deadlock-for-RFCOMM-sk-state-change.patch
-        ${lucjanpath}/arch-patches-v5-sep/0006-mt76-mt7921-reduce-log-severity-levels-for-informati.patch
-        ${lucjanpath}/arch-patches-v5-sep/0007-Revert-NFSv4.1-query-for-fs_location-attr-on-a-new-f.patch
         # Block patches. Set BFQ as default
         ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
         ${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
         ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
         ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
-
+        
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
@@ -325,6 +317,11 @@ prepare(){
   scripts/config --enable CONFIG_X86_INTEL_PSTATE
 
   sleep 2s
+  
+  msg2 "Enable AMD Processor P-State driver"
+  scripts/config --enable CONFIG_X86_AMD_PSTATE
+  
+  sleep 2s
 
   msg2 "Enable Fsync support"
   scripts/config --enable CONFIG_FUTEX
@@ -549,7 +546,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler and high-hz patches and Piotr Górski AMD64, Arch and Block patches'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri Task Type CPU scheduler patch (kept alive artificially by P. Jung) and Piotr Górski Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
@@ -663,18 +660,12 @@ _package-headers(){
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
 }
 
-sha256sums=(027d7e8988bb69ac12ee92406c3be1fe13f990b1ca2249e226225cd1573308bb
-            4725cdfa4f3375e4a07e4d6b323e022b12a6a9d1a09ed44c1939d67ca8062558
-            0fab128cab25c49d28b664de9df3782001818da8073fa9f369bc1d56da536635
+sha256sums=(555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1
+            b827f3e202d3fd1eaf8216a2098f8c86a02fbc33312c68d1741a52325554b8a3
+            31eaf5ff89c3263627cb00dd02fb572fb3a42a088527a21e3858d4b388125740
             ef5d1a3f5944015794777a36ec3f2fdf44e0d4555db34139270e84f298545fdf
             783fb4cc126be92877cc81dda44beb2f904c31e54c4eee5f013c3d26cba2117a
-            1d5082af4e011cc7e693119b9c89eb621a05495bb4d1c238dd6bbeb7587dc8ff
-            a2c15226d6720b8a011f54a09954c0f511cd35a519ee13cc0228a8f803d5e04d
-            362cbeb8ee42c34ae635815817a4a6585e422a5ab01d36fe6aa5108a28712ed2
-            12947c1f27d1c6b7ec46228f4b71a8eb7b47488e7041015817a9a68ecd451109
-            2c83042bb9e5c2f5851567617d0376a53b14494ed4e085af2a7fa1b0194cd071
-            cb29309136affdc47bd13dfd88e611be15c2b301c9a1320cb597807bafce321a
-            5223b5cbabf75d0a9e1da40a36cde06fd094763762322f8f5c9014b9e63527cd
-            d20bf76974609f24ac092330e0fe0005ac77c401937511e71e6f1d5240042caa
-            a6f810ec83bb5f2d68a25ff03c6940dfe5e7b2e9bfa59b9629bb703b0e11eb41
-            717749721483b8b19e527c3659efe2015a8147e4e6fc2515f96775574a0a40d3)
+            4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257
+            a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e
+            6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870
+            b5ff6f189a83472b737965e0412ca401af4bc539b308e0d9bfa403294e6795e0)

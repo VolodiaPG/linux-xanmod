@@ -539,7 +539,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod stable kernel and modules with Hamad Al Marri Task Type CPU scheduler and high-hz patches and Piotr Górski AMD64, Arch and Block patches'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri Task Type CPU scheduler patch and Piotr Górski AMD64, Arch and Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
