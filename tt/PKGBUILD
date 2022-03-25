@@ -331,6 +331,11 @@ prepare(){
 
   sleep 2s
 
+  msg2 "Set CONFIG_GENERIC_CPU"
+  scripts/config --enable CONFIG_GENERIC_CPU
+
+  sleep 2s
+
   msg "Patch addition config"
 
   msg2 "Disable TCP_CONG_CUBIC"
@@ -492,12 +497,9 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Set timer frequency to 10000HZ"
+  msg2 "Set timer frequency to 10000HZ (high-hz.patch)"
   scripts/config --enable CONFIG_HZ_10000
   scripts/config --set-val CONFIG_HZ 10000
-
-  msg2 "Set CONFIG_GENERIC_CPU"
-  scripts/config --enable CONFIG_GENERIC_CPU
 
   sleep 2s
 

@@ -324,6 +324,11 @@ prepare(){
 
   sleep 2s
 
+  msg2 "Set CONFIG_GENERIC_CPU"
+  scripts/config --enable CONFIG_GENERIC_CPU
+
+  sleep 2s
+
   msg "Patch addition config"
 
   msg2 "Disable TCP_CONG_CUBIC"
@@ -477,11 +482,6 @@ prepare(){
 
   msg2 "Enable CONFIG_USER_NS_UNPRIVILEGED"
   scripts/config --enable CONFIG_USER_NS_UNPRIVILEGED
-
-  sleep 2s
-
-  msg2 "Set CONFIG_GENERIC_CPU"
-  scripts/config --enable CONFIG_GENERIC_CPU
 
   sleep 2s
 
