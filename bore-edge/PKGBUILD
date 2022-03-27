@@ -71,7 +71,7 @@ lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$ma
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        5.16.y-bore1.2.27.1.patch
+        5.16.y-bore1.2.28.0.patch
         # Piotr Górski patches
         # Block patches. Set BFQ as default
         ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
@@ -654,7 +654,7 @@ _package-headers(){
 
 sha256sums=(555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1
             b827f3e202d3fd1eaf8216a2098f8c86a02fbc33312c68d1741a52325554b8a3
-            8193fab23e9a7bee8e4c183629cd58183aa58f31f91d866cafcd0f3a4cb3820a
+            9bcdb1bff0acc3ed43c985fb04e5df01aff17d16bdc4686e0daae0d7326230be
             4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257
             a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e
             6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870
