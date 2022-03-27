@@ -73,7 +73,6 @@ source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.x
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
         Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
         0001-CacULE-5.15.patch
-        0004-cacule-5.15-define-yield_mark-and-yield_unmark.patch
         # Piotr Górski patches
         # AMD64 patches
         ${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch
@@ -677,7 +676,6 @@ sha256sums=(57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8
             b66a3a51926baebbc25c15f4a947714d860a6a5f768b39226552c3909d06f045
             1c651797cb4707d2b0cca5063d7578d13b790da3ca52dd555bcf0d4165f133fe
             dc3b7da8303f11addb25e13ae78d5e39c86e39dd27271991adb558f2c91f0aa5
-            e72c999adb6b53c4260ee7558cabd73e1f133057a59b8577960aab55b6076adc
             3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928
             499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730
             4faf7bf503ea135440e0525db66c29ed86cb8cc7fe7025a5a4eb1f4b92c156a7
