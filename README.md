@@ -24,10 +24,14 @@ XanMod kernel build for Archlinux.
 
 - BORE : 5.15.31-xanmod1-bore
 
+- CacULE-Edge : 5.17.0-xanmod1-cacule
+
+- CacULE-RDB-Edge : 5.17.0-xanmod1-cacule-rdb
+
 # Build
 
     git clone https://github.com/blacksky3/linux-xanmod.git
-    cd linux-xanmod/{edge,stable,tt,lts.tt-edge.bore-edge.bore}
+    cd linux-xanmod/{edge,stable,tt,lts.tt-edge.bore-edge.bore,cacule-edge,cacule-rdb-edge}
     env_compiler=(1 or 2) makepkg -s
 
 # Build variables
@@ -74,6 +78,25 @@ TT gives RT tasks a -20 prio in vruntime calculations. This boosts RT tasks over
 ## BORE (Burst-Oriented Response Enhancer) CPU Scheduler
 
 To come ...
+
+## CacULE CPU Scheduler
+
+![cacule_sched](https://user-images.githubusercontent.com/68618182/103179297-92ac0100-4858-11eb-83aa-8992f33d67f8.png)
+
+CacULE is a newer version of Cachy. The CacULE CPU scheduler is based on interactivity score mechanism.
+The interactivity score is inspired by the ULE scheduler (FreeBSD scheduler).
+
+About CacULE Scheduler
+
+- Each CPU has its own runqueue.
+- NORMAL runqueue is a linked list of sched_entities (instead of RB-Tree).
+- RT and other runqueues are just the same as the CFS's.
+- Wake up tasks preempt currently running tasks if its interactivity score value is higher.
+
+### RDB load balancer
+
+An experimental load balancer for CacULE. It is a lightweight load balancer which is a replacement of CFS load balancer.
+It migrates tasks based on their interactivity scores.
 
 # Update GRUB
 

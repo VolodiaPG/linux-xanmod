@@ -18,6 +18,10 @@ cd bore-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 cd bore && makepkg -s && rm -rf pkg/ src/ && cd ..
 
+cd cacule-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
+
+cd cacule-rdb-edge && makepkg -s && rm -rf pkg/ src/ && cd ..
+
 # clang
 
 #cd edge && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
