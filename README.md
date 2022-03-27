@@ -28,6 +28,10 @@ XanMod kernel build for Archlinux.
 
 - CacULE-RDB-Edge : 5.17.0-xanmod1-cacule-rdb
 
+- CacULE : 5.15.31-xanmod1-cacule
+
+- CacULE-RDB : 5.15.31-xanmod1-cacule
+
 # Build
 
     git clone https://github.com/blacksky3/linux-xanmod.git
