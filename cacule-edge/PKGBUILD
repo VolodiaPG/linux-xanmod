@@ -72,7 +72,10 @@ lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$ma
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
         Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
-        0001-cacule-5.17-v4.patch
+        0001-cacULE-5.17-v2.patch
+        Revert-0002-ZEN-Disable-CacULE-by-default.patch
+        Revert-0003-LL-Disable-RDB-by-default.patch
+        Revert-0004-cacule-5.15-define-yield_mark-and-yield_.patch
         # Piotr Górski patches
         # Block patches. Set BFQ as default
         ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
@@ -667,7 +670,10 @@ _package-headers(){
 sha256sums=(555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1
             b827f3e202d3fd1eaf8216a2098f8c86a02fbc33312c68d1741a52325554b8a3
             1c651797cb4707d2b0cca5063d7578d13b790da3ca52dd555bcf0d4165f133fe
-            a8319dc9e5614e3585d128250d8dbdb52bcb960b06aea30e886e8ae0412d1162
+            430dd0c62636839dee68d0a151645c85d9a29041ffe84efa01ac47aff5e49127
+            832db1db51023cb3ad0e55a27460021516f770ed82656d543e37d9f191472123
+            8b25ce5d5977f8b281a00e6117cc9847aa7386157a8614ca169c45c31d45629b
+            c674acd7165df9234c66840565ddeaffdae334dd8f2de63074682ffe11b9086c
             4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257
             a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e
             6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870
