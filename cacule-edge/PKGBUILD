@@ -553,7 +553,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler patch (kept alive artificially by P. Jung) and Piotr Górski Block patches'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler patch (kept alive artificially by Piotr Górski) and Piotr Górski Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
