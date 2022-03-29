@@ -71,7 +71,9 @@ patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
+        # Revert patch
         https://raw.githubusercontent.com/blacksky3/patches/main/misc/Revert-0004-XANMOD-kconfig-add-500Hz-timer-interrupt-kernel-conf.patch.patch
+        # TT patches
         ${patchpath}/tt/high-hz.patch
         # AMD64 patches
         ${patchpath}/amd64/0001-amd64-patches-v2.patch
