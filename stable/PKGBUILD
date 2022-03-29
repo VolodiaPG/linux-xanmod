@@ -67,24 +67,23 @@ if [[ "$_compiler" = "2" ]]; then
 fi
 options=(!strip)
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        # Piotr Górski patches
         # AMD64 patches
-        ${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch
+        ${patchpath}/amd64/0001-amd64-patches-v2.patch
         # Arch patches
-        ${lucjanpath}/arch-patches-v11-sep/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
-        ${lucjanpath}/arch-patches-v11-sep/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
-        ${lucjanpath}/arch-patches-v11-sep/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
-        ${lucjanpath}/arch-patches-v11-sep/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
-        ${lucjanpath}/arch-patches-v11-sep/0006-lg-laptop-Recognize-more-models.patch
+        ${patchpath}/arch/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
+        ${patchpath}/arch/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
+        ${patchpath}/arch/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
+        ${patchpath}/arch/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+        ${patchpath}/arch/0006-lg-laptop-Recognize-more-models.patch
         # Block patches. Set BFQ as default
-        ${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-        ${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
+        ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -531,7 +530,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules witch Piotr Górski AMD64, Arch and Block patches - Stable'
+  pkgdesc='XanMod kernel and modules witch AMD64, Arch and Block patches - STABLE'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')

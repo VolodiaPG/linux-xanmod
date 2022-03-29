@@ -67,26 +67,25 @@ if [[ "$_compiler" = "2" ]]; then
 fi
 options=(!strip)
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
-        0001-CacULE-5.15.patch
-        # Piotr Górski patches
+        https://raw.githubusercontent.com/blacksky3/patches/main/misc/Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
+        ${patchpath}/cacule/0001-CacULE-5.15.patch
         # AMD64 patches
-        ${lucjanpath}/amd64-patches-v2/0001-amd64-patches.patch
+        ${patchpath}/amd64/0001-amd64-patches-v2.patch
         # Arch patches
-        ${lucjanpath}/arch-patches-v11-sep/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
-        ${lucjanpath}/arch-patches-v11-sep/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
-        ${lucjanpath}/arch-patches-v11-sep/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
-        ${lucjanpath}/arch-patches-v11-sep/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
-        ${lucjanpath}/arch-patches-v11-sep/0006-lg-laptop-Recognize-more-models.patch
+        ${patchpath}/arch/0002-PCI-Add-more-NVIDIA-controllers-to-the-MSI-masking-q.patch
+        ${patchpath}/arch/0003-iommu-intel-do-deep-dma-unmapping-to-avoid-kernel-fl.patch
+        ${patchpath}/arch/0004-cpufreq-intel_pstate-ITMT-support-for-overclocked-sy.patch
+        ${patchpath}/arch/0005-Bluetooth-btintel-Fix-bdaddress-comparison-with-garb.patch
+        ${patchpath}/arch/0006-lg-laptop-Recognize-more-models.patch
         # Block patches. Set BFQ as default
-        ${lucjanpath}/block-patches-v2-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-        ${lucjanpath}/block-patches-v2-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
+        ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -558,7 +557,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler patch (kept alive artificially by SM9CC <me@sm9.dev>) and Piotr Górski AMD64, Arch and Block patches'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler (kept alive artificially by SM9CC <me@sm9.dev>), AMD64, Arch and Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
