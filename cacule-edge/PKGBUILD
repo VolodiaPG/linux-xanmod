@@ -67,21 +67,22 @@ if [[ "$_compiler" = "2" ]]; then
 fi
 options=(!strip)
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
-        0001-cacULE-5.17-v2.patch
-        Revert-0002-ZEN-Disable-CacULE-by-default.patch
-        Revert-0003-LL-Disable-RDB-by-default.patch
-        Revert-0004-cacule-5.15-define-yield_mark-and-yield_.patch
-        # Piotr Górski patches
+        # Revert patch
+        https://raw.githubusercontent.com/blacksky3/patches/main/misc/Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
+        # CacULE patches
+        ${patchpath}/cacule/0001-cacULE-5.17-v2.patch
+        ${patchpath}/cacule/Revert-0002-ZEN-Disable-CacULE-by-default.patch
+        ${patchpath}/cacule/Revert-0003-LL-Disable-RDB-by-default.patch
+        ${patchpath}/cacule/Revert-0004-cacule-5.15-define-yield_mark-and-yield_.patch
         # Block patches. Set BFQ as default
-        ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-        ${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
+        ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -553,7 +554,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler patch (kept alive artificially by Piotr Górski) and Piotr Górski Block patches'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler (kept alive artificially by Piotr Górski) Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')

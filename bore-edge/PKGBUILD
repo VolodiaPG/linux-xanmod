@@ -67,17 +67,16 @@ if [[ "$_compiler" = "2" ]]; then
 fi
 options=(!strip)
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        5.16.y-bore1.2.28.0.patch
-        # Piotr Górski patches
+        https://raw.githubusercontent.com/blacksky3/patches/main/5.16/bore/5.16.y-bore1.2.28.0.patch
         # Block patches. Set BFQ as default
-        ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-        ${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
+        ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -538,7 +537,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler patch and Piotr Górski Block patches'
+  pkgdesc='XanMod kernel and modules with Masahito Suzuki BORE CPU scheduler and Block patches'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
