@@ -67,21 +67,25 @@ if [[ "$_compiler" = "2" ]]; then
 fi
 options=(!strip)
 
-lucjanpath=https://raw.githubusercontent.com/sirlucjan/kernel-patches/master/$major
+patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
-        Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
-        0001-cacULE-5.17-v2.patch
-        Revert-0002-ZEN-Disable-CacULE-by-default.patch
-        Revert-0003-LL-Disable-RDB-by-default.patch
-        Revert-0004-cacule-5.15-define-yield_mark-and-yield_.patch
-        # Piotr Górski patches
+        # Revert patch
+        https://raw.githubusercontent.com/blacksky3/patches/main/misc/Revert-0001-XANMOD-fair-Remove-all-energy-efficiency.patch
+        # CacULE patches
+        ${patchpath}/cacule/0001-cacULE-5.17-v2.patch
+        ${patchpath}/cacule/Revert-0002-ZEN-Disable-CacULE-by-default.patch
+        ${patchpath}/cacule/Revert-0003-LL-Disable-RDB-by-default.patch
+        ${patchpath}/cacule/Revert-0004-cacule-5.15-define-yield_mark-and-yield_.patch
+        # Arch patches
+        ${patchpath}/arch/0002-random-treat-bootloader-trust-toggle-the-same-way-as.patch
+        ${patchpath}/arch/0003-Revert-swiotlb-rework-fix-info-leak-with-DMA_FROM_DE.patch
         # Block patches. Set BFQ as default
-        ${lucjanpath}/block-patches-sep/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
-        ${lucjanpath}/block-patches-sep/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
-        ${lucjanpath}/ll-patches/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
-        ${lucjanpath}/ll-patches/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
+        ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
+        ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
+        ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
+        ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch)
 
 export KBUILD_BUILD_HOST=archlinux
 export KBUILD_BUILD_USER=$pkgbase
@@ -553,7 +557,7 @@ build(){
 }
 
 _package(){
-  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler patch (kept alive artificially by Piotr Górski) and Piotr Górski Block patches - RDB (Response Driven Balancer) enabled'
+  pkgdesc='XanMod kernel and modules with Hamad Al Marri CacULE CPU scheduler (kept alive artificially by Piotr Górski) and Block patches - RDB (Response Driven Balancer) enabled'
   depends=(coreutils kmod initramfs)
   optdepends=('linux-firmware: firmware images needed for some devices'
               'crda: to set the correct wireless channels of your country')
@@ -674,6 +678,8 @@ sha256sums=(555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1
             832db1db51023cb3ad0e55a27460021516f770ed82656d543e37d9f191472123
             8b25ce5d5977f8b281a00e6117cc9847aa7386157a8614ca169c45c31d45629b
             c674acd7165df9234c66840565ddeaffdae334dd8f2de63074682ffe11b9086c
+            2826b320e5295d663ec3fdce62472419361fbb3a8b773554ca8819f0cc677ebc
+            9fd6517e1ae736a884d8d80ce9651b8264d87a7b79b358826c2c3c06f234b6eb
             4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257
             a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e
             6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870
