@@ -54,8 +54,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.32_xanmod1
-versiontag=5.15.32-xanmod1-tt
+pkgver=5.15.34_xanmod1
+versiontag=5.15.34-xanmod1-tt
 major=5.15
 pkgrel=1
 arch=(x86_64)
@@ -564,9 +564,9 @@ _package(){
 
   msg2 "Installing modules..."
   if [[ "$_compiler" = "1" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist -j$(nproc) modules_install # Suppress depmod
   elif [[ "$_compiler" = "2" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist -j$(nproc) modules_install # Suppress depmod
   fi
 
   # remove build and source links
@@ -656,17 +656,17 @@ _package-headers(){
   ln -sr "$builddir" "$pkgdir/usr/src/$pkgbase"
 }
 
-sha256sums=(57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8
-            cce290968321ca89b70133083da9cb2ee8fc06bb689ab8218f3f2f0a6f34bd93
-            ef5d1a3f5944015794777a36ec3f2fdf44e0d4555db34139270e84f298545fdf
-            783fb4cc126be92877cc81dda44beb2f904c31e54c4eee5f013c3d26cba2117a
-            3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928
-            499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730
-            4faf7bf503ea135440e0525db66c29ed86cb8cc7fe7025a5a4eb1f4b92c156a7
-            84d0e89f695185baff51d4280fa5115611b6d41c33060d40f8228643cca80be4
-            2679386a9a834cbbbcc57925b21e824a52e4d695a471720f0c5e28d41238cdef
-            f32a33450ca308525bcc475e48ef30a860bffbda71762632337eb534a2fbc282
-            b3434b546e4bd6b62c64685da1a7ecfaf6d3b6172b3ab0c217c6a998a68b2368
-            b75c8a1721dda647496da98eea65c94f796667f8dee2f75a08e12dbbb2bed09a
-            3f37ca67531f98821c7c463e1938b778d5df640f29a2c8002ad5482277736069
-            a6a5d7d24966db0e0bfaa41821d48952e2242439a6a6688e3931464d0335d122)
+sha256sums=('57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8'
+            '30a7a79e01f3e04b95c4f221ded20a0fab3fdab521afad551be5636586199b5f'
+            'ef5d1a3f5944015794777a36ec3f2fdf44e0d4555db34139270e84f298545fdf'
+            '783fb4cc126be92877cc81dda44beb2f904c31e54c4eee5f013c3d26cba2117a'
+            '3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928'
+            '499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730'
+            '4faf7bf503ea135440e0525db66c29ed86cb8cc7fe7025a5a4eb1f4b92c156a7'
+            '84d0e89f695185baff51d4280fa5115611b6d41c33060d40f8228643cca80be4'
+            '2679386a9a834cbbbcc57925b21e824a52e4d695a471720f0c5e28d41238cdef'
+            'f32a33450ca308525bcc475e48ef30a860bffbda71762632337eb534a2fbc282'
+            'b3434b546e4bd6b62c64685da1a7ecfaf6d3b6172b3ab0c217c6a998a68b2368'
+            'b75c8a1721dda647496da98eea65c94f796667f8dee2f75a08e12dbbb2bed09a'
+            '3f37ca67531f98821c7c463e1938b778d5df640f29a2c8002ad5482277736069'
+            'a6a5d7d24966db0e0bfaa41821d48952e2242439a6a6688e3931464d0335d122')

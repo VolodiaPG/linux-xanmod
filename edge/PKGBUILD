@@ -54,8 +54,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.17.1_xanmod1
-versiontag=5.17.1-xanmod1
+pkgver=5.17.3_xanmod1
+versiontag=5.17.3-xanmod1
 major=5.17
 pkgrel=1
 arch=(x86_64)
@@ -73,11 +73,14 @@ source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.x
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
         # Arch patches
         ${patchpath}/arch/0001-random-treat-bootloader-trust-toggle-the-same-way-as.patch
-        ${patchpath}/arch/0002-Revert-swiotlb-rework-fix-info-leak-with-DMA_FROM_DE.patch
+        #${patchpath}/arch/0002-Revert-swiotlb-rework-fix-info-leak-with-DMA_FROM_DE.patch
         ${patchpath}/arch/0003-tick-Detect-and-fix-jiffies-update-stall.patch
         ${patchpath}/arch/0004-tick-rcu-Remove-obsolete-rcu_needs_cpu-parameters.patch
         ${patchpath}/arch/0005-tick-rcu-Stop-allowing-RCU_SOFTIRQ-in-idle.patch
         ${patchpath}/arch/0006-lib-irq_poll-Declare-IRQ_POLL-softirq-vector-as-ksof.patch
+        #${patchpath}/arch/0007-x86-speculation-Restore-speculation-related-MSRs-dur.patch
+        #${patchpath}/arch/0008-Reinstate-some-of-swiotlb-rework-fix-info-leak-with-.patch
+        #${patchpath}/arch/0009-Revert-ACPI-processor-idle-Only-flush-cache-on-enter.patch
         # Block patches. Set BFQ as default
         ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
         ${patchpath}/block/0002-block-Fix-depends-for-BLK_DEV_ZONED.patch
@@ -550,9 +553,9 @@ _package(){
 
   msg2 "Installing modules..."
   if [[ "$_compiler" = "1" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist -j$(nproc) modules_install # Suppress depmod
   elif [[ "$_compiler" = "2" ]]; then
-    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 -j$(nproc) modules_install
+    make ARCH=${ARCH} CC=${CC} CXX=${CXX} LLVM=1 LLVM_IAS=1 HOSTCC=${HOSTCC} HOSTCXX=${HOSTCXX} INSTALL_MOD_PATH="${pkgdir}"/usr INSTALL_MOD_STRIP=1 DEPMOD=/doesnt/exist -j$(nproc) modules_install # Suppress depmod
   fi
 
   # remove build and source links
@@ -643,13 +646,12 @@ _package-headers(){
 }
 
 sha256sums=('555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1'
-            'fe16b85a560b4a36f6855361fe10891d11614ad93d99b243dbcce9004979748d'
-            '8a41cecbb9828833032e6f7f3e9833e200e474669daeeb367f0c83629c3d39b3'
-            '81f028e13b16fa94d88ca90b18e93005fcf443702f0e29aa5840d334a234ccc7'
-            '310a4ebe648e37b77f2d9a1788d3ce40affa36ebcb8f7c77770fa5f63326ef3b'
-            '7eb152bb39237d9b1468bb786316f204268922046bb23723446ff9cd79bcba40'
-            'c8cd1e2c5a7206cc21894f7e8de124c42e252f55199fa7f7bf20b812daaba213'
-            'cd9d15995d1f437a039b248aa2bd4822d8f00e465fa8018687d31e78349483a7'
+            'd3d7865e40a12dadc5701d3177ac6ce5844846ba5ce4a15471d5c0d692f6dda3'
+            '223455f2f6fbda9adc2a74d056bbc55006e0c78c3111453e2d253e56eaf7689e'
+            '71cccbed658434bf0394fe91fb0738e661aef9f5a94dffda3c9918a315e825e4'
+            '99c0e2f6aac6a3f5f55fb1e4f3d36f2c9bb38163b2da45b3e43437d3fee4f050'
+            'a046b85754ed7582ec5876d06d3b971e418d079c40801f3e156bb353ef7b802c'
+            '40bde648ef07bc638571a3475e555919df8fd2bdfc5360a920e06178bbcdaf9b'
             '4d385d6a7f7fd9f9aba19d5c24c24814e1af370ff245c8dc98b03482a27cb257'
             'a043e4c393395e6ad50d35c973fa0952f5deb109aee8a23103e24297c027641e'
             '6978a2010c3a2dd7bec1260e3f1e0f9d6ebc032664cdd917847f352e58ba2870'
