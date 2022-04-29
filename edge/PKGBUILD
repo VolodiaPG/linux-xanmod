@@ -82,7 +82,7 @@ source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.x
         #${patchpath}/arch/0008-Reinstate-some-of-swiotlb-rework-fix-info-leak-with-.patch
         #${patchpath}/arch/0009-Revert-ACPI-processor-idle-Only-flush-cache-on-enter.patch
         #${patchpath}/arch/0010-gpio-Restrict-usage-of-GPIO-chip-irq-members-before-.patch
-        ${patchpath}/arch/0011-gpio-Request-interrupts-after-IRQ-is-initialized.patch
+        #${patchpath}/arch/0011-gpio-Request-interrupts-after-IRQ-is-initialized.patch
         ${patchpath}/arch/0012-NFSv4.1-provide-mount-option-to-toggle-trunking-disc.patch
         # Block patches. Set BFQ as default
         ${patchpath}/block/0001-block-Kconfig.iosched-set-default-value-of-IOSCHED_B.patch
