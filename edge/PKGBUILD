@@ -119,13 +119,13 @@ prepare(){
   plain ""
 
   # Copy the config file first
-  # Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/{gcc,clang}/config_x86_64 to "${srcdir}"/linux-$major/.config
+  # Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/{gcc,clang}/config_x86-64 to "${srcdir}"/linux-$major/.config
   if [[ "$_compiler" = "1" ]]; then
-    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config_x86_64 to "${srcdir}"/linux-$major/.config"
-    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config_x86_64 .config
+    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config_x86-64 to "${srcdir}"/linux-$major/.config"
+    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config_x86-64 .config
   elif [[ "$_compiler" = "2" ]]; then
-    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86_64 to "${srcdir}"/linux-$major/.config"
-    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86_64 .config
+    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86-64 to "${srcdir}"/linux-$major/.config"
+    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86-64 .config
   fi
 
   sleep 2s
