@@ -113,14 +113,15 @@ prepare(){
   done
 
   plain ""
-
+  
   # Copy the config file first
-  # Copy "${srcdir}"/config-$major to linux-${pkgver}/.config
-  msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
+  # Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/{gcc,clang}/config to "${srcdir}"/linux-$major/.config
   if [[ "$_compiler" = "1" ]]; then
-    cp CONFIGS/xanmod/gcc/config .config
+    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config to "${srcdir}"/linux-$major/.config"
+    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/gcc/config .config
   elif [[ "$_compiler" = "2" ]]; then
-    cp CONFIGS/xanmod/clang/config .config
+    msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config to "${srcdir}"/linux-$major/.config"
+    cp "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config .config
   fi
 
   sleep 2s
