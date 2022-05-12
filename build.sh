@@ -12,7 +12,7 @@ cd stable && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 cd lts && makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd tt-lts && makepkg -s && rm -rf pkg/ src/ && cd ..
+cd tt && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 # clang
 
