@@ -24,4 +24,4 @@ cd tt && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 #cd lts && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd tt-lts && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
+#cd tt && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
