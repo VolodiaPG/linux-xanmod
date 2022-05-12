@@ -46,7 +46,7 @@ fi
 
 ###################################################################################
 
-pkgbase=linux-xanmod
+pkgbase=linux-xanmod-lts
 pkgname=("$pkgbase" "$pkgbase-headers")
 for _p in "${pkgname[@]}"; do
   eval "package_$_p() {
@@ -54,8 +54,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.15.36_xanmod1
-versiontag=5.15.36-xanmod1
+pkgver=5.15.38_xanmod1
+versiontag=5.15.38-xanmod1
 major=5.15
 pkgrel=1
 arch=(x86_64)
@@ -645,7 +645,7 @@ _package-headers(){
 }
 
 sha256sums=('57b2cf6991910e3b67a1b3490022e8a0674b6965c74c12da1e99d138d1991ee8'
-            '04d763e02ef3490ca439fded8df3c629900a5a7ff4fe484d909158afe3cc6e40'
+            '65f29f5a9e5d44a1e2b27451a3caaf4e53dc9dd41a261fe8092c243b7fee18a0'
             '3fbb1429afcdd874c0168f2f4b9e6ae11f81ffb47e447723eef038bab2c3e928'
             '499e44cf508440b851f7637d6757ac31954a60ca697b1844cec8bde9182c5730'
             '4faf7bf503ea135440e0525db66c29ed86cb8cc7fe7025a5a4eb1f4b92c156a7'

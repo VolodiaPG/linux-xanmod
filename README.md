@@ -8,18 +8,18 @@ XanMod kernel build for Archlinux.
 
 ## Official package
 
-- Edge : 5.17.5-xanmod1
+- Edge : 5.17.6-xanmod1
 
-- Stable : 5.15.36-xanmod1
+- Stable : 5.17.6-xanmod1
 
-- TT : 5.15.36-xanmod1-tt
+- LTS : 5.15.38-xanmod1
 
-- LTS : 5.10.113-xanmod1
+- TT (LTS) : 5.15.38-xanmod-tt
 
 # Build
 
     git clone https://github.com/blacksky3/linux-xanmod.git
-    cd linux-xanmod/{edge,stable,tt,lts.tt-edge.bore-edge.bore,cacule-edge,cacule-rdb-edge}
+    cd linux-xanmod/{edge,stable,lts,lts-tt}
     env_compiler=(1 or 2) makepkg -s
 
 # Build variables

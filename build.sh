@@ -10,9 +10,9 @@ cd edge && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 cd stable && makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd tt && makepkg -s && rm -rf pkg/ src/ && cd ..
-
 cd lts && makepkg -s && rm -rf pkg/ src/ && cd ..
+
+cd lts-tt && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 # clang
 
@@ -22,6 +22,6 @@ cd lts && makepkg -s && rm -rf pkg/ src/ && cd ..
 
 #cd stable && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
 
-#cd tt && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
-
 #cd lts && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
+
+#cd lts-tt && env _compiler=2 makepkg -s && rm -rf pkg/ src/ && cd ..
