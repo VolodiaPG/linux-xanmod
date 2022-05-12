@@ -120,8 +120,8 @@ prepare(){
 
   # Copy the config file first
   # Copy "${srcdir}"/config-$major to linux-${pkgver}/.config
-  msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
   if [[ "$_compiler" = "1" ]]; then
+    msg2 "Copy "${srcdir}"/linux-$pkgver/CONFIGS/xanmod to "${srcdir}"/linux-$pkgver/.config"
     cp CONFIGS/xanmod/gcc/config_x86_64 .config
   elif [[ "$_compiler" = "2" ]]; then
     cp CONFIGS/xanmod/clang/config .config
