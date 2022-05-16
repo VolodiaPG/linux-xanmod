@@ -14,7 +14,7 @@ XanMod kernel build for Archlinux.
 
 - LTS : 5.15.40-xanmod1
 
-- TT (LTS) : 5.15.38-xanmod-tt
+- TT (LTS) : 5.15.40-xanmod1-tt
 
 # Build
 
