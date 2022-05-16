@@ -24,7 +24,7 @@ newversiontagedge=5.17.8-xanmod1
 
 sed -i "s/pkgver=$oldversionedge/pkgver=$newversionedge/" edge/PKGBUILD
 
-sed -i "s/pkgver=$oldversiontagedge/pkgver=$newversiontagedge/" edge/PKGBUILD
+sed -i "s/versiontag=$oldversiontagedge/versiontag=$newversiontagedge/" edge/PKGBUILD
 
 ## stable
 
@@ -33,9 +33,9 @@ newversionstable=5.17.8_xanmod1
 oldversiontagstable=5.17.7-xanmod1
 newversiontagstable=5.17.8-xanmod1
 
-sed -i "s/pkgver=$oldversionstable/pkgver=$newversionstable/" stable/PKGBUILD
+sed -i "s/versiontag=$oldversionstable/versiontag=$newversionstable/" stable/PKGBUILD
 
-sed -i "s/pkgver=$oldversiontagstable/pkgver=$newversiontagstable/" stable/PKGBUILD
+sed -i "s/versiontag=$oldversiontagstable/versiontag=$newversiontagstable/" stable/PKGBUILD
 
 ## lts
 
@@ -46,7 +46,7 @@ newversiontaglts=5.15.40-xanmod1
 
 sed -i "s/pkgver=$oldversionlts/pkgver=$newversionlts/" lts/PKGBUILD
 
-sed -i "s/pkgver=$oldversiontaglts/pkgver=$newversiontaglts/" lts/PKGBUILD
+sed -i "s/versiontag=$oldversiontaglts/versiontag=$newversiontaglts/" lts/PKGBUILD
 
 ## tt
 
@@ -57,7 +57,7 @@ newversiontagtt=5.15.40-xanmod1-tt
 
 sed -i "s/pkgver=$oldversiontt/pkgver=$newversiontt/" tt/PKGBUILD
 
-sed -i "s/pkgver=$oldversiontagtt/pkgver=$newversiontagtt/" tt/PKGBUILD
+sed -i "s/versiontag=$oldversiontagtt/versiontag=$newversiontagtt/" tt/PKGBUILD
 
 # updpkgsums
 
