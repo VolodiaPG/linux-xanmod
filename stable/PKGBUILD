@@ -54,7 +54,7 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.17.7_xanmod1
+pkgver=5.17.9_xanmod1
 versiontag=5.17.9-xanmod1
 major=5.17
 pkgrel=1
