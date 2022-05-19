@@ -17,10 +17,10 @@ echo "${source}"
 
 ## edge
 
-oldversionedge=5.17.7_xanmod1
-newversionedge=5.17.8_xanmod1
-oldversiontagedge=5.17.7-xanmod1
-newversiontagedge=5.17.8-xanmod1
+oldversionedge=5.17.8_xanmod1
+newversionedge=5.17.9_xanmod1
+oldversiontagedge=5.17.8-xanmod1
+newversiontagedge=5.17.9-xanmod1
 
 sed -i "s/pkgver=$oldversionedge/pkgver=$newversionedge/" edge/PKGBUILD
 
@@ -28,10 +28,10 @@ sed -i "s/versiontag=$oldversiontagedge/versiontag=$newversiontagedge/" edge/PKG
 
 ## stable
 
-oldversionstable=5.17.7_xanmod1
-newversionstable=5.17.8_xanmod1
-oldversiontagstable=5.17.7-xanmod1
-newversiontagstable=5.17.8-xanmod1
+oldversionstable=5.17.8_xanmod1
+newversionstable=5.17.9_xanmod1
+oldversiontagstable=5.17.8-xanmod1
+newversiontagstable=5.17.9-xanmod1
 
 sed -i "s/versiontag=$oldversionstable/versiontag=$newversionstable/" stable/PKGBUILD
 
