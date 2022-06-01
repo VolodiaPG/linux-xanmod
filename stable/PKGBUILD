@@ -54,8 +54,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.17.11_xanmod1
-versiontag=5.17.11-xanmod1
+pkgver=5.17.12_xanmod1
+versiontag=5.17.12-xanmod1
 major=5.17
 pkgrel=1
 arch=(x86_64)
@@ -72,7 +72,7 @@ patchpath=https://raw.githubusercontent.com/blacksky3/patches/main/$major
 source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.xz
         https://github.com/xanmod/linux/releases/download/$versiontag/patch-$versiontag.xz
         # Arch patches
-        ${patchpath}/arch/0001-random-treat-bootloader-trust-toggle-the-same-way-as.patch
+        #${patchpath}/arch/0001-random-treat-bootloader-trust-toggle-the-same-way-as.patch
         #${patchpath}/arch/0002-Revert-swiotlb-rework-fix-info-leak-with-DMA_FROM_DE.patch
         ${patchpath}/arch/0003-tick-Detect-and-fix-jiffies-update-stall.patch
         ${patchpath}/arch/0004-tick-rcu-Remove-obsolete-rcu_needs_cpu-parameters.patch
@@ -650,8 +650,7 @@ _package-headers(){
 }
 
 sha256sums=('555fef61dddb591a83d62dd04e252792f9af4ba9ef14683f64840e46fa20b1b1'
-            '0002929d40831fe56fd38db9f2467da1a7db4e02f9dc466db3e654989fffd0b6'
-            '556db0cd181ceee90eeede40faa6306082cfcdebdc15fe6e286e78d21d631af3'
+            '94e0178190c31cc1904461b1b77ef2ac9490eb7f5089f2e9439fecb9af3d0caf'
             '9afe31f7c9ae3660d39e71613b7b1a78f1cfa8af97db2b71b360348a365f403a'
             '87258eac8b7ab6c295add9778a0212977d9e8fd7694c4ab7a786c4b3bb77a9ce'
             '0e83073031b4c6f50c83d98cfa65954165c63a7582392ff8f1c896ee2f2a54db'
