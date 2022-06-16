@@ -54,8 +54,8 @@ for _p in "${pkgname[@]}"; do
     _package${_p#$pkgbase}
   }"
 done
-pkgver=5.18.3_xanmod1
-versiontag=5.18.3-xanmod1
+pkgver=5.18.4_xanmod1
+versiontag=5.18.4-xanmod1
 major=5.18
 pkgrel=1
 arch=(x86_64)
@@ -79,7 +79,7 @@ source=(https://mirrors.edge.kernel.org/pub/linux/kernel/v5.x/linux-$major.tar.x
         ${patchpath}/block/0002-LL-elevator-set-default-scheduler-to-bfq-for-blk-mq.patch
         ${patchpath}/block/0003-LL-elevator-always-use-bfq-unless-overridden-by-flag.patch
         # BTRFS patches
-        ${patchpath}/btrfs/0001-btrfs-patches-v4.patch)
+        ${patchpath}/btrfs/0001-btrfs-patches-v5.patch)
 
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
@@ -646,10 +646,10 @@ _package-headers(){
 }
 
 sha256sums=('51f3f1684a896e797182a0907299cc1f0ff5e5b51dd9a55478ae63a409855cee'
-            'f309e5c17601c04239f77965dd28269fdcf07c3ac046c935715c478c5fc1d880'
+            '6cae7e7e978adac6bfdc10b94d8e53b410ff53f4585b1c2db536b259d40d444c'
             '1bf652a04412a58b0254066a4731be869bfbe2cff15f0648e31e6b3d3e337a36'
             '9c0e1dea6f645eee9b09cf7d264b17f00f636bdda35c93d354562dda0d674005'
             'ba63855b09eb27c4c33b4302560acec739e642ee8122d3c867b9f11deb06bc56'
             '7a7f9a4d66abe261f35373002e3556b8af7204d155896c2e6d1b55d74a31b5b8'
             '3829e6f9dd55e5c0ae997d409b15c8784e7584a820c7aa0941d50ed6dffeab31'
-            'f4ed599589fdd44270229492505f5f88e20d79e93b8044f8041a2fc90486bb4e')
+            '65560f8b6a46f3713926e8cf76409b9119fceecd1561553493249f17782fd976')
