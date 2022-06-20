@@ -3,10 +3,13 @@
 export MAKEFLAGS := "-j $(grep -c ^processor /proc/cpuinfo)"
 
 # Build the kernel. Defaults to "CONFIG_GENERIC_CPU"
-build $_archi_opti="CONFIG_GENERIC_CPU":
-  # _archi_opti is also exported as env variable
-  @echo "Making {{_archi_opti}} optimized build"
-  cp -r stable {{_archi_opti}} && cd {{_archi_opti}} && makepkg -s
+build $_arch_opti="CONFIG_GENERIC_CPU":
+  # _arch_opti is also exported as env variable
+  @echo "Making {{_arch_opti}} optimized build. Your detected architecture was $(gcc -c -Q -march=native --help=target | grep march | awk '{print $2}' | head -1)"
+  cp -r stable {{_arch_opti}} && cd {{_arch_opti}} && makepkg -s
+
+# makepkg for intel arch for haswell and newer
+intel: (build "CONFIG_GENERIC_CPU3")
 
 # makepkg -s for Skylake arch
 skylake: (build "CONFIG_MSKYLAKE")

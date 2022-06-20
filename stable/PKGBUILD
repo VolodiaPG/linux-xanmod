@@ -92,6 +92,7 @@ export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
 prepare(){
+  msg2 "Set compile arch target  $_arch_opti"
   cd "${srcdir}"/linux-$major
 
   # hacky work around for xz not getting extracted
