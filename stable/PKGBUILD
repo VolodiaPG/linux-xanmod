@@ -24,6 +24,13 @@ if [ -z ${_compiler+x} ]; then
   _compiler=
 fi
 
+# By default, opitmizations to default,
+# see https://aur.archlinux.org/cgit/aur.git/tree/choose-gcc-optimization.sh?h=linux-xanmod for more details
+if [ -z ${_arch_opti+x} ]; then
+  _arch_opti="CONFIG_GENERIC_CPU"
+fi
+
+
 if [[ "$_compiler" = "1" ]]; then
   _compiler=1
   CC=gcc
@@ -118,6 +125,90 @@ prepare(){
     msg2 "Copy "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86-64 to "${srcdir}"/linux-$major/.config"
     cp "${srcdir}"/linux-$major/CONFIGS/xanmod/clang/config_x86-64 .config
   fi
+
+  patch .config <<EOF
+--- .config-default	2022-06-15 20:02:21.568784057 +0200
++++ .config	2022-06-15 20:04:41.542871870 +0200
+@@ -120,10 +120,12 @@
+ # CONFIG_BPF_PRELOAD is not set
+ # end of BPF subsystem
+ 
+-CONFIG_PREEMPT_VOLUNTARY_BUILD=y
++CONFIG_PREEMPT_BUILD=y
+ # CONFIG_PREEMPT_NONE is not set
+-CONFIG_PREEMPT_VOLUNTARY=y
+-# CONFIG_PREEMPT is not set
++# CONFIG_PREEMPT_VOLUNTARY is not set
++CONFIG_PREEMPT=y
++CONFIG_PREEMPT_COUNT=y
++CONFIG_PREEMPTION=y
+ # CONFIG_PREEMPT_DYNAMIC is not set
+ CONFIG_SCHED_CORE=y
+ 
+@@ -140,7 +142,7 @@
+ CONFIG_TASK_XACCT=y
+ CONFIG_TASK_IO_ACCOUNTING=y
+ CONFIG_PSI=y
+-CONFIG_PSI_DEFAULT_DISABLED=y
++CONFIG_PSI_DEFAULT_DISABLED=n
+ # end of CPU/Task time and stats accounting
+ 
+ CONFIG_CPU_ISOLATION=y
+@@ -149,10 +151,12 @@
+ # RCU Subsystem
+ #
+ CONFIG_TREE_RCU=y
++CONFIG_PREEMPT_RCU=y
+ # CONFIG_RCU_EXPERT is not set
+ CONFIG_SRCU=y
+ CONFIG_TREE_SRCU=y
+ CONFIG_TASKS_RCU_GENERIC=y
++CONFIG_TASKS_RCU=y
+ CONFIG_TASKS_TRACE_RCU=y
+ CONFIG_RCU_STALL_COMMON=y
+ CONFIG_RCU_NEED_SEGCBLIST=y
+@@ -228,8 +232,8 @@
+ CONFIG_RD_LZ4=y
+ CONFIG_RD_ZSTD=y
+ CONFIG_BOOT_CONFIG=y
+-CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y
+-# CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3 is not set
++# CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE is not set
++CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3=y
+ # CONFIG_CC_OPTIMIZE_FOR_SIZE is not set
+ CONFIG_LD_ORPHAN_WARN=y
+ CONFIG_SYSCTL=y
+@@ -996,11 +1000,7 @@
+ CONFIG_PREEMPT_NOTIFIERS=y
+ CONFIG_PADATA=y
+ CONFIG_ASN1=y
+-CONFIG_INLINE_SPIN_UNLOCK_IRQ=y
+-CONFIG_INLINE_READ_UNLOCK=y
+-CONFIG_INLINE_READ_UNLOCK_IRQ=y
+-CONFIG_INLINE_WRITE_UNLOCK=y
+-CONFIG_INLINE_WRITE_UNLOCK_IRQ=y
++CONFIG_UNINLINE_SPIN_UNLOCK=y
+ CONFIG_ARCH_SUPPORTS_ATOMIC_RMW=y
+ CONFIG_MUTEX_SPIN_ON_OWNER=y
+ CONFIG_RWSEM_SPIN_ON_OWNER=y
+@@ -5796,6 +5796,7 @@
+ CONFIG_MEDIA_CEC_SUPPORT=y
+ CONFIG_CEC_CH7322=m
+ CONFIG_CEC_CROS_EC=m
++# CONFIG_CEC_GPIO is not set
+ CONFIG_CEC_SECO=m
+ CONFIG_CEC_SECO_RC=y
+ CONFIG_USB_PULSE8_CEC=m
+@@ -11260,6 +11261,7 @@
+ # end of Scheduler Debugging
+ 
+ # CONFIG_DEBUG_TIMEKEEPING is not set
++CONFIG_DEBUG_PREEMPT=y
+ 
+ #
+ # Lock Debugging (spinlocks, mutexes, etc...)
+ 
+EOF
 
   sleep 2s
 
@@ -293,17 +384,17 @@ prepare(){
   #scripts/config --enable CONFIG_NO_HZ
   #scripts/config --enable CONFIG_NO_HZ_COMMON
 
-  sleep 2s
+  # sleep 2s
 
-  msg2 "Disable some debugging (by TK-Glitch)"
-  scripts/config --disable CONFIG_SLUB_DEBUG
-  scripts/config --disable CONFIG_PM_DEBUG
-  scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
-  scripts/config --disable CONFIG_PM_SLEEP_DEBUG
-  scripts/config --disable CONFIG_ACPI_DEBUG
-  scripts/config --disable CONFIG_SCHED_DEBUG
-  scripts/config --disable CONFIG_LATENCYTOP
-  scripts/config --disable CONFIG_DEBUG_PREEMPT
+  # msg2 "Disable some debugging (by TK-Glitch)"
+  # scripts/config --disable CONFIG_SLUB_DEBUG
+  # scripts/config --disable CONFIG_PM_DEBUG
+  # scripts/config --disable CONFIG_PM_ADVANCED_DEBUG
+  # scripts/config --disable CONFIG_PM_SLEEP_DEBUG
+  # scripts/config --disable CONFIG_ACPI_DEBUG
+  # scripts/config --disable CONFIG_SCHED_DEBUG
+  # scripts/config --disable CONFIG_LATENCYTOP
+  # scripts/config --disable CONFIG_DEBUG_PREEMPT
 
   sleep 2s
 
@@ -328,8 +419,8 @@ prepare(){
 
   sleep 2s
 
-  msg2 "Set CONFIG_GENERIC_CPU"
-  scripts/config --enable CONFIG_GENERIC_CPU
+  msg2 "Set config optimizations to $_arch_opti"
+  scripts/config --enable $_arch_opti
 
   sleep 2s
 

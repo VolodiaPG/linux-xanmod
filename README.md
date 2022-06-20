@@ -4,6 +4,14 @@
 
 XanMod kernel build for Archlinux.
 
+Modified to support (stable only):
+- Architecture optimizations (does it matter? not enabled by default)
+- Waydroid (PSI enabled by default)
+- System76's scheduler (needs debug info to be enabled apparently)
+- Other various patches
+
+Run `just --list` for a list of the possibilities
+
 # Version
 
 ## Official package
